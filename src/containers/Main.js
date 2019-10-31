@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,8 +10,8 @@ import {
 import API from "../API"
 import HotTask from "../components/HotTask"
 
-const Main = ({ currentUserId }) => {
-  const [currentUser, setCurrentUser] = useState([])
+const Main = ({ currentUser }) => {
+//   const [currentUser, setCurrentUser] = useState(null)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
   const [filterOptions, setFilterOptions] = useState({
@@ -19,11 +19,11 @@ const Main = ({ currentUserId }) => {
     day: "all"
   })
 
-  useEffect(() => {
-    API.getUser(currentUserId).then(user => {
-        setCurrentUser(user)})
-        .then(console.log(`hello it's the ${currentUser}`))
-  }, [])
+//   useEffect(() => {
+//     API.getUser(currentUserId).then(user => {
+//         setCurrentUser(user)})
+//         .then(console.log(`hello it's the ${currentUser}`))
+//   }, [])
 
   const getTasks = projects => {
     let tasks = []
@@ -32,22 +32,22 @@ const Main = ({ currentUserId }) => {
         tasks = [...tasks, task]
       })
     })
-    // console.log(tasks)
+    console.log(tasks)
     return tasks
   }
 
-//   const mostUrgentTask = () => {
-//       let tasks = getTasks()
-//       return tasks[0]
-//   }
+  const mostUrgentTask = () => {
+      let tasks = getTasks(currentUser.projects)
+      return tasks[0]
+  }
 
   return (
     <div>
       <h1>This is the main container</h1>
-      <h4>Email: {currentUser.email}</h4>
+      <h4>Email: {currentUser ? currentUser.email : null}</h4>
         <Router>
         <Switch>
-            <Route exact path="/hot"> Hot Task time </Route>
+            <Route exact path="/hot"> {currentUser ? <HotTask task={mostUrgentTask()}/> : "no user yet"} </Route>
             <Route exact path="/all"> All of the tasks </Route>
             <Route exact path="/new"> New Task time </Route>
             <Route exact path="/settings"> Welcome to settings </Route>
