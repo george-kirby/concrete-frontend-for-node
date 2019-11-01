@@ -27,13 +27,13 @@ export class LoginForm extends Component {
       <h1>Concrete</h1>
       <h3>log in:</h3>
       <form action="" onChange={e => this.handleInputChange(e.target.name, e.target.value)} onSubmit={e => this.handleSubmit(e)}>
-          <input name="email" type="email" placeholder="email" defaultValue={this.state.email}></input><br/>
-          <input name="password" type="password" placeholder="password" defaultValue={this.state.password}></input><br/>
+          <input name="email" type="email" placeholder="email" defaultValue={this.state.email} required></input><br/>
+          <input name="password" type="password" placeholder="password" defaultValue={this.state.password} required></input><br/>
           <input type="submit"></input>
       </form>
       <br/>
       <div>Don't have an account?</div>
-      <button onClick={() => console.log("sign up button clicked")}>Sign Up</button>
+      <button onClick={this.props.toggleRegisterIntention}>Sign Up</button>
 
     </div>
         );
