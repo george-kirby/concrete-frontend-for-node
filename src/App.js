@@ -10,20 +10,25 @@ import {
 } from "react-router-dom"
 import Main from "./containers/Main"
 import LoginForm from "./components/LoginForm"
+import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
+  const [registerIntention, setRegisterIntention] = useState(false)
 
   useEffect(() => {
     API.validateUser().then(user => {
-      if (user.errors) {
-        props.history.push("/login")
+      if (user.errors || user.error) {
+        if (registerIntention) {props.history.push("/signup")
+        } else {
+          props.history.push("/login")
+        }
       } else {
         setCurrentUser(user)
       }
     })
-  }, [])
+  }, [registerIntention])
 
   useEffect(() => {
     if (currentUser) {
@@ -37,13 +42,17 @@ const App = props => {
     setCurrentUser(user)
   }
 
+  const toggleRegisterIntention = () => {
+    setRegisterIntention(!registerIntention)
+  }
+
   return (
     <div className="App">
       {currentUser ? (
-        <Main {...{currentUser, setCurrentUser}} />
-      ) : (
-        <LoginForm {...{ handleLogin }} />
-      )}
+        <Main {...{ currentUser, setCurrentUser }} />
+      ) : registerIntention ? (
+        <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
+      ) : <LoginForm {...{ handleLogin, toggleRegisterIntention }}/>}
     </div>
   )
 }
