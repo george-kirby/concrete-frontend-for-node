@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react"
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+  Redirect
+} from "react-router-dom"
 import Main from './containers/Main'
+import LoginForm from './components/LoginForm'
 import API from "./adapters/API"
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
 
-  useEffect(() => {
-    API.getUser(1).then(setCurrentUser)
-  }, [])
+  // useEffect(() => {
+  //   API.getUser(1).then(setCurrentUser)
+  // }, [])
+
+  
 
   return (
     <div className="App">
-      <h1>Concrete</h1>
-      {currentUser ? <Main currentUser={currentUser}/> : null}
+      {currentUser ? <Main currentUser={currentUser}/> : <LoginForm/>}
     </div>
   );
 }
