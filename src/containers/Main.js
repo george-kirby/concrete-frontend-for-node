@@ -5,10 +5,13 @@ import {
   Route,
   Link,
   withRouter,
-  Redirect
+  Redirect, 
+  useHistory
 } from "react-router-dom"
 import API from "../adapters/API"
 import HotTask from "../components/HotTask"
+
+
 
 const Main = ({ currentUser }) => {
 //   const [currentUser, setCurrentUser] = useState(null)
@@ -18,6 +21,8 @@ const Main = ({ currentUser }) => {
     searchTerm: "",
     day: "all"
   })
+
+const history = useHistory()
 
 //   useEffect(() => {
 //     API.getUser(currentUserId).then(user => {
@@ -36,6 +41,11 @@ const Main = ({ currentUser }) => {
     return tasks
   }
 
+//   const goToHot = () => {
+//       console.log("hot clicked")
+//       history.push("/hot")
+//   }
+
   const mostUrgentTask = () => {
       let tasks = getTasks(currentUser.projects)
       return tasks[0]
@@ -45,20 +55,18 @@ const Main = ({ currentUser }) => {
     <div>
       <h1>This is the main container</h1>
       <h4>Email: {currentUser ? currentUser.email : null}</h4>
-        <Router>
         <Switch>
-            <Route exact path="/hot"> {currentUser ? <HotTask task={mostUrgentTask()}/> : "no user yet"} </Route>
+            <Route exact path="/hot" component={routerProps => <HotTask task={mostUrgentTask()} {...routerProps}/>}/>
             <Route exact path="/all"> All of the tasks </Route>
             <Route exact path="/new"> New Task time </Route>
             <Route exact path="/settings"> Welcome to settings </Route>
         </Switch>
         <br/>
       <nav className="navbar">
-          <Link to="/hot">HOT</Link> | <Link to="/all">ALL TASKS</Link>
+            <Link to="/hot">HOT</Link> | <Link to="/all">ALL TASKS</Link>
           {" | "}
           <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
       </nav>
-      </Router>
     </div>
   )
 }
