@@ -27,7 +27,7 @@ const authorisationHeader = (more = {}) => ({
     if (response.user) {
         return JSON.parse(response.user)
     } else {
-        return {errors: "oh no"}
+        return response
     }
 }
 
