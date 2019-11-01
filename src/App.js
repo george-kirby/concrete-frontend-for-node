@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import './App.css';
 import Main from './containers/Main'
-import API from "./API"
+import API from "./adapters/API"
 
 function App() {
 

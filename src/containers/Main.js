@@ -7,7 +7,7 @@ import {
   withRouter,
   Redirect
 } from "react-router-dom"
-import API from "../API"
+import API from "../adapters/API"
 import HotTask from "../components/HotTask"
 
 const Main = ({ currentUser }) => {
