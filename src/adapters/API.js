@@ -17,9 +17,15 @@ const login = credentials => {
     return fetch(LOGIN_URL, {
         method: "POST",
         headers: jsonHeaders(),
-        body: {user: credentials}
+        body: JSON.stringify({user: credentials})
     })
     .then(resp => resp.json())
+    .then(userDetails => {
+        if (userDetails.token) {
+            localStorage.setItem('token', userDetails.token)
+        }
+        return JSON.parse(userDetails.user)
+    })
 }
 
 const getUser = userId => {

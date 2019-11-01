@@ -17,14 +17,20 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null)
 
   // useEffect(() => {
-  //   API.getUser(1).then(setCurrentUser)
-  // }, [])
+  //   if (currentUser) {
+  //     props.history.push("/hot")
+  //   } else {
+  //     props.history.push("/")
+  //   }
+  // }, [currentUser])
 
-  
+  const handleLogin = user => {
+    setCurrentUser(user)
+  }
 
   return (
     <div className="App">
-      {currentUser ? <Main currentUser={currentUser}/> : <LoginForm/>}
+      {currentUser ? <Main currentUser={currentUser}/> : <LoginForm {...{ handleLogin }}/>}
     </div>
   );
 }
