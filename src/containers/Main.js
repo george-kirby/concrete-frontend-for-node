@@ -5,15 +5,14 @@ import {
   Route,
   Link,
   withRouter,
-  Redirect, 
-  useHistory
+  Redirect
 } from "react-router-dom"
 import API from "../adapters/API"
 import HotTask from "../components/HotTask"
 
 
 
-const Main = ({ currentUser }) => {
+const Main = ({ currentUser, setCurrentUser }) => {
 //   const [currentUser, setCurrentUser] = useState(null)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
@@ -21,8 +20,6 @@ const Main = ({ currentUser }) => {
     searchTerm: "",
     day: "all"
   })
-
-const history = useHistory()
 
 //   useEffect(() => {
 //     API.getUser(currentUserId).then(user => {
@@ -51,6 +48,11 @@ const history = useHistory()
       return tasks[0]
   }
 
+  const handleLogout = () => {
+    API.logout()
+    setCurrentUser(null)
+  }
+
   return (
     <div>
       <h1>This is the main container</h1>
@@ -66,6 +68,8 @@ const history = useHistory()
             <Link to="/hot">HOT</Link> | <Link to="/all">ALL TASKS</Link>
           {" | "}
           <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
+          {" | "}
+          <Link to="/login" onClick={handleLogout}>LOG OUT</Link>
       </nav>
     </div>
   )

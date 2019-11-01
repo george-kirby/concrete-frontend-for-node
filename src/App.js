@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import './App.css';
+import "./App.css"
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,21 +8,30 @@ import {
   withRouter,
   Redirect
 } from "react-router-dom"
-import Main from './containers/Main'
-import LoginForm from './components/LoginForm'
+import Main from "./containers/Main"
+import LoginForm from "./components/LoginForm"
 import API from "./adapters/API"
 
-function App() {
-
+const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     props.history.push("/hot")
-  //   } else {
-  //     props.history.push("/")
-  //   }
-  // }, [currentUser])
+  useEffect(() => {
+    API.validateUser().then(user => {
+      if (user.errors) {
+        props.history.push("/login")
+      } else {
+        setCurrentUser(user)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (currentUser) {
+      props.history.push("/hot")
+    } else {
+      props.history.push("/")
+    }
+  }, [currentUser])
 
   const handleLogin = user => {
     setCurrentUser(user)
@@ -30,9 +39,13 @@ function App() {
 
   return (
     <div className="App">
-      {currentUser ? <Main currentUser={currentUser}/> : <LoginForm {...{ handleLogin }}/>}
+      {currentUser ? (
+        <Main {...{currentUser, setCurrentUser}} />
+      ) : (
+        <LoginForm {...{ handleLogin }} />
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
