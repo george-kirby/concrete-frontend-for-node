@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import UserSettings from '../helpers/UserSettings'
 import "../stylesheets/NewTaskForm.css"
 import userSettings from "../helpers/UserSettings"
+import API from '../adapters/API'
 
 const NewTaskForm = () => {
   const [casualDate, setCasualDate] = useState("")
@@ -12,7 +13,7 @@ const NewTaskForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
     const [actual_time, display_time] = prepareTimeData()
-    
+
   }
 
   const prepareTimeData = () => {

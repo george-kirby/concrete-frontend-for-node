@@ -58,4 +58,22 @@ const getUser = userId => {
   return fetch(USERS_URL + userId).then(resp => resp.json())
 }
 
-export default { getUser, login, logout, validateUser }
+const postProject = projectData => {
+  return fetch(PROJECTS_URL, {
+    method: "POST",
+    headers: jsonHeaders(), 
+    body: {project: projectData}
+  })
+  .then(resp => resp.json())
+}
+
+const postTask = taskData => {
+  return fetch(TASKS_URL, {
+    method: "POST",
+    headers: jsonHeaders(), 
+    body: {task: taskData}
+  })
+  .then(resp => resp.json())
+}
+
+export default { getUser, login, logout, validateUser, postProject, postTask }
