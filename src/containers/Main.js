@@ -34,7 +34,7 @@ const Main = ({ currentUser, setCurrentUser }) => {
         tasks = [...tasks, task]
       })
     })
-    console.log(tasks)
+    // console.log(tasks)
     return tasks
   }
 

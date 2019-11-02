@@ -18,17 +18,28 @@ const App = props => {
   const [registerIntention, setRegisterIntention] = useState(false)
 
   useEffect(() => {
+    console.log("validate user effect was called")
     API.validateUser().then(user => {
-      if (user.errors || user.error) {
-        if (registerIntention) {props.history.push("/signup")
-        } else {
-          props.history.push("/login")
-        }
+      console.log(user)
+      if (user.errors) {
+        window.alert(user.errors)
+      } else if (user.error) {
+        window.alert([user.error, user.exception]) // to be removed - don't want user to see an error when they first load the page
       } else {
         setCurrentUser(user)
       }
     })
-  }, [registerIntention])
+  }, [])
+
+// uncomment this later, when improving routes
+// (currently just changes url, with no practical effect)
+
+  // useEffect(() => {
+  //   if (registerIntention) {props.history.push("/signup")
+  //     } else {
+  //       props.history.push("/login")
+  //     }
+  //   }, [registerIntention]);
 
   useEffect(() => {
     if (currentUser) {
@@ -41,6 +52,8 @@ const App = props => {
   const handleLogin = user => {
     if (user.errors) {
       window.alert(user.errors)
+    } else if (user.error) {
+      window.alert(user.error)
     } else {
       setCurrentUser(user)
     }
