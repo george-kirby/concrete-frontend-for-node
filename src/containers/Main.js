@@ -10,6 +10,7 @@ import {
 import API from "../adapters/API"
 import HotTask from "../components/HotTask"
 import Ordering from '../helpers/Ordering'
+import TaskList from "./TaskList"
 
 const Main = ({ currentUser, setCurrentUser }) => {
   //   const [currentUser, setCurrentUser] = useState(null)
@@ -42,10 +43,9 @@ const Main = ({ currentUser, setCurrentUser }) => {
   //       history.push("/hot")
   //   }
 
-  const mostUrgentTask = () => {
-    let tasks = getTasks(currentUser.projects)
-    return Ordering.orderTasks(tasks)[0]
-  }
+  const orderedTasks = () => Ordering.orderTasks(getTasks(currentUser.projects))
+
+  const mostUrgentTask = () => orderedTasks()[0]
 
   const handleLogout = () => {
     API.logout()
@@ -57,17 +57,15 @@ const Main = ({ currentUser, setCurrentUser }) => {
       <h1>This is the main container</h1>
       <h4>Email: {currentUser ? currentUser.email : null}</h4>
       <Switch>
-        <Route
+        {/* <Route
           exact
           path="/hot"
           component={routerProps => (
             <HotTask task={mostUrgentTask()} {...routerProps} />
           )}
-        />
-        <Route exact path="/all">
-          {" "}
-          All of the tasks{" "}
-        </Route>
+        /> */}
+        <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
+        <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
         <Route exact path="/new">
           {" "}
           New Task time{" "}
