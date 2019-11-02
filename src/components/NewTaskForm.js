@@ -1,22 +1,66 @@
 import React, { useState, useEffect } from "react"
+import UserSettings from '../helpers/UserSettings'
 import "../stylesheets/NewTaskForm.css"
+import userSettings from "../helpers/UserSettings"
 
 const NewTaskForm = () => {
-  const [casualDate, setCasualDate] = useState(null)
+  const [casualDate, setCasualDate] = useState("")
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
   const [preciseTime, setPreciseTime] = useState(null)
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log("form submitted!")
+    const [actual_time, display_time] = prepareTimeData()
+    
+  }
+
+  const prepareTimeData = () => {
+    const date = prepareDate()
+    const [time, display_time] = prepareTime()
+    const actual_time = `${date} ${time}` 
+    return [actual_time, display_time]
+  }
+
+  const prepareDate = () => {
+    let date
+    let todayOptions = ["tonight", "thisAfternoon", "thisMorning", ""]
+    if (todayOptions.includes(casualDate)) {
+      date = currentDateTime.toISOString().slice(0, 10)
+    } else if (casualDate === "tomorrow") {
+        let tomorrow = new Date()
+        tomorrow.setDate(currentDateTime.getDate() + 1)
+      date = tomorrow.toISOString().slice(0, 10)
+    } else {
+      date = calendarDate
+    }
+    return date
+  }
+
+  const prepareTime = () => {
+    let time
+    let display_time
+    if (casualDate === "tonight" || casualTime === "evening") {
+        display_time = "evening"
+        time = userSettings.evening
+    } else if (casualDate === "thisAfternoon" || casualTime === "afternoon") {
+        display_time = "afternoon"
+        time = userSettings.afternoon
+    } else if (casualDate === "thisMorning" || casualTime === "morning") {
+        display_time = "morning"
+        time = userSettings.morning
+    } else {
+        display_time = preciseTime
+        time = preciseTime
+    }
+    return [time, display_time]
   }
 
   const currentDateTime = new Date()
 
   useEffect(() => {
-    setCasualDate(casualDateOptions()[0])
-  }, []);
+    setCasualDate(casualDateOptions()[0].value)
+  }, [])
 
   const handleCasualDateChange = event => {
     setCasualDate(event.target.value)
@@ -29,10 +73,13 @@ const NewTaskForm = () => {
   const casualDateOptions = () => {
     let extras = []
     if (currentDateTime.getHours() < 16) {
-        extras = [{ value: "thisAfternoon", display: "This afternoon" }, ...extras]
-    } 
+      extras = [
+        { value: "thisAfternoon", display: "This afternoon" },
+        ...extras
+      ]
+    }
     if (currentDateTime.getHours() < 12) {
-        extras = [{ value: "thisMorning", display: "This morning" }, ...extras]
+      extras = [{ value: "thisMorning", display: "This morning" }, ...extras]
     }
     // const dayAfterTomorrow = {
     //     value: , display: `${}`
@@ -41,7 +88,7 @@ const NewTaskForm = () => {
       ...extras,
       { value: "tonight", display: "Tonight" },
       { value: "tomorrow", display: "Tomorrow" },
-    //   dayAfterTomorrow,
+      //   dayAfterTomorrow,
       { value: "later", display: "Later" }
     ]
   }
@@ -56,7 +103,12 @@ const NewTaskForm = () => {
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>
-        <input name="title" type="text" placeholder="Task name..." required />
+        <input
+          name="title"
+          type="text"
+          placeholder="Task name..."
+          // required
+        />
         <br />
         <label>
           What's a concrete first step?
@@ -65,7 +117,7 @@ const NewTaskForm = () => {
             name="step_act"
             type="text"
             placeholder={`eg sit at desk with laptop`}
-            required
+            // required
           />
         </label>
         <br />
@@ -99,7 +151,11 @@ const NewTaskForm = () => {
           </div>
           <div>
             <select
-              className={casualDate !== "tonight" ? "visible" : `hidden`}
+              className={
+                casualDate === "tomorrow" || casualDate === "later"
+                  ? "visible"
+                  : `hidden`
+              }
               name="timeDetail"
               type="text"
               onChange={handleCasualTimeChange}
@@ -129,7 +185,7 @@ const NewTaskForm = () => {
             name="cue"
             type="text"
             placeholder="eg after dinner"
-            required
+            // required
           />
           {/* ^ dynamically set placeholder based on time choice eg morning -> after breakfast, evening -> after dinner */}
         </label>
