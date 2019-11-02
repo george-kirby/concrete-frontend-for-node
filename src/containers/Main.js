@@ -54,7 +54,6 @@ const Main = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div>
-      <h1>This is the main container</h1>
       <h4>Email: {currentUser ? currentUser.email : null}</h4>
       <Switch>
         {/* <Route
