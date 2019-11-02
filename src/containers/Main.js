@@ -14,7 +14,7 @@ import TaskList from "./TaskList"
 import '../stylesheets/Main.css'
 import NewTaskForm from "../components/NewTaskForm"
 
-const Main = ({ currentUser, setCurrentUser, handleUpdateToggle }) => {
+const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) => {
   //   const [currentUser, setCurrentUser] = useState(null)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
@@ -68,7 +68,7 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle }) => {
             /> */}
             <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
             <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
-            <Route exact path="/new"> <NewTaskForm userId={currentUser.id} {...{handleUpdateToggle}}/> </Route>
+            <Route exact path="/new" component={routerProps => <NewTaskForm {...routerProps} userId={currentUser.id} {...{handleUpdateToggle}}/>}/>
             <Route exact path="/settings">
               {" "}
               Welcome to settings{" "}
