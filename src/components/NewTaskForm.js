@@ -9,6 +9,9 @@ const NewTaskForm = () => {
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
   const [preciseTime, setPreciseTime] = useState(null)
+  const [title, setTitle] = useState(null)
+  const [act, setAct] = useState(null)
+  const [cue, setCue] = useState(null)
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -70,6 +73,9 @@ const NewTaskForm = () => {
   const handleCalendarDateChange = event => setCalendarDate(event.target.value)
   const handleCasualTimeChange = event => setCasualTime(event.target.value)
   const handlePreciseTimeChange = event => setPreciseTime(event.target.value)
+  const handleTitleChange = event => setTitle(event.target.value)
+  const handleActChange = event => setAct(event.target.value)
+  const handleCueChange = event => setCue(event.target.value)
 
   const casualDateOptions = () => {
     let extras = []
@@ -109,6 +115,7 @@ const NewTaskForm = () => {
           type="text"
           placeholder="Task name..."
           // required
+          onChange={handleTitleChange}
         />
         <br />
         <label>
@@ -119,6 +126,7 @@ const NewTaskForm = () => {
             type="text"
             placeholder={`eg sit at desk with laptop`}
             // required
+            onChange={handleActChange}
           />
         </label>
         <br />
@@ -187,6 +195,7 @@ const NewTaskForm = () => {
             type="text"
             placeholder="eg after dinner"
             // required
+            onChange={handleCueChange}
           />
           {/* ^ dynamically set placeholder based on time choice eg morning -> after breakfast, evening -> after dinner */}
         </label>
