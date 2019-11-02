@@ -16,6 +16,7 @@ import API from "./adapters/API"
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [registerIntention, setRegisterIntention] = useState(false)
+  const [updateToggle, setUpdateToggle] = useState(false)
 
   useEffect(() => {
     // console.log("validate user effect was called")
@@ -29,7 +30,11 @@ const App = props => {
         setCurrentUser(user)
       }
     })
-  }, [])
+  }, [updateToggle])
+
+  const handleUpdateToggle = () => {
+    setUpdateToggle(!updateToggle)
+  }
 
 // uncomment this later, when improving routes
 // (currently just changes url, with no practical effect)
@@ -68,7 +73,7 @@ const App = props => {
   return (
     <div className="App">
       {currentUser ? (
-        <Main {...{ currentUser, setCurrentUser }} />
+        <Main {...{ currentUser, setCurrentUser, handleUpdateToggle }} />
       ) : registerIntention ? (
         <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
       ) : <LoginForm {...{ handleLogin, toggleRegisterIntention }}/>}

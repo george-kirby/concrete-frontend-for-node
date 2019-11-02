@@ -4,7 +4,7 @@ import "../stylesheets/NewTaskForm.css"
 // import PrepData from "../helpers/PrepData"
 import API from '../adapters/API'
 
-const NewTaskForm = ({userId}) => {
+const NewTaskForm = ({userId, handleUpdateToggle}) => {
   const [casualDate, setCasualDate] = useState("")
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
@@ -21,7 +21,7 @@ const NewTaskForm = ({userId}) => {
         API.postTask({title, cue, actual_time, display_time, project_id: project.id})
         .then(task => {
             API.postStep({task_id: task.id, act})
-            .then(console.log)
+            .then(step => handleUpdateToggle())
         })
     })
   }
