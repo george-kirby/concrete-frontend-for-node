@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import UserSettings from '../helpers/UserSettings'
 import "../stylesheets/NewTaskForm.css"
-import userSettings from "../helpers/UserSettings"
+// import PrepData from "../helpers/PrepData"
 import API from '../adapters/API'
 
-const NewTaskForm = () => {
+const NewTaskForm = ({userId}) => {
   const [casualDate, setCasualDate] = useState("")
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
@@ -16,7 +16,14 @@ const NewTaskForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
     const [actual_time, display_time] = prepareTimeData()
-
+    API.postProject({title: "", user_id: userId})
+    .then(project => {
+        API.postTask({title, cue, actual_time, display_time, project_id: project.id})
+        .then(task => {
+            API.postStep({task_id: task.id, act})
+            .then(console.log)
+        })
+    })
   }
 
   const prepareTimeData = () => {
@@ -46,13 +53,13 @@ const NewTaskForm = () => {
     let display_time
     if (casualDate === "tonight" || casualTime === "evening") {
         display_time = "evening"
-        time = userSettings.evening
+        time = UserSettings.evening
     } else if (casualDate === "thisAfternoon" || casualTime === "afternoon") {
         display_time = "afternoon"
-        time = userSettings.afternoon
+        time = UserSettings.afternoon
     } else if (casualDate === "thisMorning" || casualTime === "morning") {
         display_time = "morning"
-        time = userSettings.morning
+        time = UserSettings.morning
     } else {
         display_time = preciseTime
         time = preciseTime

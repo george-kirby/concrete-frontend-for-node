@@ -20,7 +20,7 @@ const App = props => {
   useEffect(() => {
     // console.log("validate user effect was called")
     API.validateUser().then(user => {
-      console.log(user)
+      // console.log(user)
       if (user.errors) {
         window.alert(user.errors)
       } else if (user.error) {

@@ -20,7 +20,7 @@ const authorisationHeader = (more = {}) => ({
 })
 
 const handleServerResponse = response => {
-  console.log(response)
+  // console.log(response)
   if (response.token) {
     localStorage.setItem("token", response.token)
   }
@@ -62,7 +62,7 @@ const postProject = projectData => {
   return fetch(PROJECTS_URL, {
     method: "POST",
     headers: jsonHeaders(), 
-    body: {project: projectData}
+    body: JSON.stringify({project: projectData})
   })
   .then(resp => resp.json())
 }
@@ -71,7 +71,7 @@ const postTask = taskData => {
   return fetch(TASKS_URL, {
     method: "POST",
     headers: jsonHeaders(), 
-    body: {task: taskData}
+    body: JSON.stringify({task: taskData})
   })
   .then(resp => resp.json())
 }
@@ -80,7 +80,7 @@ const postStep = stepData => {
   return fetch(STEPS_URL, {
     method: "POST",
     headers: jsonHeaders(), 
-    body: {step: stepData}
+    body: JSON.stringify({step: stepData})
   })
   .then(resp => resp.json())
 }
