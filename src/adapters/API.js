@@ -76,4 +76,13 @@ const postTask = taskData => {
   .then(resp => resp.json())
 }
 
-export default { getUser, login, logout, validateUser, postProject, postTask }
+const postStep = stepData => {
+  return fetch(STEPS_URL, {
+    method: "POST",
+    headers: jsonHeaders(), 
+    body: {step: stepData}
+  })
+  .then(resp => resp.json())
+}
+
+export default { getUser, login, logout, validateUser, postProject, postTask, postStep }
