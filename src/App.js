@@ -39,7 +39,11 @@ const App = props => {
   }, [currentUser])
 
   const handleLogin = user => {
-    setCurrentUser(user)
+    if (user.errors) {
+      window.alert(user.errors)
+    } else {
+      setCurrentUser(user)
+    }
   }
 
   const toggleRegisterIntention = () => {
