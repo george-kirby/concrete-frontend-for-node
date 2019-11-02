@@ -11,6 +11,7 @@ import API from "../adapters/API"
 import HotTask from "../components/HotTask"
 import Ordering from '../helpers/Ordering'
 import TaskList from "./TaskList"
+import '../stylesheets/Main.css'
 
 const Main = ({ currentUser, setCurrentUser }) => {
   //   const [currentUser, setCurrentUser] = useState(null)
@@ -55,25 +56,27 @@ const Main = ({ currentUser, setCurrentUser }) => {
   return (
     <div>
       <h4>Email: {currentUser ? currentUser.email : null}</h4>
-      <Switch>
-        {/* <Route
-          exact
-          path="/hot"
-          component={routerProps => (
-            <HotTask task={mostUrgentTask()} {...routerProps} />
-          )}
-        /> */}
-        <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
-        <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
-        <Route exact path="/new">
-          {" "}
-          New Task time{" "}
-        </Route>
-        <Route exact path="/settings">
-          {" "}
-          Welcome to settings{" "}
-        </Route>
-      </Switch>
+      <div className="core-container">
+          <Switch>
+            {/* <Route
+              exact
+              path="/hot"
+              component={routerProps => (
+                <HotTask task={mostUrgentTask()} {...routerProps} />
+              )}
+            /> */}
+            <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
+            <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
+            <Route exact path="/new">
+              {" "}
+              New Task time{" "}
+            </Route>
+            <Route exact path="/settings">
+              {" "}
+              Welcome to settings{" "}
+            </Route>
+          </Switch>
+      </div>
       <br />
       <nav className="navbar">
         <Link to="/hot">HOT</Link> | <Link to="/all">ALL TASKS</Link>
