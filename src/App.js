@@ -43,7 +43,9 @@ const App = props => {
 
   useEffect(() => {
     if (currentUser) {
-      props.history.push("/hot")
+      // props.history.push("/hot")
+      // ^ disabled for testing
+      props.history.push("/new")
     } else {
       props.history.push("/")
     }

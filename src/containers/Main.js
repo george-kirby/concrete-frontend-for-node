@@ -12,6 +12,7 @@ import HotTask from "../components/HotTask"
 import Ordering from '../helpers/Ordering'
 import TaskList from "./TaskList"
 import '../stylesheets/Main.css'
+import NewTaskForm from "../components/NewTaskForm"
 
 const Main = ({ currentUser, setCurrentUser }) => {
   //   const [currentUser, setCurrentUser] = useState(null)
@@ -55,7 +56,7 @@ const Main = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div>
-      <h4>Email: {currentUser ? currentUser.email : null}</h4>
+      <h4>{currentUser ? currentUser.email : null}</h4>
       <div className="core-container">
           <Switch>
             {/* <Route
@@ -67,10 +68,7 @@ const Main = ({ currentUser, setCurrentUser }) => {
             /> */}
             <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
             <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
-            <Route exact path="/new">
-              {" "}
-              New Task time{" "}
-            </Route>
+            <Route exact path="/new"> <NewTaskForm userId={currentUser.id}/> </Route>
             <Route exact path="/settings">
               {" "}
               Welcome to settings{" "}
