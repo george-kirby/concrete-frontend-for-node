@@ -18,7 +18,7 @@ const App = props => {
   const [registerIntention, setRegisterIntention] = useState(false)
 
   useEffect(() => {
-    console.log("validate user effect was called")
+    // console.log("validate user effect was called")
     API.validateUser().then(user => {
       console.log(user)
       if (user.errors) {
