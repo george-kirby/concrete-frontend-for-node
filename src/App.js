@@ -16,6 +16,7 @@ import API from "./adapters/API"
 import RouteTest from "./components/RouteTest"
 import HotTask from "./components/HotTask"
 import SelectedTask from "./components/SelectedTask"
+import SelectedProject from "./components/SelectedProject"
 import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
@@ -135,6 +136,13 @@ const App = props => {
               path="/tasks/:id"
               component={routerProps => currentUser ? (
                 <SelectedTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
+              ) : <StallingComponent/>}
+            />
+          <Route
+              exact
+              path="/projects/:id"
+              component={routerProps => currentUser ? (
+                <SelectedProject projects={currentUser.projects} {...{...routerProps, handleUpdateToggle}} />
               ) : <StallingComponent/>}
             />
           <Route

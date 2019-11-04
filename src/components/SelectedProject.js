@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Sorting from '../helpers/Sorting'
 import '../stylesheets/SelectedProject.css'
 
-const SelectedProject = ({project, setSelectedProjectId}) => {
+const SelectedProject = ({projects, history}) => {
 
     const [progress, setProgress] = useState(50);
 
-    useEffect(() => {
-        setProgress(((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) / project.tasks.length) * 100)
-    }, []);
+    const {id} = useParams()
+    const project = projects.find(project => project.id === parseInt(id))
+
+    // useEffect(() => {
+    //     setProgress(((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) / project.tasks.length) * 100)
+    // }, []);
 
     const sortedIncompleteTasks = Sorting.orderTasks(Sorting.incompleteTasks(project.tasks))
 
     const urgentTask = sortedIncompleteTasks[0]
     const otherIncompleteTasks = sortedIncompleteTasks.slice(1)
+
 
     return (
         <div>
@@ -32,7 +37,7 @@ const SelectedProject = ({project, setSelectedProjectId}) => {
                     <p>🕑 this {task.display_time}, {task.cue}</p>
                 </div>
             })}
-            <button onClick={() => setSelectedProjectId(null)}>To all tasks</button>
+            <button onClick={() => history.push("/projects")}>To all projects</button>
         </div>
     )
 }
