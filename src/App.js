@@ -12,11 +12,16 @@ import Main from "./containers/Main"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
+import RouteTest from "./components/RouteTest"
+import StallingComponent from "./components/StallingComponent"
+import TaskList from "./containers/TaskList"
+import Sorting from "./helpers/Sorting"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [registerIntention, setRegisterIntention] = useState(false)
   const [updateToggle, setUpdateToggle] = useState(false)
+  const [selectedTaskId, setSelectedTaskId] = useState(null)
+  const [selectedProjectId, setSelectedProjectId] = useState(null)
 
   useEffect(() => {
     // console.log("validate user effect was called")
@@ -32,15 +37,15 @@ const App = props => {
     })
   }, [updateToggle])
 
-  // triggered by new task/project creation 
+  // triggered by new task/project creation
   // -> calls validateUser again, so currentUser is updated to match db
   // probably a better way to do this
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle)
   }
 
-// uncomment this later, when improving routes
-// (currently just changes url, with no practical effect)
+  // uncomment this later, when improving routes
+  // (currently just changes url, with no practical effect)
 
   // useEffect(() => {
   //   if (registerIntention) {props.history.push("/signup")
@@ -49,15 +54,15 @@ const App = props => {
   //     }
   //   }, [registerIntention]);
 
-  useEffect(() => {
-    if (currentUser) {
-      // props.history.push("/hot")
-      // ^ disabled for testing
-      props.history.push("/all")
-    } else {
-      props.history.push("/")
-    }
-  }, [currentUser])
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     // props.history.push("/hot")
+  //     // ^ disabled for testing
+  //     props.history.push("/all")
+  //   } else {
+  //     props.history.push("/")
+  //   }
+  // }, [currentUser])
 
   const handleLogin = user => {
     if (user.errors) {
@@ -69,19 +74,68 @@ const App = props => {
     }
   }
 
-  const toggleRegisterIntention = () => {
-    setRegisterIntention(!registerIntention)
+  // return (
+  //   <div className="App">
+  //     {currentUser ? (
+  //       <Main {...{ currentUser, setCurrentUser, handleUpdateToggle }} />
+  //     ) : registerIntention ? (
+  //       <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
+  //     ) : (
+  //       <LoginForm {...{ handleLogin, toggleRegisterIntention }} />
+  //     )}
+  //   </div>
+  // )
+
+  const getTasks = projects => {
+    let tasks = []
+    projects.forEach(project => {
+      project.tasks.forEach(task => {
+        tasks = [...tasks, task]
+      })
+    })
+    // console.log(tasks)
+    return tasks
+  }
+
+  const incompleteTasks = () => Sorting.incompleteTasks(getTasks(currentUser.projects))
+ 
+  const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
+  //   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
+
+  const nonEmptyProjects = () =>
+    currentUser.projects.filter(project => project.title !== "")
+  const orderedProjects = () => nonEmptyProjects() // to be written, in Sorting
+
+  const mostUrgentTask = () => orderedTasks()[0]
+
+  const handleLogout = () => {
+    API.logout()
+    setCurrentUser(null)
   }
 
   return (
-    <div className="App">
+    <div>
+      <Switch>
+        <Route exact path="/login" component={routerProps => <LoginForm {...{handleLogin, routerProps}} />}/>
+        <Route exact path="/signup" component={routerProps => <SignUpForm {...{handleLogin, routerProps}} />}/>
+        <Route exact path="/all" component={routerProps => currentUser ? (<TaskList
+          tasks={orderedTasks()}
+          projects={orderedProjects()}
+          {...{ handleUpdateToggle, setSelectedTaskId, setSelectedProjectId, routerProps }}
+        />) : <StallingComponent/>} />
+        <Route exact path="/all/:id" component={routerProps => <RouteTest {...{routerProps, currentUser, setCurrentUser, handleUpdateToggle}} />}/>
+      </Switch>
+      
+    </div>
+  )
+
+}
+
+export default App
+
+{/* <div className="App">
       {currentUser ? (
         <Main {...{ currentUser, setCurrentUser, handleUpdateToggle }} />
       ) : registerIntention ? (
         <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
-      ) : <LoginForm {...{ handleLogin, toggleRegisterIntention }}/>}
-    </div>
-  )
-}
-
-export default App
+      ) : <LoginForm {...{ handleLogin, toggleRegisterIntention }}/>} */}

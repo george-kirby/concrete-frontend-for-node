@@ -1,12 +1,19 @@
 import React from "react"
+import { useHistory } from 'react-router-dom'
 import API from '../adapters/API'
 
 const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
+
+    const history = useHistory()
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
         API.patchStep(stepId, {completed: true})
         handleUpdateToggle()
+    }
+
+    const handleEditClick = () => {
+        history.push(`tasks/${task.id}/edit`)
     }
 
   return (
@@ -26,7 +33,7 @@ const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
           </button>
         </p>
       ))}
-      <button>Edit task</button>
+      <button onClick={() => handleEditClick()}>Edit task</button>
       <button onClick={() => setSelectedTaskId(null)}>To all tasks</button>
     </div>
   )

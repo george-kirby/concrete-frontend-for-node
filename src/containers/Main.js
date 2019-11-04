@@ -36,6 +36,8 @@ const Main = ({
   //         .then(console.log(`hello it's the ${currentUser}`))
   //   }, [])
 
+  console.log(routerProps)
+
   const getTasks = projects => {
     let tasks = []
     projects.forEach(project => {
@@ -115,6 +117,9 @@ const Main = ({
           <Route exact path="/all">
             {" "}
             {allDisplay()}{" "}
+          </Route>
+          <Route exact path="/tasks/:id/edit">
+            {/* <HotTask task={getTasks(currentUser.projects).find(task => task.id === :id)}/> */}
           </Route>
           <Route
             exact

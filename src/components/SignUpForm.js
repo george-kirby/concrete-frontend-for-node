@@ -66,8 +66,7 @@ export class SignUpForm extends Component {
         </form>
         <br />
         <div>Already have an account?</div>
-        <button onClick={this.props.toggleRegisterIntention}>Sign In</button>
-      </div>
+        <button onClick={() => this.props.routerProps.history.push("/login")}>Log in</button>      </div>
     )
   }
 }

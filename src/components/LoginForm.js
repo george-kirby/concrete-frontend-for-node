@@ -33,7 +33,7 @@ export class LoginForm extends Component {
       </form>
       <br/>
       <div>Don't have an account?</div>
-      <button onClick={this.props.toggleRegisterIntention}>Sign Up</button>
+      <button onClick={() => this.props.routerProps.history.push("/signup")}>Sign Up</button>
 
     </div>
         );
