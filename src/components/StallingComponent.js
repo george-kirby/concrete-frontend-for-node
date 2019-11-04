@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RouteTest = () => {
+const StallingComponent = () => {
     return (
         <div>
             Please wait...
@@ -8,5 +8,5 @@ const RouteTest = () => {
     );
 }
 
-export default RouteTest;
+export default StallingComponent;
 

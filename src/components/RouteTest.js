@@ -1,9 +1,15 @@
 import React from 'react';
+import {useParams} from 'react-router-dom'
 
-const RouteTest = ({routerProps, currentUser, setCurrentUser, handleUpdateToggle}) => {
+const RouteTest = ({routerProps, tasks, handleUpdateToggle}) => {
+
+    // const task = tasks.find(task => task.id === routerProps.match.params.id)
+    const {id} = useParams()
+
     return (
         <div>
-            {/* {routerProps.match.params} */}
+            {/* {task.title} */}
+            {id}
         </div>
     );
 }

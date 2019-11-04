@@ -1,10 +1,8 @@
 import React from "react"
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import API from '../adapters/API'
 
-const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
-
-    const history = useHistory()
+const HotTask = ({task, handleUpdateToggle, history }) => {
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
@@ -34,7 +32,7 @@ const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
         </p>
       ))}
       <button onClick={() => handleEditClick()}>Edit task</button>
-      <button onClick={() => setSelectedTaskId(null)}>To all tasks</button>
+      <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
     </div>
   )
 }

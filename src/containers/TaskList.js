@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import TaskCard from "../components/TaskCard"
 import ProjectCard from "../components/ProjectCard"
 
-const TaskList = ({ tasks, projects, handleUpdateToggle, setSelectedTaskId, setSelectedProjectId }) => {
+const TaskList = ({ tasks, projects, handleUpdateToggle, setSelectedProjectId }) => {
   const [viewTasks, setViewTasks] = useState(true)
 
   const toggleView = () => {
@@ -13,7 +13,7 @@ const TaskList = ({ tasks, projects, handleUpdateToggle, setSelectedTaskId, setS
     return (
       <div>
         {tasks.map(task => {
-          return <TaskCard key={task.id} task={task} {...{handleUpdateToggle, setSelectedTaskId}} />
+          return <TaskCard key={task.id} task={task} {...{handleUpdateToggle}} />
         })}
       </div>
     )

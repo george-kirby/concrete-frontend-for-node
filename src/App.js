@@ -6,13 +6,16 @@ import {
   Route,
   Link,
   withRouter,
-  Redirect
+  Redirect, 
+  useParams
 } from "react-router-dom"
 import Main from "./containers/Main"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
 import RouteTest from "./components/RouteTest"
+import HotTask from "./components/HotTask"
+import SelectedTask from "./components/SelectedTask"
 import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
@@ -20,7 +23,6 @@ import Sorting from "./helpers/Sorting"
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [updateToggle, setUpdateToggle] = useState(false)
-  const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const App = props => {
   //   if (currentUser) {
   //     // props.history.push("/hot")
   //     // ^ disabled for testing
-  //     props.history.push("/all")
+  //     props.history.push("/tasks")
   //   } else {
   //     props.history.push("/")
   //   }
@@ -71,6 +73,7 @@ const App = props => {
       window.alert(user.error)
     } else {
       setCurrentUser(user)
+      props.history.push("/hot")
     }
   }
 
@@ -115,17 +118,42 @@ const App = props => {
 
   return (
     <div>
-      <Switch>
-        <Route exact path="/login" component={routerProps => <LoginForm {...{handleLogin, routerProps}} />}/>
-        <Route exact path="/signup" component={routerProps => <SignUpForm {...{handleLogin, routerProps}} />}/>
-        <Route exact path="/all" component={routerProps => currentUser ? (<TaskList
-          tasks={orderedTasks()}
-          projects={orderedProjects()}
-          {...{ handleUpdateToggle, setSelectedTaskId, setSelectedProjectId, routerProps }}
-        />) : <StallingComponent/>} />
-        <Route exact path="/all/:id" component={routerProps => <RouteTest {...{routerProps, currentUser, setCurrentUser, handleUpdateToggle}} />}/>
-      </Switch>
-      
+      <div>
+        <Switch>
+          <Route exact path="/login" component={routerProps => <LoginForm {...{handleLogin, routerProps}} />}/>
+          <Route exact path="/signup" component={routerProps => <SignUpForm {...{handleLogin, routerProps}} />}/>
+          <Route
+              exact
+              path="/hot"
+              component={routerProps => (
+                <HotTask task={mostUrgentTask()} {...{...routerProps, handleUpdateToggle}} />
+              )}
+            />
+          <Route
+              exact
+              path="/tasks/:id"
+              component={routerProps => currentUser ? (
+                <SelectedTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
+                // <RouteTest tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
+              ) : <StallingComponent/>}
+            />
+          <Route exact path="/tasks" component={routerProps => currentUser ? (<TaskList
+            tasks={orderedTasks()}
+            projects={orderedProjects()}
+            {...{ handleUpdateToggle, setSelectedProjectId, routerProps }}
+          />) : <StallingComponent/>} />
+        </Switch>
+      </div>
+      <br />
+      {currentUser && <nav className="navbar">
+        <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL TASKS</Link>
+        {" | "}
+        <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
+        {" | "}
+        <Link to="/login" onClick={handleLogout}>
+          LOG OUT
+        </Link>
+      </nav>}
     </div>
   )
 
