@@ -9,7 +9,7 @@ import {
 } from "react-router-dom"
 import API from "../adapters/API"
 import HotTask from "../components/HotTask"
-import Ordering from '../helpers/Ordering'
+import Sorting from '../helpers/Sorting'
 import TaskList from "./TaskList"
 import '../stylesheets/Main.css'
 import NewTaskForm from "../components/NewTaskForm"
@@ -45,10 +45,12 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
   //       history.push("/hot")
   //   }
 
-  const orderedTasks = () => Ordering.orderTasks(getTasks(currentUser.projects))
+  const incompleteTasks = () => Sorting.incompleteTasks(getTasks(currentUser.projects))
+  const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
+//   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
 
   const nonEmptyProjects = () => currentUser.projects.filter(project => project.title !== "")
-  const orderedProjects = () => nonEmptyProjects() // to be written in Ordering
+  const orderedProjects = () => nonEmptyProjects() // to be written in Sorting
 
   const mostUrgentTask = () => orderedTasks()[0]
 
