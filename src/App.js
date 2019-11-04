@@ -50,7 +50,7 @@ const App = props => {
     if (currentUser) {
       // props.history.push("/hot")
       // ^ disabled for testing
-      props.history.push("/new")
+      props.history.push("/all")
     } else {
       props.history.push("/")
     }

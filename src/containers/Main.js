@@ -47,6 +47,9 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
 
   const orderedTasks = () => Ordering.orderTasks(getTasks(currentUser.projects))
 
+  const nonEmptyProjects = () => currentUser.projects.filter(project => project.title !== "")
+  const orderedProjects = () => nonEmptyProjects() // to be written in Ordering
+
   const mostUrgentTask = () => orderedTasks()[0]
 
   const handleLogout = () => {
@@ -67,7 +70,7 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
               )}
             /> */}
             <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
-            <Route exact path="/all"> <TaskList tasks={orderedTasks()}/> </Route>
+            <Route exact path="/all"> <TaskList tasks={orderedTasks()} projects={orderedProjects()}/> </Route>
             <Route exact path="/new" component={routerProps => <NewTaskForm {...routerProps} userId={currentUser.id} {...{handleUpdateToggle}}/>}/>
             <Route exact path="/settings">
               {" "}
