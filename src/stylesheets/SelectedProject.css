@@ -1,0 +1,25 @@
+.task-card {
+    border: solid;
+    border-color: black;
+    position: relative;
+}
+
+#most-urgent-task-card {
+    border: solid;
+    border-color: orange;
+    position: relative;
+}
+
+#progress-bar-container {
+    border: solid;
+    border-color: green;
+    width: 80%; 
+    margin: auto;
+}
+
+#progress-bar {
+    border: solid;
+    fill: green;
+    border-color: green;
+    margin-left: 0;
+}

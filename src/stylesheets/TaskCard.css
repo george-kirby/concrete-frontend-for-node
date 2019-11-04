@@ -2,9 +2,18 @@
     border: solid;
     border-color: black;
     position: relative;
+    /* display: flex;
+    flex: column */
 }
-.completed-button {
+
+/* .completed-button {
     position: absolute;
     right: 0;
     bottom: 0
 }
+
+.details-button {
+    position: absolute;
+    right: 0;
+    bottom: 10
+} */

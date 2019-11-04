@@ -13,6 +13,7 @@ import Sorting from "../helpers/Sorting"
 import TaskList from "./TaskList"
 import "../stylesheets/Main.css"
 import NewTaskForm from "../components/NewTaskForm"
+import SelectedProject from '../components/SelectedProject'
 
 const Main = ({
   currentUser,
@@ -23,6 +24,7 @@ const Main = ({
   //   const [currentUser, setCurrentUser] = useState(null)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
+//   const [selectedProjectId, setSelectedProjectId] = useState(27) // for testing
   const [filterOptions, setFilterOptions] = useState({
     searchTerm: "",
     day: "all"
@@ -50,8 +52,8 @@ const Main = ({
   //       history.push("/hot")
   //   }
 
-  const incompleteTasks = () =>
-    Sorting.incompleteTasks(getTasks(currentUser.projects))
+  const incompleteTasks = () => Sorting.incompleteTasks(getTasks(currentUser.projects))
+ 
   const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
   //   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
 
@@ -72,15 +74,15 @@ const Main = ({
         <HotTask
           task={getTasks(currentUser.projects).find(
             task => task.id === selectedTaskId
-          )} {...{setSelectedTaskId}}
+          )} {...{setSelectedTaskId, handleUpdateToggle}}
         />
       )
     } else if (selectedProjectId) {
       return (
-        <HotTask
-          task={getTasks(currentUser.projects).find(
-            task => task.id === selectedTaskId
-          )}
+        <SelectedProject
+          project={currentUser.projects.find(
+            project => project.id === selectedProjectId
+          )} {...{setSelectedProjectId}}
         />
       )
     } else {
@@ -108,7 +110,7 @@ const Main = ({
             /> */}
           <Route exact path="/hot">
             {" "}
-            <HotTask task={mostUrgentTask()} {...{setSelectedTaskId}}/>{" "}
+            <HotTask task={mostUrgentTask()} {...{setSelectedTaskId, handleUpdateToggle}}/>{" "}
           </Route>
           <Route exact path="/all">
             {" "}

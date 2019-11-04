@@ -4,7 +4,7 @@ import '../stylesheets/ProjectCard.css'
 const ProjectCard = ({project, setSelectedProjectId}) => {
     return (
         <div className="project-card"  onClick={() => setSelectedProjectId(project.id)}>
-            <h4>{project.title}</h4>
+            <h4>📌 {project.title}</h4>
             progress bar...
             <br/>
             {project.tasks.map(task => {
