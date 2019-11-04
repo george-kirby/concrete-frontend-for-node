@@ -15,7 +15,7 @@ const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
       <p>
         ❗this {task.display_time}, {task.cue}
       </p>
-      {task.steps.map(step => (
+      {task.steps.filter(step => !step.completed).map(step => (
         <p>
           👉 {step.act}{" "}
           <button
@@ -26,6 +26,7 @@ const HotTask = ({ task, setSelectedTaskId, handleUpdateToggle }) => {
           </button>
         </p>
       ))}
+      <button>Edit task</button>
       <button onClick={() => setSelectedTaskId(null)}>To all tasks</button>
     </div>
   )
