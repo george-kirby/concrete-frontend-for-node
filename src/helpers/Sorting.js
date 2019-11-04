@@ -1,6 +1,8 @@
 const incompleteTasks = tasks => tasks.filter(task => {
-    return !task.steps.reduce((acc, step) => acc && step.completed, true)
+    return !isComplete(task)
 })
+
+const isComplete = task => task.steps.reduce((acc, step) => acc && step.completed, true)
 
 const orderTasks = tasks => {
     return tasks.sort((a, b) => {
@@ -17,4 +19,4 @@ const jsDate = dateFromDb => {
     return new Date(dateFromDb)
 }
 
-export default { incompleteTasks, orderTasks, jsDate }
+export default { incompleteTasks, isComplete, orderTasks, jsDate }

@@ -2,7 +2,7 @@ import React from 'react';
 import '../stylesheets/TaskCard.css'
 import API from '../adapters/API'
 
-const TaskCard = ({task, handleUpdateToggle}) => {
+const TaskCard = ({task, handleUpdateToggle, setSelectedTaskId}) => {
 
     const handleCompleteClick = taskId => {
         console.log(`task ${taskId} complete!`)
@@ -13,7 +13,7 @@ const TaskCard = ({task, handleUpdateToggle}) => {
     }
 
     return (
-        <div className="task-card">
+        <div className="task-card" onClick={() => setSelectedTaskId(task.id)}>
             <h4>{task.title}</h4>
             <p>{task.project.title}</p>
             <p>🕑 this {task.display_time}, {task.cue}</p>

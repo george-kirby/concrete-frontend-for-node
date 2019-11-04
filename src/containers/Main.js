@@ -9,12 +9,17 @@ import {
 } from "react-router-dom"
 import API from "../adapters/API"
 import HotTask from "../components/HotTask"
-import Sorting from '../helpers/Sorting'
+import Sorting from "../helpers/Sorting"
 import TaskList from "./TaskList"
-import '../stylesheets/Main.css'
+import "../stylesheets/Main.css"
 import NewTaskForm from "../components/NewTaskForm"
 
-const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) => {
+const Main = ({
+  currentUser,
+  setCurrentUser,
+  handleUpdateToggle,
+  routerProps
+}) => {
   //   const [currentUser, setCurrentUser] = useState(null)
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedProjectId, setSelectedProjectId] = useState(null)
@@ -45,12 +50,14 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
   //       history.push("/hot")
   //   }
 
-  const incompleteTasks = () => Sorting.incompleteTasks(getTasks(currentUser.projects))
+  const incompleteTasks = () =>
+    Sorting.incompleteTasks(getTasks(currentUser.projects))
   const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
-//   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
+  //   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
 
-  const nonEmptyProjects = () => currentUser.projects.filter(project => project.title !== "")
-  const orderedProjects = () => nonEmptyProjects() // to be written in Sorting
+  const nonEmptyProjects = () =>
+    currentUser.projects.filter(project => project.title !== "")
+  const orderedProjects = () => nonEmptyProjects() // to be written, in Sorting
 
   const mostUrgentTask = () => orderedTasks()[0]
 
@@ -59,26 +66,70 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
     setCurrentUser(null)
   }
 
+  const allDisplay = () => {
+    if (selectedTaskId) {
+      return (
+        <HotTask
+          task={getTasks(currentUser.projects).find(
+            task => task.id === selectedTaskId
+          )} {...{setSelectedTaskId}}
+        />
+      )
+    } else if (selectedProjectId) {
+      return (
+        <HotTask
+          task={getTasks(currentUser.projects).find(
+            task => task.id === selectedTaskId
+          )}
+        />
+      )
+    } else {
+      return (
+        <TaskList
+          tasks={orderedTasks()}
+          projects={orderedProjects()}
+          {...{ handleUpdateToggle, setSelectedTaskId, setSelectedProjectId }}
+        />
+      )
+    }
+  }
+
   return (
     <div>
       <h4>{currentUser ? currentUser.email : null}</h4>
       <div className="core-container">
-          <Switch>
-            {/* <Route
+        <Switch>
+          {/* <Route
               exact
               path="/hot"
               component={routerProps => (
                 <HotTask task={mostUrgentTask()} {...routerProps} />
               )}
             /> */}
-            <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
-            <Route exact path="/all"> <TaskList tasks={orderedTasks()} projects={orderedProjects()} {...{handleUpdateToggle}}/> </Route>
-            <Route exact path="/new" component={routerProps => <NewTaskForm {...routerProps} userId={currentUser.id} {...{handleUpdateToggle}}/>}/>
-            <Route exact path="/settings">
-              {" "}
-              Welcome to settings{" "}
-            </Route>
-          </Switch>
+          <Route exact path="/hot">
+            {" "}
+            <HotTask task={mostUrgentTask()} {...{setSelectedTaskId}}/>{" "}
+          </Route>
+          <Route exact path="/all">
+            {" "}
+            {allDisplay()}{" "}
+          </Route>
+          <Route
+            exact
+            path="/new"
+            component={routerProps => (
+              <NewTaskForm
+                {...routerProps}
+                userId={currentUser.id}
+                {...{ handleUpdateToggle }}
+              />
+            )}
+          />
+          <Route exact path="/settings">
+            {" "}
+            Welcome to settings{" "}
+          </Route>
+        </Switch>
       </div>
       <br />
       <nav className="navbar">
