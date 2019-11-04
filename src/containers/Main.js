@@ -70,7 +70,7 @@ const Main = ({ currentUser, setCurrentUser, handleUpdateToggle, routerProps }) 
               )}
             /> */}
             <Route exact path="/hot"> <HotTask task={mostUrgentTask()} /> </Route>
-            <Route exact path="/all"> <TaskList tasks={orderedTasks()} projects={orderedProjects()}/> </Route>
+            <Route exact path="/all"> <TaskList tasks={orderedTasks()} projects={orderedProjects()} {...{handleUpdateToggle}}/> </Route>
             <Route exact path="/new" component={routerProps => <NewTaskForm {...routerProps} userId={currentUser.id} {...{handleUpdateToggle}}/>}/>
             <Route exact path="/settings">
               {" "}

@@ -32,6 +32,9 @@ const App = props => {
     })
   }, [updateToggle])
 
+  // triggered by new task/project creation 
+  // -> calls validateUser again, so currentUser is updated to match db
+  // probably a better way to do this
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle)
   }

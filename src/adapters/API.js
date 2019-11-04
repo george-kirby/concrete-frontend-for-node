@@ -85,4 +85,13 @@ const postStep = stepData => {
   .then(resp => resp.json())
 }
 
-export default { getUser, login, logout, validateUser, postProject, postTask, postStep }
+const patchStep = (stepId, stepData) => {
+  return fetch(STEPS_URL+stepId, {
+    method: "PATCH",
+    headers: jsonHeaders(), 
+    body: JSON.stringify({step: stepData})
+  })
+  .then(resp => resp.json())
+}
+
+export default { getUser, login, logout, validateUser, postProject, postTask, postStep, patchStep }

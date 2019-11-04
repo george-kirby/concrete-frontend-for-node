@@ -8,7 +8,7 @@ const ProjectCard = ({project}) => {
             progress bar...
             <br/>
             {project.tasks.map(task => {
-                return <div>
+                return <div key={task.id}>
                     {task.title} 🕑 {task.actual_time}
                 </div>
             })}
