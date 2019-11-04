@@ -6,7 +6,7 @@ const TaskCard = ({task}) => {
         <div className="task-card">
             <h4>{task.title}</h4>
             <p>{task.project.title}</p>
-            <p>this {task.display_time}, {task.cue}</p>
+            <p>🕑 this {task.display_time}, {task.cue}</p>
         </div>
     );
 }

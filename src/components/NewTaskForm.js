@@ -12,11 +12,14 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
   const [title, setTitle] = useState(null)
   const [act, setAct] = useState(null)
   const [cue, setCue] = useState(null)
+  const [projectTitle, setProjectTitle] = useState("")
+  const [projectMode, setProjectMode] = useState(false)
+
 
   const handleSubmit = event => {
     event.preventDefault()
     const [actual_time, display_time] = prepareTimeData()
-    API.postProject({title: "", user_id: userId})
+    API.postProject({title: projectTitle, user_id: userId})
     .then(project => {
         API.postTask({title, cue, actual_time, display_time, project_id: project.id})
         .then(task => {
@@ -85,6 +88,12 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
   const handleTitleChange = event => setTitle(event.target.value)
   const handleActChange = event => setAct(event.target.value)
   const handleCueChange = event => setCue(event.target.value)
+  const handleProjectTitleChange = event => setProjectTitle(event.target.value)
+
+  const toggleProjectMode = event => {
+      event.preventDefault()
+      setProjectMode(!projectMode)
+  }
 
   const casualDateOptions = () => {
     let extras = []
@@ -209,6 +218,16 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
           {/* ^ dynamically set placeholder based on time choice eg morning -> after breakfast, evening -> after dinner */}
         </label>
         <br />
+        <button onClick={toggleProjectMode}>Create Project</button>
+        <input
+            className={projectMode ? "visible" : `hidden`}
+            name="projectTitle"
+            type="text"
+            placeholder="Project Name"
+            required={projectMode}
+            onChange={handleProjectTitleChange}
+          />
+        <br/>
         <input type="submit" value="Create Task" />
       </form>
     </div>
