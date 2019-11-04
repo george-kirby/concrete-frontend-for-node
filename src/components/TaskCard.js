@@ -7,8 +7,7 @@ const TaskCard = ({task, handleUpdateToggle}) => {
 
     const history = useHistory()
 
-    const handleCompleteTaskClick = taskId => {
-        console.log(`task ${taskId} complete!`)
+    const handleCompleteTaskClick = task => {
         task.steps.forEach(step => {
             API.patchStep(step.id, {completed: true})
         });
@@ -24,10 +23,10 @@ const TaskCard = ({task, handleUpdateToggle}) => {
             </div>
             <div className="task-actions">
                 <button onClick={() => history.push(`tasks/${task.id}`)} className="details-button">👁️</button>
-                <button onClick={() => handleCompleteTaskClick(task.id)} className="completed-button">✅</button>
+                <button onClick={() => handleCompleteTaskClick(task)} className="completed-button">✅</button>
             </div>
         </div>
-    );
+);
 }
 
 export default TaskCard;

@@ -127,9 +127,9 @@ const App = props => {
           <Route
               exact
               path="/hot"
-              component={routerProps => (
+              component={routerProps => currentUser ? (
                 <HotTask task={mostUrgentTask()} {...{...routerProps, handleUpdateToggle}} />
-              )}
+              ) : <StallingComponent/>}
             />
           <Route
               exact
@@ -154,13 +154,6 @@ const App = props => {
                 {...{...routerProps, handleUpdateToggle }} />
               ) : <StallingComponent/>}
             />
-          {/* <Route
-              exact
-              path="/tasks/:id/edit"
-              component={routerProps => currentUser ? (
-                <EditTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
-              ) : <StallingComponent/>}
-            /> */}
           <Route exact path="/tasks" component={routerProps => currentUser ? (<TaskList
             tasks={orderedTasks()}
             {...{ handleUpdateToggle, routerProps }}
@@ -173,7 +166,7 @@ const App = props => {
       </div>
       <br />
       {currentUser && <nav className="navbar">
-        <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL TASKS</Link>
+        <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
         {" | "}
         <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
         {" | "}

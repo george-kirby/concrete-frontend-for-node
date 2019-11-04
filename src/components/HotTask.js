@@ -15,24 +15,26 @@ const HotTask = ({task, handleUpdateToggle, history }) => {
     }
 
   return (
-    <div>
-      <h1>{task.title}</h1>
-      <p>
-        ❗this {task.display_time}, {task.cue}
-      </p>
-      {task.steps.filter(step => !step.completed).map(step => (
+    <div> {task ?
+      (<div>
+        <h1>{task.title}</h1>
         <p>
-          👉 {step.act}{" "}
-          <button
-            onClick={() => handleCompleteStepClick(step.id)}
-            className="completed-button"
-          >
-            ✅
-          </button>
+          ❗this {task.display_time}, {task.cue}
         </p>
-      ))}
-      <button onClick={() => handleEditClick()}>Edit task</button>
-      <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
+        {task.steps.filter(step => !step.completed).map(step => (
+          <p key={`step-${step.id}`}>
+            👉 {step.act}{" "}
+            <button
+              onClick={() => handleCompleteStepClick(step.id)}
+              className="completed-button"
+            >
+              ✅
+            </button>
+          </p>
+        ))}
+        <button onClick={() => handleEditClick()}>Edit task</button>
+        <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
+      </div>) : "You have no outstanding tasks - well done!"}
     </div>
   )
 }
