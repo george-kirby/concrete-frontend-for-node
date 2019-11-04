@@ -21,11 +21,11 @@ import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
 import NewTaskForm from "./components/NewTaskForm"
+import ProjectList from "./containers/ProjectList"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [updateToggle, setUpdateToggle] = useState(false)
-  const [selectedProjectId, setSelectedProjectId] = useState(null)
 
   useEffect(() => {
     // console.log("validate user effect was called")
@@ -163,8 +163,11 @@ const App = props => {
             /> */}
           <Route exact path="/tasks" component={routerProps => currentUser ? (<TaskList
             tasks={orderedTasks()}
+            {...{ handleUpdateToggle, routerProps }}
+          />) : <StallingComponent/>} />
+          <Route exact path="/projects" component={routerProps => currentUser ? (<ProjectList
             projects={orderedProjects()}
-            {...{ handleUpdateToggle, setSelectedProjectId, routerProps }}
+            {...{ handleUpdateToggle, routerProps }}
           />) : <StallingComponent/>} />
         </Switch>
       </div>

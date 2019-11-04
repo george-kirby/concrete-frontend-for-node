@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom'
 import '../stylesheets/ProjectCard.css'
 
-const ProjectCard = ({project, setSelectedProjectId}) => {
+const ProjectCard = ({project, handleUpdateToggle}) => {
 
     const history = useHistory()
 

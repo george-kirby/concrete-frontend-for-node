@@ -1,53 +1,18 @@
 import React, { useState } from "react"
 import TaskCard from "../components/TaskCard"
-import ProjectCard from "../components/ProjectCard"
+import { Link } from 'react-router-dom'
 
-const TaskList = ({ tasks, projects, handleUpdateToggle, setSelectedProjectId }) => {
-  const [viewTasks, setViewTasks] = useState(true)
-
-  const toggleView = () => {
-    setViewTasks(!viewTasks)
-  }
-
-  const displayTasks = () => {
-    return (
-      <div>
-        {tasks.map(task => {
-          return <TaskCard key={task.id} task={task} {...{handleUpdateToggle}} />
-        })}
-      </div>
-    )
-  }
-
-  const displayProjects = () => {
-    return (
-      <div>
-        {projects.map(project => {
-          return <ProjectCard key={project.id} project={project} {...{setSelectedProjectId}} />
-        })}
-      </div>
-    )
-  }
-
+const TaskList = ({ tasks, handleUpdateToggle }) => {
   return (
     <div>
-      <input
-        type="radio"
-        name="react-tips"
-        value="tasks"
-        defaultChecked={viewTasks}
-        onClick={toggleView}
-      />
-      Tasks
-      <input
-        type="radio"
-        name="react-tips"
-        value="projects"
-        defaultChecked={!viewTasks}
-        onClick={toggleView}
-      />
-      Projects
-      {viewTasks ? displayTasks() : displayProjects()}
+      <Link to="/tasks">Tasks</Link> | <Link to="/projects">Projects</Link>
+      <div>
+        {tasks.map(task => {
+          return (
+            <TaskCard key={task.id} task={task} {...{ handleUpdateToggle }} />
+          )
+        })}
+      </div>
     </div>
   )
 }
