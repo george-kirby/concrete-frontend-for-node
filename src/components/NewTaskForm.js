@@ -15,7 +15,6 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
   const [projectTitle, setProjectTitle] = useState("")
   const [projectMode, setProjectMode] = useState(false)
 
-
   const handleSubmit = event => {
     event.preventDefault()
     const [actual_time, display_time] = prepareTimeData()
@@ -26,7 +25,7 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
             API.postStep({task_id: task.id, act})
             .then(step => {
                 handleUpdateToggle()
-                history.push("/all")})
+                history.push("/tasks")})
         })
     })
   }

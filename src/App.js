@@ -19,6 +19,7 @@ import SelectedTask from "./components/SelectedTask"
 import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
+import NewTaskForm from "./components/NewTaskForm"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -134,9 +135,24 @@ const App = props => {
               path="/tasks/:id"
               component={routerProps => currentUser ? (
                 <SelectedTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
-                // <RouteTest tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
               ) : <StallingComponent/>}
             />
+          <Route
+              exact
+              path="/new"
+              component={routerProps => currentUser ? (
+                <NewTaskForm
+                userId={currentUser.id}
+                {...{...routerProps, handleUpdateToggle }} />
+              ) : <StallingComponent/>}
+            />
+          {/* <Route
+              exact
+              path="/tasks/:id/edit"
+              component={routerProps => currentUser ? (
+                <EditTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
+              ) : <StallingComponent/>}
+            /> */}
           <Route exact path="/tasks" component={routerProps => currentUser ? (<TaskList
             tasks={orderedTasks()}
             projects={orderedProjects()}

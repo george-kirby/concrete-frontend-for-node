@@ -13,7 +13,7 @@ const SelectedTask = ({tasks, handleUpdateToggle, history }) => {
     }
 
     const handleEditClick = () => {
-        history.push(`tasks/${task.id}/edit`)
+        history.push(`/tasks/${task.id}/edit`)
     }
 
     let {id} = useParams()
