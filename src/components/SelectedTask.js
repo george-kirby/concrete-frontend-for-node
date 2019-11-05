@@ -32,7 +32,7 @@ const SelectedTask = ({tasks, handleUpdateToggle, history }) => {
             ❗this {task.display_time}, {task.cue}
           </p>
           {task.steps.filter(step => !step.completed).map(step => (
-            <p>
+            <p key={`step-${step.id}`}>
               👉 {step.act}{" "}
               <button
                 onClick={() => handleCompleteStepClick(step.id)}

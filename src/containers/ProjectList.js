@@ -7,7 +7,7 @@ const ProjectList = ({ projects, handleUpdateToggle }) => {
   return (
     <div>
       <Link to="/tasks">Tasks</Link> | <Link to="/projects">Projects</Link>
-      <div>
+      <div className="core-container">
         {projects.map(project => {
           return <ProjectCard key={project.id} project={project} {...{handleUpdateToggle}} />
         })}

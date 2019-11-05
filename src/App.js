@@ -9,7 +9,6 @@ import {
   Redirect,
   useParams
 } from "react-router-dom"
-import Main from "./containers/Main"
 import ErrorBoundary from "./components/ErrorBoundary"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
@@ -80,18 +79,6 @@ const App = props => {
       props.history.push("/hot")
     }
   }
-
-  // return (
-  //   <div className="App">
-  //     {currentUser ? (
-  //       <Main {...{ currentUser, setCurrentUser, handleUpdateToggle }} />
-  //     ) : registerIntention ? (
-  //       <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
-  //     ) : (
-  //       <LoginForm {...{ handleLogin, toggleRegisterIntention }} />
-  //     )}
-  //   </div>
-  // )
 
   const getTasks = projects => {
     let tasks = []
