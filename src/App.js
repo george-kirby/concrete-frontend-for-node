@@ -238,6 +238,7 @@ const App = props => {
                 )
               }
             />
+            {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
           </Switch>
         </ErrorBoundary>
       </div>
