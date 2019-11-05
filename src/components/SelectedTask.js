@@ -1,11 +1,11 @@
 import React from "react"
 // import { useHistory } from 'react-router-dom'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import API from '../adapters/API'
 import StallingComponent from './StallingComponent'
 import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const SelectedTask = ({tasks, setCurrentUser, currentUser, history }) => {
+const SelectedTask = ({task, setCurrentUser, currentUser, history }) => {
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
@@ -16,10 +16,6 @@ const SelectedTask = ({tasks, setCurrentUser, currentUser, history }) => {
     const handleEditClick = () => {
         history.push(`/tasks/${task.id}/edit`)
     }
-
-    let {id} = useParams()
-
-    const task = tasks.find(task => task.id === parseInt(id))
 
   return (
       

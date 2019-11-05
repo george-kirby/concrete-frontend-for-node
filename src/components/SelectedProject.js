@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
 import Sorting from "../helpers/Sorting"
 import "../stylesheets/SelectedProject.css"
 import API from "../adapters/API"
 import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const SelectedProject = ({ projects, setCurrentUser, currentUser, history }) => {
+const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
   const [progress, setProgress] = useState(1)
   const [editMode, setEditMode] = useState(false)
   const [projectTitle, setProjectTitle] = useState("")
-
-  const { id } = useParams()
-  const project = projects.find(project => project.id === parseInt(id))
 
   useEffect(() => {
     setProgress(

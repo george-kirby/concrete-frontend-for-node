@@ -75,6 +75,10 @@ const App = props => {
     setCurrentUser(null)
   }
 
+  const findFromParams = (array, params) => {
+    return array.find(item => item.id === parseInt(params.id))
+  }
+
   return (
     <div>
       <div>
@@ -114,7 +118,7 @@ const App = props => {
               component={routerProps =>
                 currentUser ? (
                   <SelectedTask
-                    tasks={orderedTasks()}
+                    task={findFromParams(orderedTasks(), routerProps.match.params)}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
@@ -142,7 +146,7 @@ const App = props => {
               component={routerProps =>
                 currentUser ? (
                   <SelectedProject
-                    projects={currentUser.projects}
+                    project={findFromParams(currentUser.projects, routerProps.match.params) }
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
