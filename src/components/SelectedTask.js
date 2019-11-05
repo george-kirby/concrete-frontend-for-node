@@ -43,7 +43,7 @@ const SelectedTask = ({tasks, handleUpdateToggle, history }) => {
             </p>
           ))}
           <button onClick={() => handleEditClick()}>Edit task</button>
-          <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
+          <button onClick={() => history.push(`/tasks`)}>All tasks</button>
       </div>) : 
       <StallingComponent/>}
     </div>
