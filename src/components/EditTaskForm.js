@@ -112,12 +112,20 @@ const EditTaskForm = ({tasks, projects, handleUpdateToggle, history, match}) => 
   }
   
   const handleDestroyTask = e => {
-    window.alert("Are you sure you want to delete this task?")
-    API.destroyTask(task.id)
-    .then(response => {
-      handleUpdateToggle()
-      history.push("/tasks")
-    })
+    window.confirm("Are you sure you want to delete this task?")
+    if (task.project.title === "") {
+      API.destroyProject(task.project.id)
+      .then(response => {
+        history.push("/tasks")
+        handleUpdateToggle()
+      })
+    } else {
+      API.destroyTask(task.id)
+      .then(response => {
+        history.push(`/projects/${task.project.id}`)
+        handleUpdateToggle()
+      })
+    }
   }
   
   const handleDestroyStep = (e, stepId) => {

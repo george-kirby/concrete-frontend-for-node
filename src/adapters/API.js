@@ -76,6 +76,13 @@ const patchProject = (projectId, projectData) => {
   .then(resp => resp.json())
 }
 
+const destroyProject = projectId => {
+  return fetch(PROJECTS_URL+projectId, {
+    method: "DELETE",
+    headers: jsonHeaders()
+  })
+}
+
 const postTask = taskData => {
   return fetch(TASKS_URL, {
     method: "POST",
@@ -93,6 +100,7 @@ const patchTask = (taskId, taskData) => {
   })
   .then(resp => resp.json())
 }
+
 const destroyTask = taskId => {
   return fetch(TASKS_URL+taskId, {
     method: "DELETE",
@@ -125,4 +133,4 @@ const destroyStep = stepId => {
   })
 }
 
-export default { getUser, login, logout, validateUser, postProject, patchProject, postTask, patchTask, destroyTask, postStep, patchStep, destroyStep }
+export default { getUser, login, logout, validateUser, postProject, patchProject, destroyProject, postTask, patchTask, destroyTask, postStep, patchStep, destroyStep }
