@@ -163,7 +163,7 @@ const App = props => {
                 <EditTaskForm
                   projects={currentUser.projects}
                   tasks={getTasks(currentUser.projects)}
-                  {...{ ...routerProps, handleUpdateToggle }}
+                  {...{ ...routerProps, handleUpdateToggle, currentUser, setCurrentUser }}
                 />
                 ) : (
                   <StallingComponent />
