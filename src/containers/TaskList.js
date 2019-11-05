@@ -7,11 +7,11 @@ const TaskList = ({ tasks, handleUpdateToggle }) => {
     <div>
       <Link to="/tasks">Tasks</Link> | <Link to="/projects">Projects</Link>
       <div>
-        {tasks.map(task => {
+        {tasks.length > 0 ? tasks.map(task => {
           return (
             <TaskCard key={task.id} task={task} {...{ handleUpdateToggle }} />
           )
-        })}
+        }) : "You have no outstanding tasks - well done!"}
       </div>
     </div>
   )
