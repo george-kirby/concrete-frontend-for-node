@@ -1,13 +1,14 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 import API from '../adapters/API'
+import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const HotTask = ({task, handleUpdateToggle, history }) => {
+const HotTask = ({task, currentUser, setCurrentUser, history }) => {
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
         API.patchStep(stepId, {completed: true})
-        handleUpdateToggle()
+        .then(step => setCurrentUser({...currentUser, projects: UpdateUserObject.patchedStep(step, currentUser)}))
     }
 
     const handleEditClick = () => {

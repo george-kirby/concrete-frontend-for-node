@@ -10,7 +10,6 @@ import { Button } from "semantic-ui-react"
 const EditTaskForm = ({
   tasks,
   projects,
-  handleUpdateToggle,
   history,
   match,
   currentUser,
@@ -91,29 +90,54 @@ const EditTaskForm = ({
       if (task.project.title === "") {
         API.patchProject(task.project.id, { title: projectTitle })
           .then(project => {
-            API.patchTask(task.id, { ...taskData, project_id: project.id })
+            setCurrentUser({
+              ...currentUser,
+              projects: UpdateUserObject.patchedProject(project, currentUser)
+            })
+            API.patchTask(task.id, {
+              ...taskData,
+              project_id: project.id
+            }).then(task => UpdateUserObject.patchedTask(task, currentUser))
           })
           .then(resp => patchSteps(stepsToPatch))
-          // .then(response => handleUpdateToggle())
       } else {
         API.postProject({ title: projectTitle })
           .then(project => {
+            setCurrentUser({
+              ...currentUser,
+              projects: UpdateUserObject.postedProject(project, currentUser)
+            })
             API.patchTask(task.id, { ...taskData, project_id: project.id })
           })
-          .then(resp => patchSteps(stepsToPatch))
-          // .then(response => handleUpdateToggle())
+          .then(task => {
+            setCurrentUser({
+              ...currentUser,
+              projects: UpdateUserObject.patchedTask(task, currentUser)
+            })
+            patchSteps(stepsToPatch)
+          })
       }
     } else {
-      API.patchTask(task.id, { ...taskData, project_id: projectId })
-        .then(resp => patchSteps(stepsToPatch))
-        // .then(response => handleUpdateToggle())
+      API.patchTask(task.id, { ...taskData, project_id: projectId }).then(
+        task => {
+          setCurrentUser({
+            ...currentUser,
+            projects: UpdateUserObject.patchedTask(task, currentUser)
+          })
+          patchSteps(stepsToPatch)
+        }
+      )
     }
+    history.push("/tasks")
   }
 
   const patchSteps = steps => {
     steps.forEach(step => {
       API.patchStep(step.id, { act: step.act }).then(responseStep => {
-        setCurrentUser({...currentUser, projects: UpdateUserObject.updateStep(responseStep, currentUser)})
+        setCurrentUser({
+          ...currentUser,
+          projects: UpdateUserObject.patchedStep(responseStep, currentUser)
+        })
       })
     })
   }
@@ -131,8 +155,10 @@ const EditTaskForm = ({
     if (e.target.value !== "") {
       console.log(e.target.value)
       API.postStep({ act: e.target.value, task_id: task.id }).then(step => {
-        console.log(step)
-        handleUpdateToggle()
+        setCurrentUser({
+          ...currentUser,
+          projects: UpdateUserObject.postedStep(step, currentUser)
+        })
       })
     }
   }
@@ -149,25 +175,39 @@ const EditTaskForm = ({
     if (task.project.title === "") {
       API.destroyProject(task.project.id).then(response => {
         history.push("/tasks")
-        handleUpdateToggle()
+        setCurrentUser({
+          ...currentUser,
+          projects: UpdateUserObject.destroyedProject(task.project, currentUser)
+        })
       })
     } else {
       API.destroyTask(task.id).then(response => {
         history.push(`/projects/${task.project.id}`)
-        handleUpdateToggle()
+        setCurrentUser({
+          ...currentUser,
+          projects: UpdateUserObject.destroyedTask(task, currentUser)
+        })
       })
     }
   }
 
-  const handleDestroyStep = (e, stepId) => {
-    API.destroyStep(stepId).then(response => {
-      handleUpdateToggle()
+  const handleDestroyStep = (e, step) => {
+    API.destroyStep(step.id).then(response => {
+      setCurrentUser({
+        ...currentUser,
+        projects: UpdateUserObject.destroyedStep(step, currentUser)
+      })
     })
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label>
+          Task Name:{" "}
+          <input type="text" value={title} onChange={handleTitleChange} />
+        </label>
+        <br />
         <label>
           Project:
           <select name="project" onChange={handleProjectIdChange}>
@@ -189,11 +229,6 @@ const EditTaskForm = ({
             value={projectTitle}
             onChange={handleProjectTitleChange}
           />
-        </label>
-        <br />
-        <label>
-          Task Name:{" "}
-          <input type="text" value={title} onChange={handleTitleChange} />
         </label>
         <br />
         <label>
@@ -239,7 +274,7 @@ const EditTaskForm = ({
                   value={steps[index].act}
                   onChange={e => handleStepEdit(e, step.id)}
                 />
-                <span onClick={e => handleDestroyStep(e, step.id)}>❌</span>
+                <span onClick={e => handleDestroyStep(e, step)}>❌</span>
               </label>
             </div>
           )

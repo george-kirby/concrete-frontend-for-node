@@ -2,16 +2,22 @@ import React from 'react';
 import { useHistory } from 'react-router-dom'
 import '../stylesheets/TaskCard.css'
 import API from '../adapters/API'
+import UpdateUserObject from "../helpers/UpdateUserObject"
 
-const TaskCard = ({task, handleUpdateToggle}) => {
+const TaskCard = ({task, setCurrentUser, currentUser}) => {
 
     const history = useHistory()
 
     const handleCompleteTaskClick = task => {
         task.steps.forEach(step => {
             API.patchStep(step.id, {completed: true})
+            .then(responseStep => {
+                setCurrentUser({
+                  ...currentUser,
+                  projects: UpdateUserObject.patchedStep(responseStep, currentUser)
+                })
+              })
         });
-        handleUpdateToggle()
     }
 
     return (

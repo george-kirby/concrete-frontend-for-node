@@ -2,14 +2,14 @@ import React from "react"
 import ProjectCard from "../components/ProjectCard"
 import { Link } from 'react-router-dom'
 
-const ProjectList = ({ projects, handleUpdateToggle }) => {
+const ProjectList = ({ projects }) => {
 
   return (
     <div>
       <Link to="/tasks">Tasks</Link> | <Link to="/projects">Projects</Link>
       <div className="core-container">
         {projects.map(project => {
-          return <ProjectCard key={project.id} project={project} {...{handleUpdateToggle}} />
+          return <ProjectCard key={project.id} project={project} />
         })}
       </div>
     </div>

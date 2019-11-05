@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom"
 import Sorting from "../helpers/Sorting"
 import "../stylesheets/SelectedProject.css"
 import API from "../adapters/API"
+import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const SelectedProject = ({ projects, history, handleUpdateToggle }) => {
+const SelectedProject = ({ projects, setCurrentUser, currentUser, history }) => {
   const [progress, setProgress] = useState(1)
   const [editMode, setEditMode] = useState(false)
   const [projectTitle, setProjectTitle] = useState("")
@@ -31,8 +32,8 @@ const SelectedProject = ({ projects, history, handleUpdateToggle }) => {
   const handleCompleteTaskClick = task => {
     task.steps.forEach(step => {
       API.patchStep(step.id, { completed: true })
+      .then(step => setCurrentUser({...currentUser, projects: UpdateUserObject.patchedStep(step, currentUser)}))
     })
-    handleUpdateToggle()
   }
 
   const toggleEditMode = () => {
@@ -45,10 +46,7 @@ const SelectedProject = ({ projects, history, handleUpdateToggle }) => {
       e.preventDefault()
       if (projectTitle !== project.title) {
         API.patchProject(project.id, {title: projectTitle})
-        .then(response => {
-            console.log(response)
-            handleUpdateToggle()
-        })
+        .then(project => setCurrentUser({...currentUser, projects: UpdateUserObject.patchedProject(project, currentUser)}))
       }
       toggleEditMode()
   }

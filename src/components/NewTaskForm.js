@@ -3,8 +3,9 @@ import UserSettings from '../helpers/UserSettings'
 import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
 import API from '../adapters/API'
+import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
+const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
   const [casualDate, setCasualDate] = useState("")
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
@@ -24,8 +25,8 @@ const NewTaskForm = ({userId, handleUpdateToggle, history}) => {
         .then(task => {
             API.postStep({task_id: task.id, act})
             .then(step => {
-                handleUpdateToggle()
-                history.push("/tasks")})
+              setCurrentUser({...currentUser, projects: UpdateUserObject.postedStep(step, currentUser)})
+              history.push("/tasks")})
         })
     })
   }

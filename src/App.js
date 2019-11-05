@@ -134,7 +134,7 @@ const App = props => {
                 currentUser ? (
                   <HotTask
                     task={mostUrgentTask()}
-                    {...{ ...routerProps, handleUpdateToggle }}
+                    {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
                   <StallingComponent />
@@ -148,7 +148,7 @@ const App = props => {
                 currentUser ? (
                   <SelectedTask
                     tasks={orderedTasks()}
-                    {...{ ...routerProps, handleUpdateToggle }}
+                    {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
                   <StallingComponent />
@@ -163,7 +163,7 @@ const App = props => {
                 <EditTaskForm
                   projects={currentUser.projects}
                   tasks={getTasks(currentUser.projects)}
-                  {...{ ...routerProps, handleUpdateToggle, currentUser, setCurrentUser }}
+                  {...{ ...routerProps, currentUser, setCurrentUser }}
                 />
                 ) : (
                   <StallingComponent />
@@ -176,7 +176,7 @@ const App = props => {
                 currentUser ? (
                   <SelectedProject
                     projects={currentUser.projects}
-                    {...{ ...routerProps, handleUpdateToggle }}
+                    {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
                   <StallingComponent />
@@ -190,7 +190,7 @@ const App = props => {
                 currentUser ? (
                   <NewTaskForm
                     userId={currentUser.id}
-                    {...{ ...routerProps, handleUpdateToggle }}
+                    {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
                   <StallingComponent />
@@ -204,7 +204,7 @@ const App = props => {
                 currentUser ? (
                   <TaskList
                     tasks={orderedTasks()}
-                    {...{ handleUpdateToggle, routerProps }}
+                    {...{ setCurrentUser, currentUser, routerProps }}
                   />
                 ) : (
                   <StallingComponent />
@@ -218,7 +218,7 @@ const App = props => {
                 currentUser ? (
                   <ProjectList
                     projects={orderedProjects()}
-                    {...{ handleUpdateToggle, routerProps }}
+                    {...{ routerProps }}
                   />
                 ) : (
                   <StallingComponent />

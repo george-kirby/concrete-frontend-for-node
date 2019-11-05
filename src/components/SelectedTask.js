@@ -3,13 +3,14 @@ import React from "react"
 import { useParams, Link } from 'react-router-dom'
 import API from '../adapters/API'
 import StallingComponent from './StallingComponent'
+import UpdateUserObject from '../helpers/UpdateUserObject'
 
-const SelectedTask = ({tasks, handleUpdateToggle, history }) => {
+const SelectedTask = ({tasks, setCurrentUser, currentUser, history }) => {
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
         API.patchStep(stepId, {completed: true})
-        handleUpdateToggle()
+        .then(step => setCurrentUser({...currentUser, projects: UpdateUserObject.patchedStep(step, currentUser)}))
     }
 
     const handleEditClick = () => {

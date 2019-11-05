@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import "../stylesheets/ProjectCard.css"
 import Sorting from "../helpers/Sorting"
 
-const ProjectCard = ({ project, handleUpdateToggle }) => {
+const ProjectCard = ({ project }) => {
   const history = useHistory()
 
   const progress =
