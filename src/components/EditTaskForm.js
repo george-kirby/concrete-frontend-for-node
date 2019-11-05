@@ -111,6 +111,14 @@ const EditTaskForm = ({tasks, projects, handleUpdateToggle, history, match}) => 
     }
   }
   
+  const handleDestroyTask = e => {
+    window.alert("Are you sure you want to delete this task?")
+    API.destroyTask(task.id)
+    .then(response => {
+      handleUpdateToggle()
+    })
+  }
+  
   const handleDestroyStep = (e, stepId) => {
     API.destroyStep(stepId)
     .then(response => {
@@ -154,6 +162,7 @@ const EditTaskForm = ({tasks, projects, handleUpdateToggle, history, match}) => 
         <br/>
         <input type="submit" value="Save changes"/>
       </form>
+      <button onClick={handleDestroyTask}>Delete Task</button>
     </div>
   )
 }

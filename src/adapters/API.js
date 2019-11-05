@@ -93,6 +93,12 @@ const patchTask = (taskId, taskData) => {
   })
   .then(resp => resp.json())
 }
+const destroyTask = taskId => {
+  return fetch(TASKS_URL+taskId, {
+    method: "DELETE",
+    headers: jsonHeaders()
+  })
+}
 
 const postStep = stepData => {
   return fetch(STEPS_URL, {
@@ -119,4 +125,4 @@ const destroyStep = stepId => {
   })
 }
 
-export default { getUser, login, logout, validateUser, postProject, patchProject, postTask, patchTask, postStep, patchStep, destroyStep }
+export default { getUser, login, logout, validateUser, postProject, patchProject, postTask, patchTask, destroyTask, postStep, patchStep, destroyStep }
