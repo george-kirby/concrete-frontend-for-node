@@ -13,7 +13,6 @@ import ErrorBoundary from "./components/ErrorBoundary"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
-import RouteTest from "./components/RouteTest"
 import HotTask from "./components/HotTask"
 import SelectedTask from "./components/SelectedTask"
 import SelectedProject from "./components/SelectedProject"
@@ -26,12 +25,9 @@ import ProjectList from "./containers/ProjectList"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [updateToggle, setUpdateToggle] = useState(false)
 
   useEffect(() => {
-    // console.log("validate user effect was called")
     API.validateUser().then(user => {
-      // console.log(user)
       if (user.errors) {
         window.alert(user.errors)
       } else if (user.error) {
@@ -40,34 +36,7 @@ const App = props => {
         setCurrentUser(user)
       }
     })
-  }, [updateToggle])
-
-  // triggered by new task/project creation
-  // -> calls validateUser again, so currentUser is updated to match db
-  // probably a better way to do this
-  const handleUpdateToggle = () => {
-    setUpdateToggle(!updateToggle)
-  }
-
-  // uncomment this later, when improving routes
-  // (currently just changes url, with no practical effect)
-
-  // useEffect(() => {
-  //   if (registerIntention) {props.history.push("/signup")
-  //     } else {
-  //       props.history.push("/login")
-  //     }
-  //   }, [registerIntention]);
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     // props.history.push("/hot")
-  //     // ^ disabled for testing
-  //     props.history.push("/tasks")
-  //   } else {
-  //     props.history.push("/")
-  //   }
-  // }, [currentUser])
+  }, [])
 
   const handleLogin = user => {
     if (user.errors) {
@@ -87,7 +56,6 @@ const App = props => {
         tasks = [...tasks, task]
       })
     })
-    // console.log(tasks)
     return tasks
   }
 
@@ -95,7 +63,6 @@ const App = props => {
     Sorting.incompleteTasks(getTasks(currentUser.projects))
 
   const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
-  //   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
 
   const nonEmptyProjects = () =>
     currentUser.projects.filter(project => project.title !== "")
