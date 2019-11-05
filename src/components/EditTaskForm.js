@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import UserSettings from "../helpers/UserSettings"
 // import PrepData from "../helpers/PrepData"
 import Sorting from "../helpers/Sorting"
+import UpdateUserObject from "../helpers/UpdateUserObject"
 import API from "../adapters/API"
 import "../stylesheets/Form.css"
 import { Button } from "semantic-ui-react"
@@ -111,18 +112,8 @@ const EditTaskForm = ({
 
   const patchSteps = steps => {
     steps.forEach(step => {
-      API.patchStep(step.id, { act: step.act }).then(updatedStep => {
-      let newProjects = [...currentUser.projects]
-      let projectIndex = newProjects.findIndex(p => p.id === updatedStep.task.project.id)
-      let newTasks = [...newProjects[projectIndex].tasks]
-      let taskIndex = newTasks.findIndex(t => t.id === updatedStep.task.id)
-      let newSteps = [...newTasks[taskIndex].steps]
-      let stepIndex = newSteps.findIndex(s => s.id === updatedStep.id)
-
-      newSteps[stepIndex] = updatedStep
-      newTasks[taskIndex].steps = newSteps
-      newProjects[projectIndex].tasks = newTasks
-        setCurrentUser({...currentUser, projects: newProjects})
+      API.patchStep(step.id, { act: step.act }).then(responseStep => {
+        setCurrentUser({...currentUser, projects: UpdateUserObject.updateStep(responseStep, currentUser)})
       })
     })
   }
