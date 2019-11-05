@@ -116,6 +116,7 @@ const EditTaskForm = ({tasks, projects, handleUpdateToggle, history, match}) => 
     API.destroyTask(task.id)
     .then(response => {
       handleUpdateToggle()
+      history.push("/tasks")
     })
   }
   
