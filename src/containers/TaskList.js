@@ -6,7 +6,7 @@ import '../stylesheets/List.css'
 const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
   return (
     <div>
-      <Link to="/tasks">Tasks</Link> | <Link to="/projects">Projects</Link>
+      <Link to="/tasks">TASKS</Link> | <Link to="/projects">Projects</Link>
       <div className="core-container">
         {tasks.length > 0 ? tasks.map(task => {
           return (
