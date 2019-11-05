@@ -15,6 +15,17 @@ const orderTasks = tasks => {
     })
 }
 
+const orderProjects = projects => {
+    return projects.sort((a, b) => {
+        let initialReturn = jsDate(orderTasks(a.tasks)[0].actual_time) - jsDate(orderTasks(b.tasks)[0].actual_time)
+        if (initialReturn !== 0) {
+            return initialReturn
+        } else {
+            return orderTasks(a.tasks)[0].position_at_time - orderTasks(b.tasks)[0].position_at_time
+        }
+    })
+}
+
 const jsDate = dateFromDb => {
     return new Date(dateFromDb)
 }
@@ -27,4 +38,4 @@ const getStringTime = actualTime => {
     return actualTime.slice(11, 16)
 }
 
-export default { incompleteTasks, isComplete, orderTasks, jsDate, getStringDate, getStringTime }
+export default { incompleteTasks, isComplete, orderTasks, orderProjects, jsDate, getStringDate, getStringTime }
