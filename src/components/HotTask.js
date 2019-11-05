@@ -1,5 +1,5 @@
 import React from "react"
-// import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import API from '../adapters/API'
 
 const HotTask = ({task, handleUpdateToggle, history }) => {
@@ -18,6 +18,9 @@ const HotTask = ({task, handleUpdateToggle, history }) => {
     <div> {task ?
       (<div>
         <h1>{task.title}</h1>
+        {task.project.title !== "" && (<p>
+          📌 <Link to={`/projects/${task.project.id}`}>{task.project.title}</Link>
+          </p>)}
         <p>
           ❗this {task.display_time}, {task.cue}
         </p>

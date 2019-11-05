@@ -29,7 +29,7 @@ const SelectedProject = ({projects, history, handleUpdateToggle}) => {
 
     const taskActions = (task) => {
         return <div className="task-actions">
-                <button onClick={() => history.push(`tasks/${task.id}`)} className="details-button">👁️</button>
+                <button onClick={() => history.push(`/tasks/${task.id}`)} className="details-button">👁️</button>
                 <button onClick={() => handleCompleteTaskClick(task)} className="completed-button">✅</button>
             </div>
     }

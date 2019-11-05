@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import UserSettings from '../helpers/UserSettings'
-import "../stylesheets/NewTaskForm.css"
+import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
 import API from '../adapters/API'
 

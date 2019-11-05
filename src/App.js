@@ -6,10 +6,11 @@ import {
   Route,
   Link,
   withRouter,
-  Redirect, 
+  Redirect,
   useParams
 } from "react-router-dom"
 import Main from "./containers/Main"
+import ErrorBoundary from "./components/ErrorBoundary"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
@@ -103,8 +104,9 @@ const App = props => {
     return tasks
   }
 
-  const incompleteTasks = () => Sorting.incompleteTasks(getTasks(currentUser.projects))
- 
+  const incompleteTasks = () =>
+    Sorting.incompleteTasks(getTasks(currentUser.projects))
+
   const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
   //   const orderedTasks = () => Sorting.orderTasks(getTasks(currentUser.projects))
 
@@ -122,63 +124,137 @@ const App = props => {
   return (
     <div>
       <div>
-        <Switch>
-          <Route exact path="/login" component={routerProps => <LoginForm {...{handleLogin, routerProps}} />}/>
-          <Route exact path="/signup" component={routerProps => <SignUpForm {...{handleLogin, routerProps}} />}/>
-          <Route
+        <ErrorBoundary>
+          <Switch>
+            <Route
+              exact
+              path="/login"
+              component={routerProps => (
+                <LoginForm {...{ handleLogin, routerProps }} />
+              )}
+            />
+            <Route
+              exact
+              path="/signup"
+              component={routerProps => (
+                <SignUpForm {...{ handleLogin, routerProps }} />
+              )}
+            />
+            <Route
               exact
               path="/hot"
-              component={routerProps => currentUser ? (
-                <HotTask task={mostUrgentTask()} {...{...routerProps, handleUpdateToggle}} />
-              ) : <StallingComponent/>}
+              component={routerProps =>
+                currentUser ? (
+                  <HotTask
+                    task={mostUrgentTask()}
+                    {...{ ...routerProps, handleUpdateToggle }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
             />
-          <Route
+            <Route
               exact
               path="/tasks/:id"
-              component={routerProps => currentUser ? (
-                <SelectedTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
-              ) : <StallingComponent/>}
+              component={routerProps =>
+                currentUser ? (
+                  <SelectedTask
+                    tasks={orderedTasks()}
+                    {...{ ...routerProps, handleUpdateToggle }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
             />
-            <Route exact path="/tasks/:id/edit" component={routerProps => <EditTaskForm projects={currentUser.projects} tasks={getTasks(currentUser.projects)} {...{...routerProps}}/>}/>
-          <Route
+            <Route
+              exact
+              path="/tasks/:id/edit"
+              component={routerProps => 
+                currentUser ? (
+                <EditTaskForm
+                  projects={currentUser.projects}
+                  tasks={getTasks(currentUser.projects)}
+                  {...{ ...routerProps, handleUpdateToggle }}
+                />
+                ) : (
+                  <StallingComponent />
+              )}
+            />
+            <Route
               exact
               path="/projects/:id"
-              component={routerProps => currentUser ? (
-                <SelectedProject projects={currentUser.projects} {...{...routerProps, handleUpdateToggle}} />
-              ) : <StallingComponent/>}
+              component={routerProps =>
+                currentUser ? (
+                  <SelectedProject
+                    projects={currentUser.projects}
+                    {...{ ...routerProps, handleUpdateToggle }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
             />
-          <Route
+            <Route
               exact
               path="/new"
-              component={routerProps => currentUser ? (
-                <NewTaskForm
-                userId={currentUser.id}
-                {...{...routerProps, handleUpdateToggle }} />
-              ) : <StallingComponent/>}
+              component={routerProps =>
+                currentUser ? (
+                  <NewTaskForm
+                    userId={currentUser.id}
+                    {...{ ...routerProps, handleUpdateToggle }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
             />
-          <Route exact path="/tasks" component={routerProps => currentUser ? (<TaskList
-            tasks={orderedTasks()}
-            {...{ handleUpdateToggle, routerProps }}
-          />) : <StallingComponent/>} />
-          <Route exact path="/projects" component={routerProps => currentUser ? (<ProjectList
-            projects={orderedProjects()}
-            {...{ handleUpdateToggle, routerProps }}
-          />) : <StallingComponent/>} />
-        </Switch>
+            <Route
+              exact
+              path="/tasks"
+              component={routerProps =>
+                currentUser ? (
+                  <TaskList
+                    tasks={orderedTasks()}
+                    {...{ handleUpdateToggle, routerProps }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/projects"
+              component={routerProps =>
+                currentUser ? (
+                  <ProjectList
+                    projects={orderedProjects()}
+                    {...{ handleUpdateToggle, routerProps }}
+                  />
+                ) : (
+                  <StallingComponent />
+                )
+              }
+            />
+          </Switch>
+        </ErrorBoundary>
       </div>
       <br />
-      {currentUser && <nav className="navbar">
-        <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
-        {" | "}
-        <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
-        {" | "}
-        <Link to="/login" onClick={handleLogout}>
-          LOG OUT
-        </Link>
-      </nav>}
+      {currentUser && (
+        <nav className="navbar">
+          <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
+          {" | "}
+          <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
+          {" | "}
+          <Link to="/login" onClick={handleLogout}>
+            LOG OUT
+          </Link>
+        </nav>
+      )}
     </div>
   )
-
 }
 
 export default App

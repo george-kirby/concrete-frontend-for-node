@@ -5,3 +5,7 @@
 .hidden {
     visibility: hidden;
 }
+
+.green {
+    background-color: lightgreen;
+}

@@ -67,9 +67,27 @@ const postProject = projectData => {
   .then(resp => resp.json())
 }
 
+const patchProject = (projectId, projectData) => {
+  return fetch(PROJECTS_URL+projectId, {
+    method: "PATCH",
+    headers: jsonHeaders(), 
+    body: JSON.stringify({project: projectData})
+  })
+  .then(resp => resp.json())
+}
+
 const postTask = taskData => {
   return fetch(TASKS_URL, {
     method: "POST",
+    headers: jsonHeaders(), 
+    body: JSON.stringify({task: taskData})
+  })
+  .then(resp => resp.json())
+}
+
+const patchTask = (taskId, taskData) => {
+  return fetch(TASKS_URL+taskId, {
+    method: "PATCH",
     headers: jsonHeaders(), 
     body: JSON.stringify({task: taskData})
   })
@@ -94,4 +112,11 @@ const patchStep = (stepId, stepData) => {
   .then(resp => resp.json())
 }
 
-export default { getUser, login, logout, validateUser, postProject, postTask, postStep, patchStep }
+const destroyStep = stepId => {
+  return fetch(STEPS_URL+stepId, {
+    method: "DELETE",
+    headers: jsonHeaders()
+  })
+}
+
+export default { getUser, login, logout, validateUser, postProject, patchProject, postTask, patchTask, postStep, patchStep, destroyStep }

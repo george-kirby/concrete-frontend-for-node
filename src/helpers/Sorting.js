@@ -19,4 +19,12 @@ const jsDate = dateFromDb => {
     return new Date(dateFromDb)
 }
 
-export default { incompleteTasks, isComplete, orderTasks, jsDate }
+const getStringDate = actualTime => {
+    return actualTime.slice(0, 10)
+}
+
+const getStringTime = actualTime => {
+    return actualTime.slice(11, 16)
+}
+
+export default { incompleteTasks, isComplete, orderTasks, jsDate, getStringDate, getStringTime }
