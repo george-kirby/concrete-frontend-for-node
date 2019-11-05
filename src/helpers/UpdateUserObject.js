@@ -87,4 +87,8 @@ const destroyedProject = (givenProject, currentUser) => {
     return newProjects
 }
 
-export default { patchedStep, postedStep, destroyedStep, patchedTask, postedTask, destroyedTask, patchedProject, postedProject, destroyedProject }
+const postedProjectTaskStep = (givenProject, givenTask, givenStep, currentUser) => {
+    return [...currentUser.projects, {...givenProject, tasks: [{...givenTask, steps: [givenStep]}]}]
+}
+
+export default { patchedStep, postedStep, destroyedStep, patchedTask, postedTask, destroyedTask, patchedProject, postedProject, destroyedProject, postedProjectTaskStep }

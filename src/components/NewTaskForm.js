@@ -21,11 +21,13 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
     const [actual_time, display_time] = prepareTimeData()
     API.postProject({title: projectTitle, user_id: userId})
     .then(project => {
-        API.postTask({title, cue, actual_time, display_time, project_id: project.id})
+      // setCurrentUser({...currentUser, projects: UpdateUserObject.postedProject(project, currentUser)})
+      API.postTask({title, cue, actual_time, display_time, project_id: project.id})
         .then(task => {
+          // setCurrentUser({...currentUser, projects: UpdateUserObject.postedTask(task, currentUser)})
             API.postStep({task_id: task.id, act})
             .then(step => {
-              setCurrentUser({...currentUser, projects: UpdateUserObject.postedStep(step, currentUser)})
+              setCurrentUser({...currentUser, projects: UpdateUserObject.postedProjectTaskStep(project, task, step, currentUser)})
               history.push("/tasks")})
         })
     })
