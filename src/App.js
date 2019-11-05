@@ -21,6 +21,7 @@ import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
 import NewTaskForm from "./components/NewTaskForm"
+import EditTaskForm from "./components/EditTaskForm"
 import ProjectList from "./containers/ProjectList"
 
 const App = props => {
@@ -138,6 +139,7 @@ const App = props => {
                 <SelectedTask tasks={orderedTasks()} {...{...routerProps, handleUpdateToggle}} />
               ) : <StallingComponent/>}
             />
+            <Route exact path="/tasks/:id/edit" component={routerProps => <EditTaskForm projects={currentUser.projects} tasks={getTasks(currentUser.projects)} {...{...routerProps}}/>}/>
           <Route
               exact
               path="/projects/:id"
@@ -180,10 +182,3 @@ const App = props => {
 }
 
 export default App
-
-{/* <div className="App">
-      {currentUser ? (
-        <Main {...{ currentUser, setCurrentUser, handleUpdateToggle }} />
-      ) : registerIntention ? (
-        <SignUpForm {...{ handleLogin, toggleRegisterIntention }} />
-      ) : <LoginForm {...{ handleLogin, toggleRegisterIntention }}/>} */}
