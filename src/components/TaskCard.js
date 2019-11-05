@@ -21,7 +21,7 @@ const TaskCard = ({task, setCurrentUser, currentUser}) => {
     }
 
     return (
-        <div className="task-card">
+        <div>
             <div className="task-details">
                 <h4>{task.title}</h4>
                 <p>{task.project.title !== "" && <span>📌 <Link to={`/projects/${task.project.id}`}>{task.project.title}</Link> </span>}</p>
