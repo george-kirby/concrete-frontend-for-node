@@ -66,8 +66,8 @@ const App = props => {
 
   const titledProjects = () =>
     currentUser.projects.filter(project => project.title !== "")
-  const orderedProjects = () => titledProjects() // ... to be written, in Sorting
-  // const orderedProjects = () => Sorting.orderProjects(titledProjects())
+  // const orderedProjects = () => titledProjects() // ... to be written, in Sorting
+  const orderedProjects = () => Sorting.orderProjects(titledProjects()) // breaks if a project has no tasks
 
   const mostUrgentTask = () => orderedTasks()[0]
 
