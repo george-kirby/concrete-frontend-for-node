@@ -9,7 +9,7 @@ const ProjectCard = ({ project }) => {
   const progress =
     ((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) /
       project.tasks.length) *
-    100
+    99
 
   return (
     <div
@@ -18,7 +18,7 @@ const ProjectCard = ({ project }) => {
     >
       <h4>📌 {project.title}</h4>
       <div id="progress-bar-container">
-        <div id="progress-bar" style={{ width: `${progress - 1}%` }}></div>
+        <div id="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
       <br />
       {project.tasks.map(task => {

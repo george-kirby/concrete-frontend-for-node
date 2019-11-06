@@ -13,7 +13,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
     setProgress(
       ((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) /
         project.tasks.length) *
-        100
+        99
     )
     setProjectTitle(project.title)
   }, [])
@@ -87,7 +87,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
       )}
 
       <div id="progress-bar-container">
-        <div id="progress-bar" style={{ width: `${progress - 1}%` }}></div>
+        <div id="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
       <br />
       {urgentTask ? (
