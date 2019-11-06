@@ -8,7 +8,7 @@ import "../stylesheets/Form.css"
 import { Button } from "semantic-ui-react"
 
 const EditTaskForm = ({
-  tasks,
+  task,
   projects,
   history,
   match,
@@ -23,8 +23,6 @@ const EditTaskForm = ({
   const [projectId, setProjectId] = useState("")
   const [projectTitle, setProjectTitle] = useState("")
   const [steps, setSteps] = useState([])
-
-  const task = tasks.find(task => task.id === parseInt(match.params.id))
 
   const titledOtherProjects = projects.filter(
     project => project.title !== "" && project.id !== task.project.id

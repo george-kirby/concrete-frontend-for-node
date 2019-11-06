@@ -145,7 +145,11 @@ const App = props => {
                   <EditTaskForm
                     projects={currentUser.projects}
                     tasks={getTasks(currentUser.projects)}
-                    {...{ ...routerProps, currentUser, setCurrentUser }}
+                    task={findFromParams(
+                      getTasks(currentUser.projects),
+                      routerProps.match.params
+                    )}
+                    {...{ ...currentUser, setCurrentUser }}
                   />
                 ) : (
                   <StallingComponent />
