@@ -21,7 +21,7 @@ const ProjectCard = ({ project }) => {
         <div id="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
       <br />
-      {project.tasks.map(task => {
+      {Sorting.incompleteTasks(project.tasks).map(task => {
         return (
           <div key={task.id}>
             {task.title} 🕑 {Sorting.displayDateTime(task)}
