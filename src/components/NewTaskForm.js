@@ -134,7 +134,7 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
           name="title"
           type="text"
           placeholder="Task name..."
-          // required
+          required
           onChange={handleTitleChange}
         />
         <br />
@@ -145,7 +145,7 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
             name="step_act"
             type="text"
             placeholder={`eg sit at desk with laptop`}
-            // required
+            required
             onChange={handleActChange}
           />
         </label>
@@ -214,7 +214,7 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
             name="cue"
             type="text"
             placeholder="eg after dinner"
-            // required
+            required
             onChange={handleCueChange}
           />
           {/* ^ dynamically set placeholder based on time choice eg morning -> after breakfast, evening -> after dinner */}
