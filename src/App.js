@@ -49,6 +49,16 @@ const App = props => {
     }
   }
 
+  const handleLogout = () => {
+    API.logout()
+    setCurrentUser(null)
+  }
+
+  const findFromParams = (array, params) => {
+    return array.find(item => item.id === parseInt(params.id))
+  }
+
+  // filter/sort functions for producing props to pass to components
   const getTasks = projects => {
     let tasks = []
     projects.forEach(project => {
@@ -59,28 +69,23 @@ const App = props => {
     return tasks
   }
 
-  const incompleteTasks = () =>
-    Sorting.incompleteTasks(getTasks(currentUser.projects))
+  const titledProjects = projects =>
+    projects.filter(project => project.title !== "")
 
-  const orderedTasks = () => Sorting.orderTasks(incompleteTasks())
+  const incompleteProjects = projects =>
+    projects.filter(
+      project => Sorting.incompleteTasks(project.tasks).length > 0
+    )
 
-  const titledProjects = () =>
-    currentUser.projects.filter(project => project.title !== "")
-
-  const incompleteTitledProjects = () => titledProjects().filter(project => Sorting.incompleteTasks(project.tasks).length > 0)
+  // arrays and object to be passed to components
+  const orderedTasks = () =>
+    Sorting.orderTasks(Sorting.incompleteTasks(getTasks(currentUser.projects)))
   // const orderedProjects = () => titledProjects() // ... to be written, in Sorting
-  const orderedProjects = () => Sorting.orderProjects(incompleteTitledProjects()) // breaks if a project has no tasks
-
+  const orderedProjects = () =>
+    Sorting.orderProjects(
+      incompleteProjects(titledProjects(currentUser.projects))
+    ) // breaks if a project has no tasks -> corrected through front end validation
   const mostUrgentTask = () => orderedTasks()[0]
-
-  const handleLogout = () => {
-    API.logout()
-    setCurrentUser(null)
-  }
-
-  const findFromParams = (array, params) => {
-    return array.find(item => item.id === parseInt(params.id))
-  }
 
   return (
     <div>
@@ -121,7 +126,10 @@ const App = props => {
               component={routerProps =>
                 currentUser ? (
                   <SelectedTask
-                    task={findFromParams(orderedTasks(), routerProps.match.params)}
+                    task={findFromParams(
+                      orderedTasks(),
+                      routerProps.match.params
+                    )}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
@@ -132,16 +140,17 @@ const App = props => {
             <Route
               exact
               path="/tasks/:id/edit"
-              component={routerProps => 
+              component={routerProps =>
                 currentUser ? (
-                <EditTaskForm
-                  projects={currentUser.projects}
-                  tasks={getTasks(currentUser.projects)}
-                  {...{ ...routerProps, currentUser, setCurrentUser }}
-                />
+                  <EditTaskForm
+                    projects={currentUser.projects}
+                    tasks={getTasks(currentUser.projects)}
+                    {...{ ...routerProps, currentUser, setCurrentUser }}
+                  />
                 ) : (
                   <StallingComponent />
-              )}
+                )
+              }
             />
             <Route
               exact
@@ -149,7 +158,10 @@ const App = props => {
               component={routerProps =>
                 currentUser ? (
                   <SelectedProject
-                    project={findFromParams(currentUser.projects, routerProps.match.params) }
+                    project={findFromParams(
+                      currentUser.projects,
+                      routerProps.match.params
+                    )}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                 ) : (
