@@ -230,7 +230,7 @@ const EditTaskForm = ({
         </label>
         <br />
         <label>
-          Date: <input type="date" value={date} onChange={handleDateChange} required />
+          Date: <input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
         </label>
         <br />
         {/* <button>Today</button>
