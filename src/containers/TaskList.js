@@ -19,7 +19,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
           </div>
           {otherTasks.map(task => {
             return (
-              <div className="task-card"><TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser }} /></div>
+              <div className="task-card" key={task.id} ><TaskCard task={task} {...{ setCurrentUser, currentUser }} /></div>
             )
           })}
         </div> : "You have no outstanding tasks - well done!"}

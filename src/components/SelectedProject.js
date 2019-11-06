@@ -104,7 +104,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
       )}
       {otherIncompleteTasks.map(task => {
         return (
-          <div className="task-card">
+          <div className="task-card" key={task.id}>
             <h5>{task.title}</h5>
             <p>
               🕑 this {task.display_time}, {task.cue}
