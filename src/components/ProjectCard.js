@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => {
       {project.tasks.map(task => {
         return (
           <div key={task.id}>
-            {task.title} 🕑 {task.actual_time}
+            {task.title} 🕑 {Sorting.displayDateTime(task)}
           </div>
         )
       })}

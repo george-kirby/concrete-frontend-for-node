@@ -94,7 +94,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
         <div id="most-urgent-task-card">
           <h4>{urgentTask.title}</h4>
           <p>
-            ❗this {urgentTask.display_time}, {urgentTask.cue}
+            ❗{Sorting.displayDateTime(urgentTask)} - {urgentTask.cue}
           </p>
           <p>👉 {urgentTask.steps[0].act}</p>
           {taskActions(urgentTask)}
@@ -107,7 +107,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
           <div className="task-card" key={task.id}>
             <h5>{task.title}</h5>
             <p>
-              🕑 this {task.display_time}, {task.cue}
+              🕑 {Sorting.displayDateTime(task)} - {task.cue}
             </p>
             {taskActions(task)}
           </div>
