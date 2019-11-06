@@ -38,4 +38,19 @@ const getStringTime = actualTime => {
     return actualTime.slice(11, 16)
 }
 
-export default { incompleteTasks, isComplete, orderTasks, orderProjects, getJsDate, getStringDate, getStringTime }
+const displayDateTime = task => {
+    let jsDate = getJsDate(task.actual_time)
+    let today = new Date()
+    let tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1)
+    if (getStringDate(jsDate.toISOString()) === getStringDate(today.toISOString())) {
+        return `today - ${task.display_time}`
+    } else if (getStringDate(jsDate.toISOString()) === getStringDate(tomorrow.toISOString())) {
+        return `tomorrow - ${task.display_time}`
+    } else {
+        return `${jsDate.toString().slice(0, 10)} - ${task.display_time}`
+    }
+}
+
+
+export default { incompleteTasks, isComplete, orderTasks, orderProjects, getJsDate, getStringDate, getStringTime, displayDateTime }

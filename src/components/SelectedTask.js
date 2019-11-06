@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import API from '../adapters/API'
 import StallingComponent from './StallingComponent'
 import UpdateUserObject from '../helpers/UpdateUserObject'
+import Sorting from '../helpers/Sorting'
 
 const SelectedTask = ({task, setCurrentUser, currentUser, history }) => {
 
@@ -26,7 +27,7 @@ const SelectedTask = ({task, setCurrentUser, currentUser, history }) => {
           📌 <Link to={`/projects/${task.project.id}`}>{task.project.title}</Link>
           </p>)}
           <p>
-            ❗this {task.display_time}, {task.cue}
+            ❗{Sorting.displayDateTime(task)} - {task.cue}
           </p>
           {task.steps.filter(step => !step.completed).map(step => (
             <p key={`step-${step.id}`}>
