@@ -82,7 +82,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
       ) : (
         <div>
           <h1>{project.title} </h1>
-          <button onClick={toggleEditMode}>Edit</button>
+          <button onClick={toggleEditMode}>Edit Title</button>
         </div>
       )}
 

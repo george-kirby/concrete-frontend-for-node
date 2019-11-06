@@ -9,7 +9,6 @@ import Sorting from '../helpers/Sorting'
 const SelectedTask = ({task, setCurrentUser, currentUser, history }) => {
 
     const handleCompleteStepClick = stepId => {
-        console.log(`step ${stepId} complete!`)
         API.patchStep(stepId, {completed: true})
         .then(step => setCurrentUser({...currentUser, projects: UpdateUserObject.patchedStep(step, currentUser)}))
     }
