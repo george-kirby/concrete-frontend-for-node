@@ -1,5 +1,6 @@
 import React from "react"
 import TaskCard from "../components/TaskCard"
+import HotTaskCard from "../components/HotTaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/List.css'
 
@@ -15,7 +16,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
         {urgentTask ? 
         <div>
           <div id="most-urgent-task-card">
-          <TaskCard key={urgentTask.id} task={urgentTask} {...{ setCurrentUser, currentUser }} />
+          <HotTaskCard key={urgentTask.id} task={urgentTask} {...{ setCurrentUser, currentUser }} />
           </div>
           {otherTasks.map(task => {
             return (

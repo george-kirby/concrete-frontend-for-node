@@ -5,7 +5,7 @@ import API from '../adapters/API'
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from '../helpers/Sorting'
 
-const TaskCard = ({task, setCurrentUser, currentUser}) => {
+const HotTaskCard = ({task, setCurrentUser, currentUser}) => {
 
     const history = useHistory()
 
@@ -26,7 +26,8 @@ const TaskCard = ({task, setCurrentUser, currentUser}) => {
             <div className="task-details">
                 <h4>{task.title}</h4>
                 {/* <p>{task.project.title !== "" && <span>📌 <Link to={`/projects/${task.project.id}`}>{task.project.title}</Link> </span>}</p> */}
-                <p>🕑 {Sorting.displayDateTime(task)} - {task.cue}</p>
+                <p>❗ {Sorting.displayDateTime(task)} - {task.cue}</p>
+                <p>👉 {task.steps[0].act}</p>
             </div>
             <div className="task-actions">
                 {/* <button onClick={() => history.push(`tasks/${task.id}`)} className="details-button">👁️</button>
@@ -36,4 +37,4 @@ const TaskCard = ({task, setCurrentUser, currentUser}) => {
 );
 }
 
-export default TaskCard;
+export default HotTaskCard;
