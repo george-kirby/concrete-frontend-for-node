@@ -6,7 +6,7 @@ const isComplete = task => task.steps.reduce((acc, step) => acc && step.complete
 
 const orderTasks = tasks => {
     return tasks.sort((a, b) => {
-        let initialReturn = jsDate(a.actual_time) - jsDate(b.actual_time)
+        let initialReturn = getJsDate(a.actual_time) - getJsDate(b.actual_time)
         if (initialReturn !== 0) {
             return initialReturn
         } else {
@@ -17,7 +17,7 @@ const orderTasks = tasks => {
 
 const orderProjects = projects => {
     return projects.sort((a, b) => {
-        let initialReturn = jsDate(orderTasks(a.tasks)[0].actual_time) - jsDate(orderTasks(b.tasks)[0].actual_time)
+        let initialReturn = getJsDate(orderTasks(a.tasks)[0].actual_time) - getJsDate(orderTasks(b.tasks)[0].actual_time)
         if (initialReturn !== 0) {
             return initialReturn
         } else {
@@ -26,7 +26,7 @@ const orderProjects = projects => {
     })
 }
 
-const jsDate = dateFromDb => {
+const getJsDate = dateFromDb => {
     return new Date(dateFromDb)
 }
 
@@ -38,4 +38,4 @@ const getStringTime = actualTime => {
     return actualTime.slice(11, 16)
 }
 
-export default { incompleteTasks, isComplete, orderTasks, orderProjects, jsDate, getStringDate, getStringTime }
+export default { incompleteTasks, isComplete, orderTasks, orderProjects, getJsDate, getStringDate, getStringTime }
