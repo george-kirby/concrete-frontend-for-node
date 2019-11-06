@@ -74,8 +74,8 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
   return (
     <div>
       {editMode ? (
-        <form onChange={handleProjectTitleChange} onSubmit={handleEditTitleSubmit}>
-          <input type="text" value={projectTitle} />
+        <form onSubmit={handleEditTitleSubmit}>
+          <input type="text" value={projectTitle} onChange={handleProjectTitleChange} />
           <input type="submit" value="Save"/>
           <button onClick={handleEditCancel}>Cancel</button>
         </form>

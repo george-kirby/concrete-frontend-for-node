@@ -143,7 +143,6 @@ const EditTaskForm = ({
   }
 
   const handleStepEdit = (e, stepId) => {
-    console.log(`step ${stepId}'s act changed to ${e.target.value}`)
     let indexToUpdate = steps.indexOf(steps.find(step => step.id === stepId))
     let newSteps = [...steps]
     newSteps[indexToUpdate] = { id: stepId, act: e.target.value }
@@ -153,7 +152,6 @@ const EditTaskForm = ({
   const handleNewStep = e => {
     e.preventDefault()
     if (e.target.value !== "") {
-      console.log(e.target.value)
       API.postStep({ act: e.target.value, task_id: task.id }).then(step => {
         setCurrentUser({
           ...currentUser,
@@ -205,7 +203,7 @@ const EditTaskForm = ({
       <form onSubmit={handleSubmit}>
         <label>
           Task Name:{" "}
-          <input type="text" value={title} onChange={handleTitleChange} />
+          <input type="text" value={title} onChange={handleTitleChange} required/>
         </label>
         <br />
         <label>
@@ -232,7 +230,7 @@ const EditTaskForm = ({
         </label>
         <br />
         <label>
-          Date: <input type="date" value={date} onChange={handleDateChange} />
+          Date: <input type="date" value={date} onChange={handleDateChange} required />
         </label>
         <br />
         {/* <button>Today</button>
@@ -244,6 +242,7 @@ const EditTaskForm = ({
             type="time"
             value={preciseTime}
             onChange={handlePreciseTimeChange}
+            required
           />
         </label>
         <br />
@@ -261,7 +260,7 @@ const EditTaskForm = ({
         })}
         <br />
         <label>
-          Cue: <input type="text" value={cue} onChange={handleCueChange} />
+          Cue: <input type="text" value={cue} onChange={handleCueChange} required />
         </label>
         <p>Steps:</p>
         {steps.map((step, index) => {
