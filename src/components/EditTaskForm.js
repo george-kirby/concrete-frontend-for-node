@@ -120,9 +120,18 @@ const EditTaskForm = ({
     } else {
       API.patchTask(task.id, { ...taskData, project_id: projectId }).then(
         task => {
-          setCurrentUser({
+          console.log(task)
+          // setCurrentUser({
+          //   ...currentUser,
+          //   projects: UpdateUserObject.patchedTask(task, currentUser)
+          // })
+          let userAfterRemovingTask = {
             ...currentUser,
-            projects: UpdateUserObject.patchedTask(task, currentUser)
+            projects: UpdateUserObject.destroyedTask(task, currentUser)
+          }
+          setCurrentUser({
+            ...userAfterRemovingTask,
+            projects: UpdateUserObject.postedTask(task, userAfterRemovingTask)
           })
           patchSteps(stepsToPatch)
         }
