@@ -37,10 +37,15 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   const handleCueChange = e => setCue(e.target.value)
 
   const handleStepChange = (e, index) => {
+    e.preventDefault()
     let newSteps = [...steps]
     newSteps[index] = e.target.value
     setSteps(newSteps)
   }
+
+  // const newStepField = () => {
+
+  // }
 
   return (
     <div>
@@ -74,9 +79,12 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
         />
         {steps.slice(1).map((step, index) => {
           return <Form.Input 
+          key={`step-${index + 2}`}
           value={steps.slice(1)[index]}
-          onChange={e => handleStepChange(e, index + 1)}/>
+          onChange={e => handleStepChange(e, index + 1)}
+          placeholder="new step"/>
         })}
+        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)}>Add Step</Form.Button>
         <Form.Button content={editMode ? "Save changes" : "Create task"} />
       </Form>
     </div>
