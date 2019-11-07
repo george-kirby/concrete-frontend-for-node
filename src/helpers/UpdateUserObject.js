@@ -1,15 +1,10 @@
 
 const patchedTask = (responseTask, currentUser) => {
-  let newProjects = [...currentUser.projects]
-  let projectIndex = newProjects.findIndex(
-    p => p.id === responseTask.project.id
-  )
-  let newTasks = [...newProjects[projectIndex].tasks]
+  let newTasks = [...currentUser.tasks]
   let taskIndex = newTasks.findIndex(t => t.id === responseTask.id)
 
   newTasks[taskIndex] = responseTask
-  newProjects[projectIndex].tasks = newTasks
-  return newProjects
+  return newTasks
 }
 
 const postedTask = (responseTask, currentUser) => {

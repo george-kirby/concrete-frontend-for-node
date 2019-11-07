@@ -21,13 +21,16 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   // }
 
   const handleCompleteTaskClick = task => {
-    let newCompleteSteps = [task.complete_steps]
+    let newCompleteSteps = [...task.complete_steps]
     task.incomplete_steps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
     })
-    // setCompleteSteps(newCompleteSteps)
-    API.patchTask(task.id, {complete_steps: `${newCompleteSteps}`, incomplete_steps: "[]", title: "new title"})
-    .then(console.log)
+    console.log(newCompleteSteps)
+    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
+    .then(task => {
+      console.log(task)
+      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+    })
   }
 
   return (
