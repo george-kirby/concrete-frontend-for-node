@@ -8,38 +8,24 @@ import "../stylesheets/Form.css"
 import { Button } from "semantic-ui-react"
 
 const EditTaskForm = ({
-  tasks,
+  task,
   projects,
   history,
-  match,
   currentUser,
   setCurrentUser
 }) => {
-  const [date, setDate] = useState("")
-  const [casualTime, setCasualTime] = useState("morning")
-  const [preciseTime, setPreciseTime] = useState("")
-  const [title, setTitle] = useState("")
-  const [cue, setCue] = useState("")
-  const [projectId, setProjectId] = useState("")
-  const [projectTitle, setProjectTitle] = useState("")
-  const [steps, setSteps] = useState([])
-
-  const task = tasks.find(task => task.id === parseInt(match.params.id))
+  const [date, setDate] = useState(Sorting.getStringDate(task.actual_time))
+  const [casualTime, setCasualTime] = useState(task.display_time)
+  const [preciseTime, setPreciseTime] = useState(Sorting.getStringTime(task.actual_time))
+  const [title, setTitle] = useState(task.title)
+  const [cue, setCue] = useState(task.cue)
+  const [projectId, setProjectId] = useState(task.project.id)
+  const [projectTitle, setProjectTitle] = useState(task.project.title)
+  const [steps, setSteps] = useState(task.steps)
 
   const titledOtherProjects = projects.filter(
     project => project.title !== "" && project.id !== task.project.id
   )
-
-  useEffect(() => {
-    setDate(Sorting.getStringDate(task.actual_time))
-    setCasualTime(task.display_time)
-    setPreciseTime(Sorting.getStringTime(task.actual_time))
-    setTitle(task.title)
-    setCue(task.cue)
-    setProjectId(task.project.id)
-    setProjectTitle(task.project.title)
-    setSteps(task.steps)
-  }, [task])
 
   const handleCasualTimeChange = e => {
     e.preventDefault()
