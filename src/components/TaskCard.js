@@ -34,7 +34,7 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
                   )}{" "}
                   {Sorting.displayDateTime(task)} - {task.cue}
                 </p>
-                {hot && <p><Icon name="hand point right outline"/> {task.steps[0].act}</p>}
+                {hot && <p><Icon name="hand point right outline"/> {task.incomplete_steps[0]}</p>}
             </Grid.Column>
             <Grid.Column className="task-actions" floated='right' width={3}>
               <Icon name="eye" size="large" onClick={() => history.push(`tasks/${task.id}`)} className="details-button"/>
