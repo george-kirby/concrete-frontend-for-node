@@ -90,6 +90,9 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
           onChange={e => handleStepChange(e, index + 1)}
           placeholder={`step ${index + 2}`}/>
         })}
+
+{/* add tags */}
+
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another Step"/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
         {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
