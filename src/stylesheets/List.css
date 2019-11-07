@@ -5,7 +5,7 @@
 
 .task-card {
   border: solid;
-  border-color: black;
+  border-color: rgb(111, 188, 233);
   position: relative;
   border-radius: 1rem;
 }

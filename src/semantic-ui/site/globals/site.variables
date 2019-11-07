@@ -1,0 +1,8 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@primaryColor: #f00905;
+@pageBackground: #000000;
+
+@defaultBorderRadius: 10px;
