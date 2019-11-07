@@ -29,7 +29,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
           <h1>{task.title}</h1>
           {task.tags.length > 0 && (
             <p>
-              <Icon name="pin" />
+              <Icon name="tags" />
               {task.tags}
             </p>
           )}
