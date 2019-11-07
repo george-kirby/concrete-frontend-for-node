@@ -5,4 +5,4 @@
 @primaryColor: #f00905;
 @pageBackground: #ffffff;
 
-@defaultBorderRadius: 10px;
+@defaultBorderRadius: 0px;
