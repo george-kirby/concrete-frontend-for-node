@@ -3,6 +3,6 @@
 *******************************/
 
 @primaryColor: #f00905;
-@pageBackground: #000000;
+@pageBackground: #ffffff;
 
 @defaultBorderRadius: 10px;

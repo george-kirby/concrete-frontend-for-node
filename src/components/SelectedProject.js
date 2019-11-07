@@ -3,6 +3,7 @@ import Sorting from "../helpers/Sorting"
 import "../stylesheets/SelectedProject.css"
 import API from "../adapters/API"
 import UpdateUserObject from '../helpers/UpdateUserObject'
+import { Progress } from 'semantic-ui-react'
 
 const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
   const [progress, setProgress] = useState(1)
@@ -13,7 +14,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
     setProgress(
       ((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) /
         project.tasks.length) *
-        99
+        100
     )
     setProjectTitle(project.title)
   }, [])
@@ -86,9 +87,10 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
         </div>
       )}
 
-      <div id="progress-bar-container">
+      {/* <div id="progress-bar-container">
         <div id="progress-bar" style={{ width: `${progress}%` }}></div>
-      </div>
+      </div> */}
+      <Progress percent={progress} color="green" width="80%" />
       <br />
       {urgentTask ? (
         <div id="most-urgent-task-card">
