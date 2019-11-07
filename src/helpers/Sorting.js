@@ -52,5 +52,10 @@ const displayDateTime = task => {
     }
 }
 
+const stepActsFromSteps = steps => steps.map(step => step.act)
 
-export default { incompleteTasks, isComplete, orderTasks, orderProjects, getJsDate, getStringDate, getStringTime, displayDateTime }
+const incompleteSteps = steps => steps.filter(step => !step.completed)
+
+export default { incompleteTasks, isComplete, orderTasks, orderProjects, 
+    getJsDate, getStringDate, getStringTime, displayDateTime,
+    stepActsFromSteps, incompleteSteps }

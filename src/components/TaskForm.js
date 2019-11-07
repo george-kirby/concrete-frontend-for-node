@@ -9,7 +9,7 @@ import Sorting from '../helpers/Sorting'
 
 const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   const [title, setTitle] = useState(editMode ? task.title : "")
-  const [steps, setSteps] = useState(editMode ? task.steps : [])
+  const [steps, setSteps] = useState(editMode ? Sorting.stepActsFromSteps(Sorting.incompleteSteps(task.steps)) : [""])
   const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actual_time) : "")
   const [casualTime, setCasualTime] = useState(editMode ? task.display_time : "")
   const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
@@ -36,15 +36,16 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   const handleTitleChange = e => setTitle(e.target.value)
   const handleCueChange = e => setCue(e.target.value)
 
+  const handleStepChange = (e, index) => {
+    let newSteps = [...steps]
+    newSteps[index] = e.target.value
+    setSteps(newSteps)
+  }
+
   return (
     <div>
       <Form>
         <Form.Input placeholder="Task name..." value={title} onChange={handleTitleChange} required/>
-        <Form.Input
-          label="What's a concrete first step?"
-          placeholder={`eg sit at desk with laptop`}
-          value={steps[0]}
-        />
         <Form.Group>
           <Form.Button>Today</Form.Button>
           <Form.Button>Tomorrow</Form.Button>
@@ -65,8 +66,18 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} />
         </Form.Group>
         <Form.Input label="Task cue:" placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
-        <Form.Button content="Create task" />
-        {/* ^ editMode ? "Save changes" : "Create task" */}
+        <Form.Input
+          label={editMode ? "Steps:" : "What's a concrete first step?"}
+          placeholder={`eg sit at desk with laptop`}
+          value={steps[0]}
+          onChange={e => handleStepChange(e, 0)}
+        />
+        {steps.slice(1).map((step, index) => {
+          return <Form.Input 
+          value={steps.slice(1)[index]}
+          onChange={e => handleStepChange(e, index + 1)}/>
+        })}
+        <Form.Button content={editMode ? "Save changes" : "Create task"} />
       </Form>
     </div>
   )

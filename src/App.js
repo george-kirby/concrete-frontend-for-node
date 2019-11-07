@@ -145,7 +145,9 @@ const App = props => {
               path="/tasks/:id/edit"
               component={routerProps =>
                 currentUser ? (
-                  <EditTaskForm
+                  // <EditTaskForm
+                  <TaskForm
+                  editMode = {true}
                     projects={currentUser.projects}
                     tasks={getTasks(currentUser.projects)}
                     task={findFromParams(
