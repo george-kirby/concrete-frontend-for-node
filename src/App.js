@@ -23,6 +23,7 @@ import EditTaskForm from "./components/EditTaskForm"
 import ProjectList from "./containers/ProjectList"
 
 import { Menu } from 'semantic-ui-react'
+import TaskForm from "./components/TaskForm"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -180,10 +181,12 @@ const App = props => {
               path="/new"
               component={routerProps =>
                 currentUser ? (
-                  <NewTaskForm
-                    userId={currentUser.id}
-                    {...{ ...routerProps, setCurrentUser, currentUser }}
-                  />
+                  // <NewTaskForm
+                  //   userId={currentUser.id}
+                  //   {...{ ...routerProps, setCurrentUser, currentUser }}
+                  // />
+                  <TaskForm userId={currentUser.id} editMode={false}
+                    {...{ ...routerProps, setCurrentUser, currentUser }}/>
                 ) : (
                   <StallingComponent />
                 )

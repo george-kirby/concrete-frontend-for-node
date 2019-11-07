@@ -1,34 +1,75 @@
-import React from 'react';
-import { Form } from 'semantic-ui-react'
-import UserSettings from '../helpers/UserSettings'
+import React, { useState } from "react"
+import { Form } from "semantic-ui-react"
+import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
-import API from '../adapters/API'
-import UpdateUserObject from '../helpers/UpdateUserObject'
+import API from "../adapters/API"
+import UpdateUserObject from "../helpers/UpdateUserObject"
+import Sorting from '../helpers/Sorting'
 
-const TaskForm = () => {
-    return (
-        <div>
-            <Form>
-        <Form.Input placeholder="Task name..."/>
-        <Form.Input label="What's a concrete first step?" placeholder={`eg sit at desk with laptop`}/>
+const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
+  const [title, setTitle] = useState(editMode ? task.title : "")
+  const [steps, setSteps] = useState(editMode ? task.steps : [])
+  const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actual_time) : "")
+  const [casualTime, setCasualTime] = useState(editMode ? task.display_time : "")
+  const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
+  const [cue, setCue] = useState(editMode ? task.cue : "")
+
+  const casualTimeButtons = [
+    { value: "morning", display: "Morning" },
+    { value: "afternoon", display: "Afternoon" },
+    { value: "evening", display: "Evening" }
+  ]
+
+  const handleCasualTimeChange = e => {
+    e.preventDefault()
+    setCasualTime(e.target.value)
+    setPreciseTime(UserSettings[e.target.value])
+  }
+
+  const handlePreciseTimeChange = e => {
+    setPreciseTime(e.target.value)
+    setCasualTime(e.target.value)
+  }
+
+  const handleDateChange = e => setDate(e.target.value)
+  const handleTitleChange = e => setTitle(e.target.value)
+  const handleCueChange = e => setCue(e.target.value)
+
+  return (
+    <div>
+      <Form>
+        <Form.Input placeholder="Task name..." value={title} onChange={handleTitleChange} required/>
+        <Form.Input
+          label="What's a concrete first step?"
+          placeholder={`eg sit at desk with laptop`}
+          value={steps[0]}
+        />
         <Form.Group>
           <Form.Button>Today</Form.Button>
           <Form.Button>Tomorrow</Form.Button>
-          <Form.Input type="date" onChange={e => console.log(e.target.value)}/>
+          <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
         </Form.Group>
         <Form.Group>
-          <Form.Button disabled={true}>Morning</Form.Button>
-          <Form.Button disabled={false}>Afternoon</Form.Button>
-          <Form.Button>Evening</Form.Button>
-          <Form.Input type="time" onChange={e => console.log(e.target.value)}/>
+          {casualTimeButtons.map(b => {
+            return (
+              <Form.Button key={b.value}
+                color={casualTime === b.value ? "green" : "grey"}
+                value={b.value}
+                onClick={handleCasualTimeChange}
+              >
+                {b.display}
+              </Form.Button>
+            )
+          })}
+          <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} />
         </Form.Group>
-        <Form.Input label="Task cue:" placeholder={`eg after dinner`}/>
-          <Form.Button content="Create task"/> 
-          {/* ^ editMode ? "Save changes" : "Create task" */}
+        <Form.Input label="Task cue:" placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
+        <Form.Button content="Create task" />
+        {/* ^ editMode ? "Save changes" : "Create task" */}
       </Form>
-        </div>
-    );
+    </div>
+  )
 }
 
-export default TaskForm;
+export default TaskForm

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import UserSettings from "../helpers/UserSettings"
 // import PrepData from "../helpers/PrepData"
 import Sorting from "../helpers/Sorting"
@@ -196,7 +196,7 @@ const EditTaskForm = ({
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>
+        {/* <label>
           Task Name:{" "}
           <input type="text" value={title} onChange={handleTitleChange} required/>
         </label>
@@ -222,16 +222,16 @@ const EditTaskForm = ({
             value={projectTitle}
             onChange={handleProjectTitleChange}
           />
-        </label>
-        <br />
+        </label> */}
+        {/* <br />
         <label>
           Date: <input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
         </label>
-        <br />
+        <br /> */}
         {/* <button>Today</button>
         <button>Tomorrow</button> */}
         <br />
-        <label>
+        {/* <label>
           Time:{" "}
           <input
             type="time"
@@ -253,7 +253,7 @@ const EditTaskForm = ({
             </button>
           )
         })}
-        <br />
+        <br /> */}
         <label>
           Cue: <input type="text" value={cue} onChange={handleCueChange} required />
         </label>

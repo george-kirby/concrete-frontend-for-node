@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import UserSettings from '../helpers/UserSettings'
+import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
-import API from '../adapters/API'
-import UpdateUserObject from '../helpers/UpdateUserObject'
+import API from "../adapters/API"
+import UpdateUserObject from "../helpers/UpdateUserObject"
 
-const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
+const NewTaskForm = ({ userId, setCurrentUser, currentUser, history }) => {
   const [casualDate, setCasualDate] = useState("")
   const [calendarDate, setCalendarDate] = useState(null)
   const [casualTime, setCasualTime] = useState("morning")
@@ -19,24 +19,36 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
   const handleSubmit = event => {
     event.preventDefault()
     const [actual_time, display_time] = prepareTimeData()
-    API.postProject({title: projectTitle, user_id: userId})
-    .then(project => {
+    API.postProject({ title: projectTitle, user_id: userId }).then(project => {
       // setCurrentUser({...currentUser, projects: UpdateUserObject.postedProject(project, currentUser)})
-      API.postTask({title, cue, actual_time, display_time, project_id: project.id})
-        .then(task => {
-          // setCurrentUser({...currentUser, projects: UpdateUserObject.postedTask(task, currentUser)})
-            API.postStep({task_id: task.id, act})
-            .then(step => {
-              setCurrentUser({...currentUser, projects: UpdateUserObject.postedProjectTaskStep(project, task, step, currentUser)})
-              history.push("/tasks")})
+      API.postTask({
+        title,
+        cue,
+        actual_time,
+        display_time,
+        project_id: project.id
+      }).then(task => {
+        // setCurrentUser({...currentUser, projects: UpdateUserObject.postedTask(task, currentUser)})
+        API.postStep({ task_id: task.id, act }).then(step => {
+          setCurrentUser({
+            ...currentUser,
+            projects: UpdateUserObject.postedProjectTaskStep(
+              project,
+              task,
+              step,
+              currentUser
+            )
+          })
+          history.push("/tasks")
         })
+      })
     })
   }
 
   const prepareTimeData = () => {
     const date = prepareDate()
     const [time, display_time] = prepareTime()
-    const actual_time = `${date} ${time}` 
+    const actual_time = `${date} ${time}`
     return [actual_time, display_time]
   }
 
@@ -46,8 +58,8 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
     if (todayOptions.includes(casualDate)) {
       date = currentDateTime.toISOString().slice(0, 10)
     } else if (casualDate === "tomorrow") {
-        let tomorrow = new Date()
-        tomorrow.setDate(currentDateTime.getDate() + 1)
+      let tomorrow = new Date()
+      tomorrow.setDate(currentDateTime.getDate() + 1)
       date = tomorrow.toISOString().slice(0, 10)
     } else {
       date = calendarDate
@@ -59,17 +71,17 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
     let time
     let display_time
     if (casualDate === "tonight" || casualTime === "evening") {
-        display_time = "evening"
-        time = UserSettings.evening
+      display_time = "evening"
+      time = UserSettings.evening
     } else if (casualDate === "thisAfternoon" || casualTime === "afternoon") {
-        display_time = "afternoon"
-        time = UserSettings.afternoon
+      display_time = "afternoon"
+      time = UserSettings.afternoon
     } else if (casualDate === "thisMorning" || casualTime === "morning") {
-        display_time = "morning"
-        time = UserSettings.morning
+      display_time = "morning"
+      time = UserSettings.morning
     } else {
-        display_time = preciseTime
-        time = preciseTime
+      display_time = preciseTime
+      time = preciseTime
     }
     return [time, display_time]
   }
@@ -93,8 +105,8 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
   const handleProjectTitleChange = event => setProjectTitle(event.target.value)
 
   const toggleProjectMode = event => {
-      event.preventDefault()
-      setProjectMode(!projectMode)
+    event.preventDefault()
+    setProjectMode(!projectMode)
   }
 
   const casualDateOptions = () => {
@@ -129,9 +141,9 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
 
   return (
     <div>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
       <form action="" onSubmit={handleSubmit}>
         <input
           name="title"
@@ -225,14 +237,14 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
         <br />
         <button onClick={toggleProjectMode}>Create Project</button>
         <input
-            className={projectMode ? "visible" : `hidden`}
-            name="projectTitle"
-            type="text"
-            placeholder="Project Name"
-            required={projectMode}
-            onChange={handleProjectTitleChange}
-          />
-        <br/>
+          className={projectMode ? "visible" : `hidden`}
+          name="projectTitle"
+          type="text"
+          placeholder="Project Name"
+          required={projectMode}
+          onChange={handleProjectTitleChange}
+        />
+        <br />
         <input type="submit" value="Create Task" />
       </form>
     </div>
