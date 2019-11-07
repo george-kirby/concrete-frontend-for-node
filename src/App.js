@@ -23,6 +23,8 @@ import NewTaskForm from "./components/NewTaskForm"
 import EditTaskForm from "./components/EditTaskForm"
 import ProjectList from "./containers/ProjectList"
 
+import { Menu } from 'semantic-ui-react'
+
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
 
@@ -217,15 +219,34 @@ const App = props => {
       </div>
       <br />
       {currentUser && (
-        <nav className="navbar">
-          <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
-          {" | "}
-          <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
-          {" | "}
+        // <nav className="navbar">
+        //   <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
+        //   {" | "}
+        //   <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
+        //   {" | "}
+        //   <Link to="/login" onClick={handleLogout}>
+        //     LOG OUT
+        //   </Link>
+        // </nav>
+        <Menu>
+          <Menu.Item>
+          <Link to="/hot">HOT</Link>
+          </Menu.Item>
+          <Menu.Item>
+          <Link to="/tasks">ALL</Link>
+          </Menu.Item>
+          <Menu.Item>
+          <Link to="/new">NEW</Link>
+          </Menu.Item>
+          <Menu.Item>
+          <Link to="/settings">SETTINGS</Link>
+          </Menu.Item>
+          <Menu.Item>
           <Link to="/login" onClick={handleLogout}>
             LOG OUT
           </Link>
-        </nav>
+          </Menu.Item>
+        </Menu>
       )}
     </div>
   )
