@@ -3,7 +3,7 @@ import Sorting from "../helpers/Sorting"
 import "../stylesheets/SelectedProject.css"
 import API from "../adapters/API"
 import UpdateUserObject from '../helpers/UpdateUserObject'
-import { Progress } from 'semantic-ui-react'
+import { Progress, Icon, Card } from 'semantic-ui-react'
 
 const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
   const [progress, setProgress] = useState(1)
@@ -74,6 +74,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
 
   return (
     <div>
+      <Icon name="pin" size="large"/>
       {editMode ? (
         <form onSubmit={handleEditTitleSubmit}>
           <input type="text" value={projectTitle} onChange={handleProjectTitleChange} />
@@ -92,29 +93,31 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
       </div> */}
       <Progress percent={progress} color="green" />
       <br />
-      {urgentTask ? (
-        <div id="most-urgent-task-card">
-          <h4>{urgentTask.title}</h4>
-          <p>
-            ❗{Sorting.displayDateTime(urgentTask)} - {urgentTask.cue}
-          </p>
-          <p>👉 {urgentTask.steps[0].act}</p>
-          {taskActions(urgentTask)}
-        </div>
-      ) : (
-        "Project complete!"
-      )}
-      {otherIncompleteTasks.map(task => {
-        return (
-          <div className="task-card" key={task.id}>
-            <h5>{task.title}</h5>
+      <Card.Group>
+        {urgentTask ? (
+          <Card fluid color="orange">
+            <h4>{urgentTask.title}</h4>
             <p>
-              🕑 {Sorting.displayDateTime(task)} - {task.cue}
+            <Icon color="red" name="exclamation"/>{Sorting.displayDateTime(urgentTask)} - {urgentTask.cue}
             </p>
-            {taskActions(task)}
-          </div>
-        )
-      })}
+            <p><Icon name="hand point right outline"/> {urgentTask.steps[0].act}</p>
+            {taskActions(urgentTask)}
+          </Card>
+        ) : (
+          "Project complete!"
+        )}
+        {otherIncompleteTasks.map(task => {
+          return (
+            <Card key={task.id} fluid color="blue">
+              <h5>{task.title}</h5>
+              <p>
+                🕑 {Sorting.displayDateTime(task)} - {task.cue}
+              </p>
+              {taskActions(task)}
+            </Card>
+          )
+        })}
+      </Card.Group>
       <br />
       <button onClick={() => history.push("/projects")}>All projects</button>
     </div>
