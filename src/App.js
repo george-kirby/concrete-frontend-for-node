@@ -223,15 +223,6 @@ const App = props => {
       </div>
       <br />
       {currentUser && (
-        // <nav className="navbar">
-        //   <Link to="/hot">HOT</Link> | <Link to="/tasks">ALL</Link>
-        //   {" | "}
-        //   <Link to="/new">NEW</Link> | <Link to="/settings">SETTINGS</Link>
-        //   {" | "}
-        //   <Link to="/login" onClick={handleLogout}>
-        //     LOG OUT
-        //   </Link>
-        // </nav>
         <Menu>
           <Menu.Item>
           <Link to="/hot">HOT</Link>
