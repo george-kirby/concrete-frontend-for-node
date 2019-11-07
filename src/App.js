@@ -113,7 +113,8 @@ const App = props => {
               path="/hot"
               component={routerProps =>
                 currentUser ? (
-                  <HotTask
+                  <SelectedTask
+                  hot={true}
                     task={mostUrgentTask()}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
@@ -128,6 +129,7 @@ const App = props => {
               component={routerProps =>
                 currentUser ? (
                   <SelectedTask
+                  hot={false}
                     task={findFromParams(
                       orderedTasks(),
                       routerProps.match.params

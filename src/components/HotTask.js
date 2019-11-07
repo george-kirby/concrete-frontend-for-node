@@ -2,8 +2,11 @@ import React from "react"
 import { Link } from 'react-router-dom'
 import API from '../adapters/API'
 import UpdateUserObject from '../helpers/UpdateUserObject'
+import { Icon } from 'semantic-ui-react'
+import Sorting from '../helpers/Sorting'
+import StallingComponent from "./StallingComponent"
 
-const HotTask = ({task, currentUser, setCurrentUser, history }) => {
+const HotTask = ({hot, task, currentUser, setCurrentUser, history }) => {
 
     const handleCompleteStepClick = stepId => {
         console.log(`step ${stepId} complete!`)
@@ -20,14 +23,14 @@ const HotTask = ({task, currentUser, setCurrentUser, history }) => {
       (<div>
         <h1>{task.title}</h1>
         {task.project.title !== "" && (<p>
-          📌 <Link to={`/projects/${task.project.id}`}>{task.project.title}</Link>
+          <Icon name="pin"/><Link to={`/projects/${task.project.id}`}>{task.project.title}</Link>
           </p>)}
         <p>
-          ❗this {task.display_time}, {task.cue}
+        <Icon color="red" name="exclamation"/>{Sorting.displayDateTime(task)} - {task.cue}
         </p>
         {task.steps.filter(step => !step.completed).map(step => (
           <p key={`step-${step.id}`}>
-            👉 {step.act}{" "}
+            <Icon name="hand point right outline"/> {step.act}{" "}
             <button
               onClick={() => handleCompleteStepClick(step.id)}
               className="completed-button"
@@ -38,7 +41,7 @@ const HotTask = ({task, currentUser, setCurrentUser, history }) => {
         ))}
         <button onClick={() => handleEditClick()}>Edit task</button>
         <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
-      </div>) : "You have no outstanding tasks - well done!"}
+      </div>) : (hot ? "You have no outstanding tasks - well done!" : <StallingComponent/>)}
     </div>
   )
 }

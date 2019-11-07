@@ -2,7 +2,7 @@ import React from "react"
 import TaskCard from "../components/TaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/List.css'
-import { Card } from 'semantic-ui-react'
+import { Card, Menu } from 'semantic-ui-react'
 
 const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
 
@@ -11,7 +11,14 @@ const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
 
   return (
     <div>
-      <Link to="/tasks">TASKS</Link> | <Link to="/projects">Projects</Link>
+      <Menu>
+        <Menu.Item>
+          <Link to="/tasks">TASKS</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/projects">Projects</Link>
+        </Menu.Item>
+      </Menu>
       <Card.Group>
         {urgentTask ? 
         <div>
