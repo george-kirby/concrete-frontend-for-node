@@ -26,7 +26,7 @@ const TaskCard = ({task, setCurrentUser, currentUser, hot}) => {
         <Card fluid color={hot ? "orange" : "blue"}>
             <Card.Content>
             <Card.Header>{task.title}</Card.Header>
-            <p><Icon name="clock outline"/>  {Sorting.displayDateTime(task)} - {task.cue}</p>
+    <p>{hot ? <Icon color="red" name="exclamation"/> : <Icon name="clock outline"/>}  {Sorting.displayDateTime(task)} - {task.cue}</p>
             <div className="task-actions">
                 {/* <button onClick={() => history.push(`tasks/${task.id}`)} className="details-button">👁️</button>
                 <button onClick={() => handleCompleteTaskClick(task)} className="completed-button">✅</button> */}
