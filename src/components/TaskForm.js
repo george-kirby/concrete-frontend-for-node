@@ -9,7 +9,7 @@ import Sorting from '../helpers/Sorting'
 
 const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   const [title, setTitle] = useState(editMode ? task.title : "")
-  const [steps, setSteps] = useState(editMode ? Sorting.stepActsFromSteps(Sorting.incompleteSteps(task.steps)) : [""])
+  const [incompleteSteps, setIncompleteSteps] = useState(editMode ? task.incomplete_steps : [""])
   const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actual_time) : "")
   const [casualTime, setCasualTime] = useState(editMode ? task.display_time : "")
   const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
@@ -38,9 +38,9 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
 
   const handleStepChange = (e, index) => {
     e.preventDefault()
-    let newSteps = [...steps]
-    newSteps[index] = e.target.value
-    setSteps(newSteps)
+    let newIncompleteSteps = [...incompleteSteps]
+    newIncompleteSteps[index] = e.target.value
+    setIncompleteSteps(newIncompleteSteps)
   }
 
   // const newStepField = () => {
@@ -80,17 +80,17 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
         <Form.Input
           label={editMode ? "Steps:" : "What's a concrete first step?"}
           placeholder={`eg sit at desk with laptop`}
-          value={steps[0]}
+          value={incompleteSteps[0]}
           onChange={e => handleStepChange(e, 0)}
         />
-        {steps.slice(1).map((step, index) => {
+        {incompleteSteps.slice(1).map((step, index) => {
           return <Form.Input 
           key={`step-${index + 2}`}
-          value={steps.slice(1)[index]}
+          value={incompleteSteps.slice(1)[index]}
           onChange={e => handleStepChange(e, index + 1)}
           placeholder={`step ${index + 2}`}/>
         })}
-        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)} content="Add another Step"/>
+        <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another Step"/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
         {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
       </Form>
