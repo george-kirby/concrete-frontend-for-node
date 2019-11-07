@@ -70,8 +70,7 @@ const App = props => {
     return tasks
   }
 
-  const titledProjects = projects =>
-    projects.filter(project => project.title !== "")
+  const titledProjects = projects => projects.filter(project => project.title !== "")
 
   const incompleteProjects = projects =>
     projects.filter(

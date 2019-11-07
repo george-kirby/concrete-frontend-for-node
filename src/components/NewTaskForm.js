@@ -4,7 +4,6 @@ import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
 import API from '../adapters/API'
 import UpdateUserObject from '../helpers/UpdateUserObject'
-import { Form, Button } from 'semantic-ui-react'
 
 const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
   const [casualDate, setCasualDate] = useState("")
@@ -130,21 +129,6 @@ const NewTaskForm = ({userId, setCurrentUser, currentUser, history}) => {
 
   return (
     <div>
-      <Form>
-        <Form.Input placeholder="Task name..."/>
-        <Form.Input label="What's a concrete first step?" placeholder={`eg sit at desk with laptop`}/>
-        <Form.Group>
-        <Button>Today</Button>
-        <Button>Tomorrow</Button>
-        <Form.Input type="date" onChange={e => console.log(e.target.value)}/>
-        </Form.Group>
-        <Form.Group>
-        <Button>Morning</Button>
-        <Button>Afternoon</Button>
-        <Button>Evening</Button>
-        <Form.Input type="time" onChange={e => console.log(e.target.value)}/>
-        </Form.Group>
-      </Form>
       <br/>
       <br/>
       <br/>
