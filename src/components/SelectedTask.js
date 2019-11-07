@@ -48,7 +48,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
                   onClick={() => handleCompleteStepClick(step.id)}
                   className="completed-button"
                 >
-                  ✅
+                  <Icon name="check" color='green'/>
                 </button>
               </p>
             ))}
