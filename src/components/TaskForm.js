@@ -82,9 +82,9 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
           key={`step-${index + 2}`}
           value={steps.slice(1)[index]}
           onChange={e => handleStepChange(e, index + 1)}
-          placeholder="new step"/>
+          placeholder={`Step ${index + 2}`}/>
         })}
-        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)}>Add Step</Form.Button>
+        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)}>Add another Step</Form.Button>
         <Form.Button content={editMode ? "Save changes" : "Create task"} />
       </Form>
     </div>
