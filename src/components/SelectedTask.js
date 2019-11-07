@@ -27,29 +27,26 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
       {task ? (
         <div>
           <h1>{task.title}</h1>
-          {task.project.title !== "" && (
+          {task.tags.length > 0 && (
             <p>
               <Icon name="pin" />
-              <Link to={`/projects/${task.project.id}`}>
-                {task.project.title}
-              </Link>
+              {task.tags}
             </p>
           )}
           <p>
             <Icon color="red" name="exclamation" />
             {Sorting.displayDateTime(task)} - {task.cue}
           </p>
-          {task.steps
-            .filter(step => !step.completed)
-            .map(step => (
-              <p key={`step-${step.id}`}>
-                <Icon name="hand point right outline" /> {step.act}{" "}
-                <button
+          {task.incomplete_steps
+            .map((step, index) => (
+              <p key={`step-${index + 1}`}>
+                <Icon name="hand point right outline" /> {step}{" "}
+                {/* <button
                   onClick={() => handleCompleteStepClick(step.id)}
                   className="completed-button"
                 >
                   <Icon name="check" color='green'/>
-                </button>
+                </button> */}
               </p>
             ))}
           <button onClick={() => handleEditClick()}>Edit task</button>

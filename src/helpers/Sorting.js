@@ -2,7 +2,7 @@ const incompleteTasks = tasks => tasks.filter(task => {
     return !isComplete(task)
 })
 
-const isComplete = task => task.steps.reduce((acc, step) => acc && step.completed, true)
+const isComplete = task => task.incomplete_steps.length < 1
 
 const orderTasks = tasks => {
     return tasks.sort((a, b) => {
@@ -15,16 +15,16 @@ const orderTasks = tasks => {
     })
 }
 
-const orderProjects = projects => {
-    return projects.sort((a, b) => {
-        let initialReturn = getJsDate(orderTasks(a.tasks)[0].actual_time) - getJsDate(orderTasks(b.tasks)[0].actual_time)
-        if (initialReturn !== 0) {
-            return initialReturn
-        } else {
-            return orderTasks(a.tasks)[0].position_at_time - orderTasks(b.tasks)[0].position_at_time
-        }
-    })
-}
+// const orderProjects = projects => {
+//     return projects.sort((a, b) => {
+//         let initialReturn = getJsDate(orderTasks(a.tasks)[0].actual_time) - getJsDate(orderTasks(b.tasks)[0].actual_time)
+//         if (initialReturn !== 0) {
+//             return initialReturn
+//         } else {
+//             return orderTasks(a.tasks)[0].position_at_time - orderTasks(b.tasks)[0].position_at_time
+//         }
+//     })
+// }
 
 const getJsDate = dateFromDb => {
     return new Date(dateFromDb)
@@ -52,10 +52,9 @@ const displayDateTime = task => {
     }
 }
 
-const stepActsFromSteps = steps => steps.map(step => step.act)
+// const stepActsFromSteps = steps => steps.map(step => step.act)
 
-const incompleteSteps = steps => steps.filter(step => !step.completed)
+// const incompleteSteps = steps => steps.filter(step => !step.completed)
 
-export default { incompleteTasks, isComplete, orderTasks, orderProjects, 
-    getJsDate, getStringDate, getStringTime, displayDateTime,
-    stepActsFromSteps, incompleteSteps }
+export default { incompleteTasks, isComplete, orderTasks, 
+    getJsDate, getStringDate, getStringTime, displayDateTime }

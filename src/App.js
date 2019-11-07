@@ -61,31 +61,31 @@ const App = props => {
   }
 
   // filter/sort functions for producing props to pass to components
-  const getTasks = projects => {
-    let tasks = []
-    projects.forEach(project => {
-      project.tasks.forEach(task => {
-        tasks = [...tasks, task]
-      })
-    })
-    return tasks
-  }
+  // const getTasks = projects => {
+  //   let tasks = []
+  //   projects.forEach(project => {
+  //     project.tasks.forEach(task => {
+  //       tasks = [...tasks, task]
+  //     })
+  //   })
+  //   return tasks
+  // }
 
-  const titledProjects = projects => projects.filter(project => project.title !== "")
+  // const titledProjects = projects => projects.filter(project => project.title !== "")
 
-  const incompleteProjects = projects =>
-    projects.filter(
-      project => Sorting.incompleteTasks(project.tasks).length > 0
-    )
+  // const incompleteProjects = projects =>
+  //   projects.filter(
+  //     project => Sorting.incompleteTasks(project.tasks).length > 0
+  //   )
 
   // arrays and object to be passed to components
   const orderedTasks = () =>
-    Sorting.orderTasks(Sorting.incompleteTasks(getTasks(currentUser.projects)))
+    Sorting.orderTasks(Sorting.incompleteTasks(currentUser.tasks))
   // const orderedProjects = () => titledProjects() // ... to be written, in Sorting
-  const orderedProjects = () =>
-    Sorting.orderProjects(
-      incompleteProjects(titledProjects(currentUser.projects))
-    ) // breaks if a project has no tasks -> corrected through front end validation
+  // const orderedProjects = () =>
+  //   Sorting.orderProjects(
+  //     incompleteProjects(titledProjects(currentUser.projects))
+  //   ) // breaks if a project has no tasks -> corrected through front end validation
   const mostUrgentTask = () => orderedTasks()[0]
 
   return (
@@ -149,9 +149,9 @@ const App = props => {
                   <TaskForm
                   editMode = {true}
                     projects={currentUser.projects}
-                    tasks={getTasks(currentUser.projects)}
+                    tasks={currentUser.tasks}
                     task={findFromParams(
-                      getTasks(currentUser.projects),
+                      currentUser.tasks,
                       routerProps.match.params
                     )}
                     {...{ ...currentUser, setCurrentUser }}
@@ -161,7 +161,7 @@ const App = props => {
                 )
               }
             />
-            <Route
+            {/* <Route
               exact
               path="/projects/:id"
               component={routerProps =>
@@ -177,7 +177,7 @@ const App = props => {
                   <StallingComponent />
                 )
               }
-            />
+            /> */}
             <Route
               exact
               path="/new"
@@ -208,7 +208,7 @@ const App = props => {
                 )
               }
             />
-            <Route
+            {/* <Route
               exact
               path="/projects"
               component={routerProps =>
@@ -221,7 +221,7 @@ const App = props => {
                   <StallingComponent />
                 )
               }
-            />
+            /> */}
             {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
           </Switch>
         </ErrorBoundary>
