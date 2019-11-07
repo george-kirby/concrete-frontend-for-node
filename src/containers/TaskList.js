@@ -3,6 +3,7 @@ import TaskCard from "../components/TaskCard"
 import HotTaskCard from "../components/HotTaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/List.css'
+import { Card } from 'semantic-ui-react'
 
 const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
 
@@ -12,19 +13,17 @@ const TaskList = ({ tasks, setCurrentUser, currentUser }) => {
   return (
     <div>
       <Link to="/tasks">TASKS</Link> | <Link to="/projects">Projects</Link>
-      <div className="core-container">
+      <Card.Group>
         {urgentTask ? 
         <div>
-          <div id="most-urgent-task-card">
-          <HotTaskCard key={urgentTask.id} task={urgentTask} {...{ setCurrentUser, currentUser }} />
-          </div>
+          <TaskCard key={urgentTask.id} task={urgentTask} {...{ setCurrentUser, currentUser }} hot={true}/>
           {otherTasks.map(task => {
             return (
-              <div className="task-card" key={task.id} ><TaskCard task={task} {...{ setCurrentUser, currentUser }} /></div>
+              <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser }} hot={false} />
             )
           })}
         </div> : "You have no outstanding tasks - well done!"}
-      </div>
+      </Card.Group>
     </div>
   )
 }

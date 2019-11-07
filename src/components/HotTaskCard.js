@@ -4,6 +4,7 @@ import '../stylesheets/TaskCard.css'
 import API from '../adapters/API'
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from '../helpers/Sorting'
+import { Card } from 'semantic-ui-react'
 
 const HotTaskCard = ({task, setCurrentUser, currentUser}) => {
 
