@@ -47,8 +47,14 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
 
   // }
 
+  const handleDestroyTask = e => {
+    window.confirm("Are you sure you want to delete this task?")
+    console.log("Task destroyed!")
+  }
+
   return (
     <div>
+      {/* <Form onSubmit={handleSubmit}> */}
       <Form>
         <Form.Input placeholder="Task name..." value={title} onChange={handleTitleChange} required/>
         <Form.Group>
@@ -82,10 +88,11 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
           key={`step-${index + 2}`}
           value={steps.slice(1)[index]}
           onChange={e => handleStepChange(e, index + 1)}
-          placeholder={`Step ${index + 2}`}/>
+          placeholder={`step ${index + 2}`}/>
         })}
-        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)}>Add another Step</Form.Button>
-        <Form.Button content={editMode ? "Save changes" : "Create task"} />
+        <Form.Button value="" onClick={e => handleStepChange(e, steps.length)} content="Add another Step"/>
+        <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
+        {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
       </Form>
     </div>
   )

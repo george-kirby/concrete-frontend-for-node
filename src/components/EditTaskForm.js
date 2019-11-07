@@ -254,7 +254,7 @@ const EditTaskForm = ({
           )
         })}
         <br /> */}
-        <label>
+        {/* <label>
           Cue: <input type="text" value={cue} onChange={handleCueChange} required />
         </label>
         <p>Steps:</p>
@@ -272,15 +272,15 @@ const EditTaskForm = ({
               </label>
             </div>
           )
-        })}
-        <label>
+        })} */}
+        {/* <label>
           {task.steps.length + 1}.{" "}
           <input type="text" name="step" onBlur={handleNewStep} />
         </label>
         <br />
-        <input type="submit" value="Save changes" />
+        <input type="submit" value="Save changes" /> */}
       </form>
-      <button onClick={handleDestroyTask}>Delete Task</button>
+      {/* <button onClick={handleDestroyTask}>Delete Task</button> */}
     </div>
   )
 }
