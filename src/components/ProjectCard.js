@@ -2,6 +2,7 @@ import React from "react"
 import { useHistory } from "react-router-dom"
 import "../stylesheets/ProjectCard.css"
 import Sorting from "../helpers/Sorting"
+import { Card, Progress } from 'semantic-ui-react'
 
 const ProjectCard = ({ project }) => {
   const history = useHistory()
@@ -9,26 +10,21 @@ const ProjectCard = ({ project }) => {
   const progress =
     ((project.tasks.length - Sorting.incompleteTasks(project.tasks).length) /
       project.tasks.length) *
-    99
+    100
 
   return (
-    <div
-      className="project-card"
-      onClick={() => history.push(`/projects/${project.id}`)}
-    >
-      <h4>📌 {project.title}</h4>
-      <div id="progress-bar-container">
-        <div id="progress-bar" style={{ width: `${progress}%` }}></div>
-      </div>
-      <br />
-      {Sorting.incompleteTasks(project.tasks).map(task => {
-        return (
-          <div key={task.id}>
-            {task.title} 🕑 {Sorting.displayDateTime(task)}
-          </div>
-        )
-      })}
-    </div>
+    <Card fluid>
+      <Card.Content>
+        <Card.Header>{project.title}</Card.Header>
+        <Progress percent={progress} color="green" size="small"/>
+        {Sorting.incompleteTasks(project.tasks).map(task => {
+          return (
+            <div key={task.id}>
+              {task.title} 🕑 {Sorting.displayDateTime(task)}
+            </div>
+          )})}
+      </Card.Content>
+    </Card>
   )
 }
 

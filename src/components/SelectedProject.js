@@ -90,7 +90,7 @@ const SelectedProject = ({ project, setCurrentUser, currentUser, history }) => {
       {/* <div id="progress-bar-container">
         <div id="progress-bar" style={{ width: `${progress}%` }}></div>
       </div> */}
-      <Progress percent={progress} color="green" width="80%" />
+      <Progress percent={progress} color="green" />
       <br />
       {urgentTask ? (
         <div id="most-urgent-task-card">
