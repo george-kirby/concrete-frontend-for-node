@@ -98,14 +98,14 @@ const App = props => {
               path="/login"
               component={routerProps => (
                 <LoginForm {...{ handleLogin, routerProps }} />
-              )}
+                )}
             />
             <Route
               exact
               path="/signup"
               component={routerProps => (
                 <SignUpForm {...{ handleLogin, routerProps }} />
-              )}
+                )}
             />
             <Route
               exact
@@ -116,6 +116,21 @@ const App = props => {
                   hot={true}
                     task={mostUrgentTask()}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
+                  />
+                  ) : (
+                  <StallingComponent />
+                  )
+                }
+            />
+            <Route
+              exact
+              path="/tasks"
+              component={routerProps =>
+                currentUser ? (
+                  <TaskList
+                    tasks={orderedTasks()}
+                    {...{ setCurrentUser, currentUser, ...routerProps }}
+                    tags={Sorting.uniqueTagsFromTasks(orderedTasks())}
                   />
                 ) : (
                   <StallingComponent />
@@ -189,20 +204,6 @@ const App = props => {
                   // />
                   <TaskForm userId={currentUser.id} editMode={false}
                     {...{ ...routerProps, setCurrentUser, currentUser }}/>
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/tasks"
-              component={routerProps =>
-                currentUser ? (
-                  <TaskList
-                    tasks={orderedTasks()}
-                    {...{ setCurrentUser, currentUser, ...routerProps }}
-                  />
                 ) : (
                   <StallingComponent />
                 )

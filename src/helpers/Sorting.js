@@ -52,9 +52,26 @@ const displayDateTime = task => {
     }
 }
 
+const uniqueTagsFromTasks = tasks => {
+    let tags = []
+    tasks.forEach(task => {
+        task.tags.forEach(tag => {
+            tags = [...tags, tag]
+        });
+    });
+    return tags.filter((tag, index, tags) => tags.indexOf(tag) === index)
+}
+
+const applyFilter = (tasks, filters) => {
+    if (filters.length < 1) return tasks
+    return tasks.filter(task => {
+        return task.tags.some(tag => filters.includes(tag))
+    })
+}
+
 // const stepActsFromSteps = steps => steps.map(step => step.act)
 
 // const incompleteSteps = steps => steps.filter(step => !step.completed)
 
 export default { incompleteTasks, isComplete, orderTasks, 
-    getJsDate, getStringDate, getStringTime, displayDateTime }
+    getJsDate, getStringDate, getStringTime, displayDateTime, uniqueTagsFromTasks, applyFilter }
