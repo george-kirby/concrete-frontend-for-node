@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form } from "semantic-ui-react"
+import { Form, Icon } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
@@ -83,6 +83,13 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     setIncompleteSteps(newIncompleteSteps)
   }
 
+  const handleStepRemoval = (e, index) => {
+    e.preventDefault()
+    let newIncompleteSteps = [...incompleteSteps]
+    newIncompleteSteps.splice(index, 1)
+    setIncompleteSteps(newIncompleteSteps)
+  }
+
   const handleDestroyTask = e => {
     let result = window.confirm("Are you sure you want to delete this task?")
     if (result) {
@@ -121,18 +128,23 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} />
         </Form.Group>
         <Form.Input label="Task cue:" placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
-        <Form.Input
-          label={editMode ? "Steps:" : "What's a concrete first step?"}
-          placeholder={`eg sit at desk with laptop`}
-          value={incompleteSteps[0]}
-          onChange={e => handleStepChange(e, 0)}
-        />
+        <Form.Group>
+          <Form.Input
+            label={editMode ? "Steps:" : "What's a concrete first step?"}
+            placeholder={`eg sit at desk with laptop`}
+            value={incompleteSteps[0]}
+            onChange={e => handleStepChange(e, 0)}
+          />
+          <Icon name="close" onClick={e => handleStepRemoval(e, 0)}/>
+        </Form.Group>
         {incompleteSteps.slice(1).map((step, index) => {
-          return <Form.Input 
-          key={`step-${index + 2}`}
-          value={incompleteSteps.slice(1)[index]}
-          onChange={e => handleStepChange(e, index + 1)}
-          placeholder={`step ${index + 2}`}/>
+          return <Form.Group key={`step-${index + 2}`}>
+            <Form.Input 
+            value={incompleteSteps.slice(1)[index]}
+            onChange={e => handleStepChange(e, index + 1)}
+            placeholder={`step ${index + 2}`}/>
+            <Icon name="close" onClick={e => handleStepRemoval(e, index + 1)}/>
+          </Form.Group>
         })}
 
 {/* add tags */}
