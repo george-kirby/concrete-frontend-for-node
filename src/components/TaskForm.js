@@ -15,8 +15,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
   const [cue, setCue] = useState(editMode ? task.cue : "")
 
-  const [freshTags, setFreshTags] = useState([])
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
+  const [freshTags, setFreshTags] = useState([])
 
   const existingTagOptions = existingTags.map(tag => {
     return {
@@ -40,13 +40,15 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const handleSubmit = e => {
     e.preventDefault()
     const actual_time = `${date} ${preciseTime}`
+    let tagData = [...freshTags, ...selectedExistingTags].filter(tag => tag !== "")
+    console.log(tagData)
     const taskData = {
       title,
       cue,
       actual_time,
       display_time : casualTime,
       incomplete_steps: JSON.stringify(incompleteSteps),
-      tags: JSON.stringify([...freshTags, ...selectedExistingTags])
+      tags: JSON.stringify(tagData)
     }
     editMode ?
       API.patchTask(task.id, taskData)
