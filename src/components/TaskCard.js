@@ -14,7 +14,6 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
     task.incomplete_steps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
     })
-    console.log(newCompleteSteps)
     API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
     .then(task => {
       setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})

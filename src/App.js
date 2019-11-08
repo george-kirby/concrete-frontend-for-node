@@ -164,7 +164,7 @@ const App = props => {
                   <TaskForm
                   editMode = {true}
                     projects={currentUser.projects}
-                    tasks={currentUser.tasks}
+                    existingTags={Sorting.uniqueTagsFromTasks(orderedTasks())}
                     task={findFromParams(
                       currentUser.tasks,
                       routerProps.match.params

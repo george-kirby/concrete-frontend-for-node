@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Icon } from "semantic-ui-react"
+import { Form, Icon, Dropdown } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/Form.css"
 // import PrepData from "../helpers/PrepData"
@@ -7,13 +7,29 @@ import API from "../adapters/API"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from '../helpers/Sorting'
 
-const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
+const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existingTags }) => {
   const [title, setTitle] = useState(editMode ? task.title : "")
   const [incompleteSteps, setIncompleteSteps] = useState(editMode ? task.incomplete_steps : [""])
   const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actual_time) : "")
   const [casualTime, setCasualTime] = useState(editMode ? task.display_time : "")
   const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
   const [cue, setCue] = useState(editMode ? task.cue : "")
+
+  const [freshTags, setFreshTags] = useState([])
+  const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
+
+  const existingTagOptions = existingTags.map(tag => {
+    return {
+      key: tag,
+      value: tag,
+      text: tag
+    }
+  })
+
+  const handleExistingTagsSelection = (e, data) => {
+    console.log(data.value)
+    setSelectedExistingTags(data.value)
+  }
 
   const casualTimeButtons = [
     { value: "morning", display: "Morning" },
@@ -29,7 +45,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
       cue,
       actual_time,
       display_time : casualTime,
-      incomplete_steps: JSON.stringify(incompleteSteps)
+      incomplete_steps: JSON.stringify(incompleteSteps),
+      tags: JSON.stringify([...freshTags, ...selectedExistingTags])
     }
     editMode ?
       API.patchTask(task.id, taskData)
@@ -87,7 +104,23 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     e.preventDefault()
     let newIncompleteSteps = [...incompleteSteps]
     newIncompleteSteps.splice(index, 1)
+    if (newIncompleteSteps === []) {newIncompleteSteps = [""]}
     setIncompleteSteps(newIncompleteSteps)
+  }
+
+  const handleTagChange = (e, index) => {
+    e.preventDefault()
+    let newTags = [...freshTags]
+    newTags[index] = e.target.value
+    setFreshTags(newTags)
+  }
+
+  const handleTagRemoval = (e, index) => {
+    e.preventDefault()
+    let newTags = [...freshTags]
+    newTags.splice(index, 1)
+    if (newTags === []) {newTags = [""]}
+    setFreshTags(newTags)
   }
 
   const handleDestroyTask = e => {
@@ -125,7 +158,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
               </Form.Button>
             )
           })}
-          <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} />
+          <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
         </Form.Group>
         <Form.Input label="Task cue:" placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
         <Form.Group>
@@ -134,6 +167,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
             placeholder={`eg sit at desk with laptop`}
             value={incompleteSteps[0]}
             onChange={e => handleStepChange(e, 0)}
+            required
           />
           <Icon name="close" onClick={e => handleStepRemoval(e, 0)}/>
         </Form.Group>
@@ -146,10 +180,38 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
             <Icon name="close" onClick={e => handleStepRemoval(e, index + 1)}/>
           </Form.Group>
         })}
-
+        <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
+        {/* <Form.Group>
+          <Form.Input
+            label={editMode ? "Tags:" : "Add tags:"}
+            placeholder={`eg home, course project`}
+            value={incompleteSteps[0]}
+            onChange={e => handleStepChange(e, 0)}
+          />
+          <Icon name="close" onClick={e => handleStepRemoval(e, 0)}/>
+        </Form.Group> */}
+        Tags:
+        <Dropdown
+      placeholder='Add existing tags'
+      fluid
+      multiple
+      search
+      selection
+      options={existingTagOptions}
+      onChange={handleExistingTagsSelection}
+      value={selectedExistingTags}
+      />
+        {freshTags.map((tag, index) => {
+          return <Form.Group key={`tag-${index + 1}`}>
+            <Form.Input 
+            value={freshTags[index]}
+            onChange={e => handleTagChange(e, index)}
+            placeholder="New tag"/>
+            <Icon name="close" onClick={e => handleTagRemoval(e, index)}/>
+          </Form.Group>
+        })}
+        <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Create new tag"/>
 {/* add tags */}
-
-        <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another Step"/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
         {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
