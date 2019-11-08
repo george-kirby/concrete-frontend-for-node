@@ -24,15 +24,22 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   const handleSubmit = e => {
     e.preventDefault()
     const actual_time = `${date} ${preciseTime}`
-    API.postTask({
+    const taskData = {
       title,
       cue,
       actual_time,
       display_time : casualTime,
-      user_id: currentUser.id,
       incomplete_steps: JSON.stringify(incompleteSteps)
-    })
-    .then(console.log)
+    }
+    editMode ?
+      API.patchTask(task.id, taskData)
+      .then(console.log)
+    : 
+      API.postTask({
+        user_id: currentUser.id,
+        ...taskData
+      })
+      .then(console.log)
   }
 
   const handleCasualTimeChange = e => {
