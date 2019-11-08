@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 // import { useHistory } from 'react-router-dom'
 import { Link } from "react-router-dom"
 import API from "../adapters/API"
@@ -8,13 +8,21 @@ import Sorting from "../helpers/Sorting"
 import { Icon } from "semantic-ui-react"
 
 const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
-  const handleCompleteStepClick = stepId => {
-    API.patchStep(stepId, { completed: true }).then(step =>
-      setCurrentUser({
-        ...currentUser,
-        projects: UpdateUserObject.patchedStep(step, currentUser)
-      })
-    )
+
+  const [completeSteps, setCompleteSteps] = useState(task.complete_steps);
+  const [incompleteSteps, setIncompleteSteps] = useState(task.incomplete_steps);
+
+  const handleCompleteStepClick = index => {
+    let newCompleteSteps = [...task.complete_steps]
+    let newIncompleteSteps = [...task.incomplete_steps]
+    newCompleteSteps = [...newCompleteSteps, ...newIncompleteSteps.splice(index, 1)]
+    console.log(newCompleteSteps)
+    console.log(newIncompleteSteps)
+    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: JSON.stringify(newIncompleteSteps)})
+    .then(task => {
+      console.log(task)
+      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+    })
   }
 
   const handleEditClick = () => {
@@ -39,14 +47,9 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
           </p>
           {task.incomplete_steps
             .map((step, index) => (
-              <p key={`step-${index + 1}`}>
+              <p key={`step-${index}`}>
                 <Icon name="hand point right outline" /> {step}{" "}
-                {/* <button
-                  onClick={() => handleCompleteStepClick(step.id)}
-                  className="completed-button"
-                >
-                  <Icon name="check" color='green'/>
-                </button> */}
+                  <Icon name="check" color='green' onClick={() => handleCompleteStepClick(index)}/>
               </p>
             ))}
           <button onClick={() => handleEditClick()}>Edit task</button>

@@ -9,17 +9,6 @@ import { Card, Icon, Grid } from "semantic-ui-react"
 const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   const history = useHistory()
 
-  // const handleCompleteTaskClick = task => {
-  //   task.steps.forEach(step => {
-  //     API.patchStep(step.id, { completed: true }).then(responseStep => {
-  //       setCurrentUser({
-  //         ...currentUser,
-  //         projects: UpdateUserObject.patchedStep(responseStep, currentUser)
-  //       })
-  //     })
-  //   })
-  // }
-
   const handleCompleteTaskClick = task => {
     let newCompleteSteps = [...task.complete_steps]
     task.incomplete_steps.forEach(step => {
@@ -28,7 +17,6 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
     console.log(newCompleteSteps)
     API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
     .then(task => {
-      console.log(task)
       setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
     })
   }
