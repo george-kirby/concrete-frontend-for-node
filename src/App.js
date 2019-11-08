@@ -154,7 +154,7 @@ const App = props => {
                       currentUser.tasks,
                       routerProps.match.params
                     )}
-                    {...{ ...currentUser, setCurrentUser }}
+                    {...{ ...routerProps, currentUser, setCurrentUser }}
                   />
                 ) : (
                   <StallingComponent />
@@ -201,7 +201,7 @@ const App = props => {
                 currentUser ? (
                   <TaskList
                     tasks={orderedTasks()}
-                    {...{ setCurrentUser, currentUser, routerProps }}
+                    {...{ setCurrentUser, currentUser, ...routerProps }}
                   />
                 ) : (
                   <StallingComponent />

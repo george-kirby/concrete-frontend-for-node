@@ -33,13 +33,18 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     }
     editMode ?
       API.patchTask(task.id, taskData)
-      .then(console.log)
+      .then(task => {
+        setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+      })
     : 
       API.postTask({
         user_id: currentUser.id,
         ...taskData
       })
-      .then(console.log)
+      .then(task => {
+        setCurrentUser({...currentUser, tasks: UpdateUserObject.postedTask(task, currentUser)})
+      })
+    history.go(-1)
   }
 
   const handleCasualTimeChange = e => {
