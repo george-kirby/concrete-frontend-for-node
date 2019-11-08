@@ -21,6 +21,19 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     { value: "evening", display: "Evening" }
   ]
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const actual_time = `${date} ${preciseTime}`
+    API.postTask({
+      title,
+      cue,
+      actual_time,
+      display_time : casualTime,
+      user_id: currentUser.id
+    })
+    .then(console.log)
+  }
+
   const handleCasualTimeChange = e => {
     e.preventDefault()
     setCasualTime(e.target.value)
@@ -32,7 +45,21 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     setCasualTime(e.target.value)
   }
 
-  const handleDateChange = e => setDate(e.target.value)
+  const todayString = () => {
+    return new Date().toISOString().slice(0, 10)
+  }
+
+  const tomorrowString = () => {
+    let tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    return tomorrow.toISOString().slice(0, 10)
+  }
+
+  const handleDateChange = e => {
+    e.preventDefault()
+    setDate(e.target.value)
+  }
+
   const handleTitleChange = e => setTitle(e.target.value)
   const handleCueChange = e => setCue(e.target.value)
 
@@ -43,10 +70,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
     setIncompleteSteps(newIncompleteSteps)
   }
 
-  // const newStepField = () => {
-
-  // }
-
   const handleDestroyTask = e => {
     window.confirm("Are you sure you want to delete this task?")
     console.log("Task destroyed!")
@@ -54,12 +77,12 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
 
   return (
     <div>
-      {/* <Form onSubmit={handleSubmit}> */}
-      <Form>
+      <Form onSubmit={handleSubmit}>
+      {/* <Form> */}
         <Form.Input placeholder="Task name..." value={title} onChange={handleTitleChange} required/>
         <Form.Group>
-          <Form.Button>Today</Form.Button>
-          <Form.Button>Tomorrow</Form.Button>
+          <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
+          <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
           <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
         </Form.Group>
         <Form.Group>
