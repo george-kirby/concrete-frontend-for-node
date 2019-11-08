@@ -44,7 +44,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
       .then(task => {
         setCurrentUser({...currentUser, tasks: UpdateUserObject.postedTask(task, currentUser)})
       })
-    history.go(-1)
+    editMode ? history.go(-1) : history.push("/tasks")
   }
 
   const handleCasualTimeChange = e => {
