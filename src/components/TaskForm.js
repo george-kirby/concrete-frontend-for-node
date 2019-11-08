@@ -84,14 +84,16 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
   }
 
   const handleDestroyTask = e => {
-    window.confirm("Are you sure you want to delete this task?")
-    API.destroyTask(task.id).then(task => {
+    let result = window.confirm("Are you sure you want to delete this task?")
+    if (result) {
+      API.destroyTask(task.id).then(task => {
       setCurrentUser({
         ...currentUser,
         projects: UpdateUserObject.destroyedTask(task, currentUser)
       })
-    })
-    history.push("/tasks")
+      })
+      history.push("/tasks")
+    }
   }
 
   return (
