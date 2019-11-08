@@ -38,7 +38,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
           {task.tags.length > 0 && (
             <p>
               <Icon name="tags" />
-              {task.tags}
+              {task.tags.join(" ~ ")}
             </p>
           )}
           <p>
