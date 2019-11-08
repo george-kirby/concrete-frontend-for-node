@@ -85,7 +85,13 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
 
   const handleDestroyTask = e => {
     window.confirm("Are you sure you want to delete this task?")
-    console.log("Task destroyed!")
+    API.destroyTask(task.id).then(task => {
+      setCurrentUser({
+        ...currentUser,
+        projects: UpdateUserObject.destroyedTask(task, currentUser)
+      })
+    })
+    history.push("/tasks")
   }
 
   return (
@@ -131,8 +137,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
 
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another Step"/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
-        {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
       </Form>
+        {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
     </div>
   )
 }
