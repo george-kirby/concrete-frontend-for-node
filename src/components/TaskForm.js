@@ -29,7 +29,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode }) => {
       cue,
       actual_time,
       display_time : casualTime,
-      user_id: currentUser.id
+      user_id: currentUser.id,
+      incomplete_steps: JSON.stringify(incompleteSteps)
     })
     .then(console.log)
   }
