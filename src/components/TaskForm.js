@@ -16,7 +16,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const [cue, setCue] = useState(editMode ? task.cue : "")
 
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
-  const [freshTags, setFreshTags] = useState([])
+  const [freshTags, setFreshTags] = useState([""])
 
   const existingTagOptions = existingTags.map(tag => {
     return {
@@ -41,7 +41,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     e.preventDefault()
     const actual_time = `${date} ${preciseTime}`
     let tagData = [...freshTags, ...selectedExistingTags].filter(tag => tag !== "")
-    console.log(tagData)
     const taskData = {
       title,
       cue,
@@ -194,7 +193,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         </Form.Group> */}
         Tags:
         <Dropdown
-      placeholder='Add existing tags'
+      placeholder='Attach existing tags'
       fluid
       multiple
       search
@@ -212,7 +211,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
             <Icon name="close" onClick={e => handleTagRemoval(e, index)}/>
           </Form.Group>
         })}
-        <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Create new tag"/>
+        <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="+"/>
 {/* add tags */}
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
