@@ -58,31 +58,6 @@ const getUser = userId => {
   return fetch(USERS_URL + userId).then(resp => resp.json())
 }
 
-const postProject = projectData => {
-  return fetch(PROJECTS_URL, {
-    method: "POST",
-    headers: jsonHeaders(), 
-    body: JSON.stringify({project: projectData})
-  })
-  .then(resp => resp.json())
-}
-
-const patchProject = (projectId, projectData) => {
-  return fetch(PROJECTS_URL+projectId, {
-    method: "PATCH",
-    headers: jsonHeaders(), 
-    body: JSON.stringify({project: projectData})
-  })
-  .then(resp => resp.json())
-}
-
-const destroyProject = projectId => {
-  return fetch(PROJECTS_URL+projectId, {
-    method: "DELETE",
-    headers: jsonHeaders()
-  })
-}
-
 const postTask = taskData => {
   return fetch(TASKS_URL, {
     method: "POST",
@@ -108,29 +83,4 @@ const destroyTask = taskId => {
   })
 }
 
-const postStep = stepData => {
-  return fetch(STEPS_URL, {
-    method: "POST",
-    headers: jsonHeaders(), 
-    body: JSON.stringify({step: stepData})
-  })
-  .then(resp => resp.json())
-}
-
-const patchStep = (stepId, stepData) => {
-  return fetch(STEPS_URL+stepId, {
-    method: "PATCH",
-    headers: jsonHeaders(), 
-    body: JSON.stringify({step: stepData})
-  })
-  .then(resp => resp.json())
-}
-
-const destroyStep = stepId => {
-  return fetch(STEPS_URL+stepId, {
-    method: "DELETE",
-    headers: jsonHeaders()
-  })
-}
-
-export default { getUser, login, logout, validateUser, postProject, patchProject, destroyProject, postTask, patchTask, destroyTask, postStep, patchStep, destroyStep }
+export default { getUser, login, logout, validateUser, postTask, patchTask, destroyTask }
