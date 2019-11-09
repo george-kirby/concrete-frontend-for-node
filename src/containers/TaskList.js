@@ -58,7 +58,11 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
                 <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser }} hot={index === 0} />
               )
             })}
-          </div> : "No outstanding tasks - well done!"}
+          </div> :
+                <div>
+                <p>No outstanding tasks - well done!</p>
+                <Link to="/new">Add a new task</Link>
+              </div>}
         </Card.Group>
       {/* </Grid.Column>
     </Grid> */}
