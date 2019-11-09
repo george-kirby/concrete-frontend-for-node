@@ -141,7 +141,7 @@ const App = props => {
                   <SelectedTask
                   hot={false}
                     task={findFromParams(
-                      orderedTasks(),
+                      currentUser.tasks,
                       routerProps.match.params
                     )}
                     {...{ ...routerProps, setCurrentUser, currentUser }}

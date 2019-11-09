@@ -5,12 +5,9 @@ import API from "../adapters/API"
 import StallingComponent from "./StallingComponent"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from "../helpers/Sorting"
-import { Icon } from "semantic-ui-react"
+import { Icon, Progress } from "semantic-ui-react"
 
 const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
-
-  const [completeSteps, setCompleteSteps] = useState(task.complete_steps);
-  const [incompleteSteps, setIncompleteSteps] = useState(task.incomplete_steps);
 
   const handleCompleteStepClick = index => {
     let newCompleteSteps = [...task.complete_steps]
@@ -45,13 +42,14 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
             <Icon color="red" name="exclamation" />
             {Sorting.displayDateTime(task)} - {task.cue}
           </p>
-          {task.incomplete_steps
+          <Progress color="green" value={task.complete_steps.length} total={task.complete_steps.length + task.incomplete_steps.length} progress="ratio"/>
+          {task.incomplete_steps.length > 0 ? task.incomplete_steps
             .map((step, index) => (
               <p key={`step-${index}`}>
                 <Icon name="hand point right outline" /> {step}{" "}
                   <Icon name="check" color='green' onClick={() => handleCompleteStepClick(index)}/>
               </p>
-            ))}
+            )) : "Task complete - well done!"}
           <button onClick={() => handleEditClick()}>Edit task</button>
           <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
         </div>
