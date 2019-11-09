@@ -14,13 +14,9 @@ import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
 import SelectedTask from "./components/SelectedTask"
-import SelectedProject from "./components/SelectedProject"
 import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
-import NewTaskForm from "./components/NewTaskForm"
-import EditTaskForm from "./components/EditTaskForm"
-import ProjectList from "./containers/ProjectList"
 
 import { Menu } from 'semantic-ui-react'
 import TaskForm from "./components/TaskForm"
@@ -160,7 +156,6 @@ const App = props => {
               path="/tasks/:id/edit"
               component={routerProps =>
                 currentUser ? (
-                  // <EditTaskForm
                   <TaskForm
                   editMode = {true}
                     projects={currentUser.projects}
@@ -176,32 +171,11 @@ const App = props => {
                 )
               }
             />
-            {/* <Route
-              exact
-              path="/projects/:id"
-              component={routerProps =>
-                currentUser ? (
-                  <SelectedProject
-                    project={findFromParams(
-                      currentUser.projects,
-                      routerProps.match.params
-                    )}
-                    {...{ ...routerProps, setCurrentUser, currentUser }}
-                  />
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            /> */}
             <Route
               exact
               path="/new"
               component={routerProps =>
                 currentUser ? (
-                  // <NewTaskForm
-                  //   userId={currentUser.id}
-                  //   {...{ ...routerProps, setCurrentUser, currentUser }}
-                  // />
                   <TaskForm userId={currentUser.id} editMode={false}
                     {...{ ...routerProps, setCurrentUser, currentUser }}/>
                 ) : (
@@ -209,20 +183,6 @@ const App = props => {
                 )
               }
             />
-            {/* <Route
-              exact
-              path="/projects"
-              component={routerProps =>
-                currentUser ? (
-                  <ProjectList
-                    projects={orderedProjects()}
-                    {...{ routerProps }}
-                  />
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            /> */}
             {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
           </Switch>
         </ErrorBoundary>
