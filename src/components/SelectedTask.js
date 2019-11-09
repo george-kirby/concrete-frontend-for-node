@@ -49,7 +49,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
                 <Icon name="hand point right outline" /> {step}{" "}
                   <Icon name="check" color='green' onClick={() => handleCompleteStepClick(index)}/>
               </p>
-            )) : "Task complete - well done!"}
+            )) : <p>Task complete - well done!</p>}
           <button onClick={() => handleEditClick()}>Edit task</button>
           <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
         </div>
