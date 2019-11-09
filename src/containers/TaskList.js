@@ -3,7 +3,7 @@ import TaskCard from "../components/TaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/TaskList.css'
 import Sorting from '../helpers/Sorting'
-import { Card, Dropdown, Grid, GridColumn, Progress, Divider, Header } from 'semantic-ui-react'
+import { Card, Dropdown, Grid, GridColumn, Progress, Divider, Header, Menu } from 'semantic-ui-react'
 
 const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
 
@@ -34,17 +34,19 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
             <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} />
       </Grid.Column>
       <Grid.Column floated='right' width={12}> */}
-        <Dropdown
-        placeholder='Filter by tags'
-        fluid
-        multiple
-        search
-        selection
-        options={tagOptions}
-        onChange={handleFilterChange}
-        />
-        <Divider>
-          <Header as="h5">
+        <Menu fixed="top">
+          <Dropdown
+          placeholder='Filter by tags'
+          fluid
+          multiple
+          search
+          selection
+          options={tagOptions}
+          onChange={handleFilterChange}
+          />
+        </Menu>
+        <Divider horizontal>
+          <Header as="h5" float="left">
             Today
           </Header>
         </Divider>
