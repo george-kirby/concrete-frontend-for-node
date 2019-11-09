@@ -141,7 +141,9 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     <div>
       <Form onSubmit={handleSubmit}>
       {/* <Form> */}
-        <Form.Input placeholder="Task name..." value={title} onChange={handleTitleChange} required/>
+        Task name:
+        <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
+        {editMode ? "Action time:" : "When will you do this?"}
         <Form.Group>
           <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
@@ -161,10 +163,12 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           })}
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
         </Form.Group>
-        <Form.Input label="Task cue:" placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
+        Task cue:
+        <Form.Input placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
+        {editMode ? "Steps:" : "What's a concrete first step?"}
         <Form.Group>
           <Form.Input
-            label={editMode ? "Steps:" : "What's a concrete first step?"}
+            // label={editMode ? "Steps:" : "What's a concrete first step?"}
             placeholder={`eg sit at desk with laptop`}
             value={incompleteSteps[0]}
             onChange={e => handleStepChange(e, 0)}
@@ -182,15 +186,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           </Form.Group>
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
-        {/* <Form.Group>
-          <Form.Input
-            label={editMode ? "Tags:" : "Add tags:"}
-            placeholder={`eg home, course project`}
-            value={incompleteSteps[0]}
-            onChange={e => handleStepChange(e, 0)}
-          />
-          <Icon name="close" onClick={e => handleStepRemoval(e, 0)}/>
-        </Form.Group> */}
         Tags:
         <Dropdown
       placeholder='Attach existing tags'
@@ -211,7 +206,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
             <Icon name="close" onClick={e => handleTagRemoval(e, index)}/>
           </Form.Group>
         })}
-        <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="+"/>
+        <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Add another new tag"/>
 {/* add tags */}
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
