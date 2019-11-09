@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { Form, Icon, Dropdown } from "semantic-ui-react"
+import { Form, Icon, Dropdown, Header, Menu } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
-import "../stylesheets/Form.css"
+import "../stylesheets/TaskForm.css"
 // import PrepData from "../helpers/PrepData"
 import API from "../adapters/API"
 import UpdateUserObject from "../helpers/UpdateUserObject"
@@ -139,7 +139,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Menu fixed="top"><Header as="h1">{editMode ? "Edit task" : "New task"}</Header></Menu>
+      <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
         Task name:
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
