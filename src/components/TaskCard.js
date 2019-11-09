@@ -25,7 +25,7 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
       <Card.Content>
         <Grid>
             <Grid.Column  floated='left' width={12}>
-                <Card.Header>{task.title}</Card.Header>
+                <Card.Header as="h4">{task.title}</Card.Header>
                 <p>
                   {hot ? (
                     <Icon color="red" name="exclamation" />
