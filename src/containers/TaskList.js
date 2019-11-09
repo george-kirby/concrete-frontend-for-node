@@ -3,7 +3,7 @@ import TaskCard from "../components/TaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/TaskList.css'
 import Sorting from '../helpers/Sorting'
-import { Card, Dropdown, Grid, GridColumn, Progress } from 'semantic-ui-react'
+import { Card, Dropdown, Grid, GridColumn, Progress, Divider, Header } from 'semantic-ui-react'
 
 const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
 
@@ -43,7 +43,12 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
         options={tagOptions}
         onChange={handleFilterChange}
         />
-        <Card.Group>
+        <Divider>
+          <Header as="h5">
+            Today
+          </Header>
+        </Divider>
+        <Card.Group id="task-list">
           {filteredTasks.length > 0 ? 
           <div>
             {filteredTasks.map((task, index) => {

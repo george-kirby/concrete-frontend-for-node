@@ -187,10 +187,8 @@ const App = props => {
             {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
           </Switch>
         </ErrorBoundary>
-      </div>
-      <br />
       {currentUser && (
-        <Menu>
+        <Menu fixed="bottom">
           <Menu.Item>
           <Link to="/hot">HOT</Link>
           </Menu.Item>
@@ -210,6 +208,7 @@ const App = props => {
           </Menu.Item>
         </Menu>
       )}
+      </div>
     </div>
   )
 }
