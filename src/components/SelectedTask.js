@@ -54,7 +54,10 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
           <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
         </div>
       ) : (hot ? (
-        "You have no outstanding tasks - well done!"
+        <div>
+          <p>You have no outstanding tasks - well done!</p>
+          <Link to="/new">Add a new task</Link>
+        </div>
       ) : (
         <StallingComponent />
       ))}

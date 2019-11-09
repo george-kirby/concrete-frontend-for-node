@@ -100,7 +100,7 @@ const App = props => {
               exact
               path="/signup"
               component={routerProps => (
-                <SignUpForm {...{ handleLogin, routerProps }} />
+                <SignUpForm {...{ handleLogin, ...routerProps, setCurrentUser }} />
                 )}
             />
             <Route
@@ -110,7 +110,7 @@ const App = props => {
                 currentUser ? (
                   <SelectedTask
                   hot={true}
-                    task={mostUrgentTask()}
+                    task={currentUser.tasks ? mostUrgentTask() : null}
                     {...{ ...routerProps, setCurrentUser, currentUser }}
                   />
                   ) : (

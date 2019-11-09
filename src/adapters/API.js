@@ -20,11 +20,12 @@ const authorisationHeader = (more = {}) => ({
 })
 
 const handleServerResponse = response => {
-  // console.log(response)
+  console.log(response)
   if (response.token) {
     localStorage.setItem("token", response.token)
   }
   if (response.user) {
+    console.log(JSON.parse(response.user))
     return JSON.parse(response.user)
   } else {
     return response
@@ -58,6 +59,15 @@ const getUser = userId => {
   return fetch(USERS_URL + userId).then(resp => resp.json())
 }
 
+const postUser = userData => {
+  return fetch(USERS_URL, {
+    method: "POST",
+    headers: jsonHeaders(), 
+    body: JSON.stringify({user: userData})
+  })
+  .then(resp => resp.json())
+}
+
 const postTask = taskData => {
   return fetch(TASKS_URL, {
     method: "POST",
@@ -83,4 +93,4 @@ const destroyTask = taskId => {
   })
 }
 
-export default { getUser, login, logout, validateUser, postTask, patchTask, destroyTask }
+export default { getUser, login, logout, validateUser, handleServerResponse, getUser, postUser, postTask, patchTask, destroyTask }

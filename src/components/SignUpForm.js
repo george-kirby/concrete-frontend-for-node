@@ -19,7 +19,19 @@ export class SignUpForm extends Component {
       email: event.target.email.value,
       password: event.target.password.value,
       password_confirmation: event.target.password_confirmation.value
-    }).then(this.props.handleLogin)
+    })
+    .then(API.handleServerResponse)
+    .then(user => {
+      console.log(user)
+      if (user.errors) {
+        window.alert(user.errors)
+      } else if (user.error) {
+        window.alert([user.error, user.exception]) // to be removed - don't want user to see an error when they first load the page
+      } else {
+        this.props.setCurrentUser(user)
+        this.props.history.push("/new")
+      }
+    })
   }
 
   render() {
