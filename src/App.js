@@ -176,7 +176,8 @@ const App = props => {
               path="/new"
               component={routerProps =>
                 currentUser ? (
-                  <TaskForm userId={currentUser.id} editMode={false}
+                  <TaskForm editMode={false}
+                  existingTags={Sorting.uniqueTagsFromTasks(orderedTasks())}
                     {...{ ...routerProps, setCurrentUser, currentUser }}/>
                 ) : (
                   <StallingComponent />
