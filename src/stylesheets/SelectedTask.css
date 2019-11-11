@@ -1,3 +1,7 @@
 #selected-task-container {
     margin: 1rem;
 }
+
+p.complete-step {
+    background-color: lightgreen;
+}
