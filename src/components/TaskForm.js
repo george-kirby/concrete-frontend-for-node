@@ -41,12 +41,13 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     e.preventDefault()
     const actual_time = `${date} ${preciseTime}`
     let tagData = [...freshTags, ...selectedExistingTags].filter(tag => tag !== "")
+    let stepsData = incompleteSteps.filter(step => step !== "")
     const taskData = {
       title,
       cue,
       actual_time,
       display_time : casualTime,
-      incomplete_steps: JSON.stringify(incompleteSteps),
+      incomplete_steps: JSON.stringify(stepsData),
       tags: JSON.stringify(tagData)
     }
     editMode ?
@@ -190,16 +191,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
         Tags:
-        <Dropdown
-      placeholder='Attach existing tags'
-      fluid
-      multiple
-      search
-      selection
-      options={existingTagOptions}
-      onChange={handleExistingTagsSelection}
-      value={selectedExistingTags}
-      />
         {freshTags.map((tag, index) => {
           return <Form.Group key={`tag-${index + 1}`}>
             <Form.Input 
@@ -210,7 +201,18 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           </Form.Group>
         })}
         <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Add another new tag"/>
-{/* add tags */}
+        ----- or -----
+        <Dropdown
+      placeholder='Attach existing tags'
+      fluid
+      multiple
+      search
+      selection
+      options={existingTagOptions}
+      onChange={handleExistingTagsSelection}
+      value={selectedExistingTags}
+      />
+      <br/><br/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
         {editMode && <Form.Button onClick={handleDestroyTask} color="red" content="Delete task"/>}
