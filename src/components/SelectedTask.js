@@ -43,7 +43,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
             <Icon color="red" name="exclamation" />
             {Sorting.displayDateTime(task)} - {task.cue}
           </p>
-          <Progress class="progress-bar" color="green" style={{maxWidth: "90%", margin: "1em 1em 2em"}} value={task.complete_steps.length} total={task.complete_steps.length + task.incomplete_steps.length} progress="ratio"/>
+          <Progress className="progress-bar" color="green" style={{maxWidth: "90%", margin: "1em 0.5em 2em"}} value={task.complete_steps.length} total={task.complete_steps.length + task.incomplete_steps.length} progress="ratio"/>
           {task.incomplete_steps.length > 0 ? task.incomplete_steps
             .map((step, index) => (
               <p key={`step-${index}`}>

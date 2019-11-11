@@ -88,104 +88,106 @@ const App = props => {
     <div>
       <div>
         <ErrorBoundary>
-          <Switch>
-            <Route
-              exact
-              path="/login"
-              component={routerProps => (
-                <LoginForm {...{ handleLogin, routerProps }} />
-                )}
-            />
-            <Route
-              exact
-              path="/signup"
-              component={routerProps => (
-                <SignUpForm {...{ handleLogin, ...routerProps, setCurrentUser }} />
-                )}
-            />
-            <Route
-              exact
-              path="/hot"
-              component={routerProps =>
-                currentUser ? (
-                  <SelectedTask
-                  hot={true}
-                    task={currentUser.tasks ? mostUrgentTask() : null}
-                    {...{ ...routerProps, setCurrentUser, currentUser }}
-                  />
+          <div id="main-container">
+            <Switch>
+              <Route
+                exact
+                path="/login"
+                component={routerProps => (
+                  <LoginForm {...{ handleLogin, routerProps }} />
+                  )}
+              />
+              <Route
+                exact
+                path="/signup"
+                component={routerProps => (
+                  <SignUpForm {...{ handleLogin, ...routerProps, setCurrentUser }} />
+                  )}
+              />
+              <Route
+                exact
+                path="/hot"
+                component={routerProps =>
+                  currentUser ? (
+                    <SelectedTask
+                    hot={true}
+                      task={currentUser.tasks ? mostUrgentTask() : null}
+                      {...{ ...routerProps, setCurrentUser, currentUser }}
+                    />
+                    ) : (
+                    <StallingComponent />
+                    )
+                  }
+              />
+              <Route
+                exact
+                path="/tasks"
+                component={routerProps =>
+                  currentUser ? (
+                    <TaskList
+                      tasks={orderedTasks()}
+                      {...{ setCurrentUser, currentUser, ...routerProps }}
+                      tags={Sorting.uniqueTagsFromTasks(orderedTasks())}
+                    />
                   ) : (
-                  <StallingComponent />
+                    <StallingComponent />
                   )
                 }
-            />
-            <Route
-              exact
-              path="/tasks"
-              component={routerProps =>
-                currentUser ? (
-                  <TaskList
-                    tasks={orderedTasks()}
-                    {...{ setCurrentUser, currentUser, ...routerProps }}
-                    tags={Sorting.uniqueTagsFromTasks(orderedTasks())}
-                  />
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/tasks/:id"
-              component={routerProps =>
-                currentUser ? (
-                  <SelectedTask
-                  hot={false}
-                    task={findFromParams(
-                      currentUser.tasks,
-                      routerProps.match.params
-                    )}
-                    {...{ ...routerProps, setCurrentUser, currentUser }}
-                  />
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/tasks/:id/edit"
-              component={routerProps =>
-                currentUser ? (
-                  <TaskForm
-                  editMode = {true}
-                    projects={currentUser.projects}
+              />
+              <Route
+                exact
+                path="/tasks/:id"
+                component={routerProps =>
+                  currentUser ? (
+                    <SelectedTask
+                    hot={false}
+                      task={findFromParams(
+                        currentUser.tasks,
+                        routerProps.match.params
+                      )}
+                      {...{ ...routerProps, setCurrentUser, currentUser }}
+                    />
+                  ) : (
+                    <StallingComponent />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/tasks/:id/edit"
+                component={routerProps =>
+                  currentUser ? (
+                    <TaskForm
+                    editMode = {true}
+                      projects={currentUser.projects}
+                      existingTags={Sorting.uniqueTagsFromTasks(orderedTasks())}
+                      task={findFromParams(
+                        currentUser.tasks,
+                        routerProps.match.params
+                      )}
+                      {...{ ...routerProps, currentUser, setCurrentUser }}
+                    />
+                  ) : (
+                    <StallingComponent />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/new"
+                component={routerProps =>
+                  currentUser ? (
+                    <TaskForm editMode={false}
                     existingTags={Sorting.uniqueTagsFromTasks(orderedTasks())}
-                    task={findFromParams(
-                      currentUser.tasks,
-                      routerProps.match.params
-                    )}
-                    {...{ ...routerProps, currentUser, setCurrentUser }}
-                  />
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            />
-            <Route
-              exact
-              path="/new"
-              component={routerProps =>
-                currentUser ? (
-                  <TaskForm editMode={false}
-                  existingTags={Sorting.uniqueTagsFromTasks(orderedTasks())}
-                    {...{ ...routerProps, setCurrentUser, currentUser }}/>
-                ) : (
-                  <StallingComponent />
-                )
-              }
-            />
-            {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
-          </Switch>
+                      {...{ ...routerProps, setCurrentUser, currentUser }}/>
+                  ) : (
+                    <StallingComponent />
+                  )
+                }
+              />
+              {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
+            </Switch>
+          </div>
         </ErrorBoundary>
       {currentUser && (
         <Menu fixed="bottom">
