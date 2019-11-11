@@ -1,3 +1,5 @@
-#form {
+#form-container {
     /* overflow: scroll; */
+    margin: 0.5rem;
 }
+

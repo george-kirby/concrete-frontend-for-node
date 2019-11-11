@@ -138,8 +138,10 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   }
 
   return (
-    <div>
-      <Menu fixed="top"><Header as="h1">{editMode ? "Edit task" : "New task"}</Header></Menu>
+    <div id="form-container">
+      {/* <Menu fixed="top"> */}
+        <Header as="h1">{editMode ? "Edit task" : "New task"}</Header>
+        {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
         Task name:
