@@ -14,6 +14,7 @@ import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
 import API from "./adapters/API"
 import SelectedTask from "./components/SelectedTask"
+import Settings from "./components/Settings"
 import StallingComponent from "./components/StallingComponent"
 import TaskList from "./containers/TaskList"
 import Sorting from "./helpers/Sorting"
@@ -185,6 +186,18 @@ const App = props => {
                   )
                 }
               />
+              <Route
+                exact
+                path="/settings"
+                component={routerProps =>
+                  currentUser ? (
+                    <Settings 
+                      {...{ ...routerProps}}/>
+                  ) : (
+                    <StallingComponent />
+                  )
+                }
+              />
               {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
             </Switch>
           </div>
@@ -201,7 +214,7 @@ const App = props => {
           <Link to="/new">NEW</Link>
           </Menu.Item>
           <Menu.Item>
-          <Link to="/settings">SETTINGS</Link>
+          <Link to="/settings">(SETTINGS)</Link>
           </Menu.Item>
           <Menu.Item>
           <Link to="/login" onClick={handleLogout}>
