@@ -197,9 +197,11 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
         Tags:
-        <Form.Group>
+        {/* <Form.Group> */}
           {/* <Icon name="tags"/> */}
           <Dropdown
+          // style={{width: "60%"}}
+          fluid
         multiple
         search
         searchQuery={tagSearch}
@@ -209,8 +211,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         onSearchChange={handleTagsSearchChange}
         value={selectedExistingTags}
         />
-        <Form.Button disabled={tagSearch === ""} onClick={handleNewTag} content={`Add "${tagSearch}" as new tag`}/>
-        </Form.Group>
+        <Form.Button style={{marginTop: "3rem"}} disabled={tagSearch === ""} onClick={handleNewTag} content={`Add "${tagSearch}" as new tag`}/>
+        {/* </Form.Group> */}
       <br/><br/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
