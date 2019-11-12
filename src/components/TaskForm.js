@@ -158,20 +158,22 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
           <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
+        <Icon name="calendar alternate outline" size="large"/>
         </Form.Group>
         <Form.Group>
           {casualTimeButtons.map(b => {
             return (
               <Form.Button key={b.value}
-                color={casualTime === b.value ? "green" : "grey"}
-                value={b.value}
-                onClick={handleCasualTimeChange}
+              color={casualTime === b.value ? "green" : "grey"}
+              value={b.value}
+              onClick={handleCasualTimeChange}
               >
                 {b.display}
               </Form.Button>
             )
           })}
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
+          <Icon name="clock" size="large"/>
         </Form.Group>
         Task cue:
         <Form.Input placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
