@@ -49,7 +49,7 @@
 
 #progress-bar-container {
   transform: rotate(180deg);
-  margin: auto;
+  margin: 3rem auto auto;
   background-color: lightgrey;
   height: 90vh;
   /* position: absolute */

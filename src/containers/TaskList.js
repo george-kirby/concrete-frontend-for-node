@@ -22,16 +22,18 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     }
   })
 
+  const basicProgressPercentage = ((currentUser.tasks.length - tasks.length) / currentUser.tasks.length) * 100
+
   useEffect(() => {
     setFilteredTasks(Sorting.applyFilter(tasks, filters))
     }, [filters]);
 
   const handleFilterChange = (e, data) => {
-    console.log(data.value)
     setFilters(data.value)
   }
 
   const handleCompleteTaskDrag = (task) => {
+    console.log(basicProgressPercentage)
     let newCompleteSteps = [...task.complete_steps]
     task.incomplete_steps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
@@ -69,7 +71,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
       <Grid.Column floated='left' width={3}>
             {/* <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} /> */}
         <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}>
-        <div id="progress-bar" style={{height: `${70}%`}}>
+        <div id="progress-bar" style={{height: `${basicProgressPercentage}%`}}>
         </div>
         </div>
       </Grid.Column>
