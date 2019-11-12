@@ -9,7 +9,7 @@
   margin: auto;
 }
 
-.task-card {
+/* .task-card {
   border: solid;
   border-color: rgb(111, 188, 233);
   position: relative;
@@ -22,10 +22,18 @@
   position: relative;
   margin: 0.5rem;
   border-radius: 1rem;
+} */
+
+/* #most-urgent-task-card > div {
+  margin: 0.5rem
+} */
+
+#task-list>div>a:nth-child(1) {
+  box-shadow: 0px 0px 1px 3px #F2711C;
 }
 
-#most-urgent-task-card > div {
-  margin: 0.5rem
+#task-list>div>a:nth-child(n+2) {
+  box-shadow: 0px 0px 1px 2px #2185D0
 }
 
 #background-progress-level {

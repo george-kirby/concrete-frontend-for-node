@@ -2,7 +2,8 @@
     border: solid;
     border-color: black;
     position: relative;
-    margin: 0.5rem
+    margin: 0.5rem;
+    color: black
     /* display: flex;
     flex: column */
 }

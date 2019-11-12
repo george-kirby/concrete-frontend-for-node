@@ -9,7 +9,8 @@ import { Card, Icon, Grid } from "semantic-ui-react"
 const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   const history = useHistory()
 
-  const handleCompleteTaskClick = task => {
+  const handleCompleteTaskClick = (e, task) => {
+    e.stopPropagation()
     let newCompleteSteps = [...task.complete_steps]
     task.incomplete_steps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
@@ -21,7 +22,7 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   }
 
   return (
-    <Card fluid color={hot ? "orange" : "blue"}>
+    <Card className="task-card" fluid color={hot ? "orange" : "blue"} onClick={() => history.push(`tasks/${task.id}`)}>
       <Card.Content>
         <Grid>
             <Grid.Column  floated='left' width={12}>
@@ -37,8 +38,8 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
                 {hot && <p><Icon name="hand point right outline"/> {task.incomplete_steps[0]}</p>}
             </Grid.Column>
             <Grid.Column className="task-actions" floated='right' width={3}>
-              <Icon name="eye" size="large" onClick={() => history.push(`tasks/${task.id}`)} className="details-button"/>
-                <Icon name="clipboard check" color='green' size="large" onClick={() => handleCompleteTaskClick(task)} className="completed-button"/>
+              {/* <Icon name="eye" size="large" onClick={() => history.push(`tasks/${task.id}`)} className="details-button"/> */}
+              <Icon name="clipboard check" color='green' size="large" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"/>
             </Grid.Column>
         </Grid>
       </Card.Content>
