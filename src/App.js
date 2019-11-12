@@ -198,7 +198,7 @@ const App = props => {
                   )
                 }
               />
-              {/* <Route path="*"> <Redirect to={currentUser ? "/tasks" : "/login"}/> </Route> */}
+              <Route path="*"> <Redirect to={localStorage.getItem("token") ? "/tasks" : "/login"}/> </Route>
             </Switch>
           </div>
         </ErrorBoundary>
