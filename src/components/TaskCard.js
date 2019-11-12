@@ -6,7 +6,7 @@ import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from "../helpers/Sorting"
 import { Card, Icon, Grid, Button } from "semantic-ui-react"
 
-const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
+const TaskCard = ({ task, setCurrentUser, currentUser, hot, setDraggedTask }) => {
   const history = useHistory()
 
   const handleCompleteTaskClick = (e, task) => {
@@ -22,11 +22,13 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   }
 
   const handleDragStart = e => {
+    setDraggedTask(task)
     console.log("dragged!")
   }
 
   const handleDragEnd = e => {
     e.preventDefault()
+    setDraggedTask(null)
     console.log("dropped!")
   }
 

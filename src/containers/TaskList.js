@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom'
 import '../stylesheets/TaskList.css'
 import Sorting from '../helpers/Sorting'
 import { Card, Dropdown, Grid, GridColumn, Progress, Divider, Header, Menu } from 'semantic-ui-react'
+import API from '../adapters/API'
+import UpdateUserObject from '../helpers/UpdateUserObject'
 
 const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
 
   const [filters, setFilters] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState(tasks);
+  const [draggedTask, setDraggedTask] = useState(null);
+  const [dropZoneTask, setDropZoneTask] = useState(null);
 
   const tagOptions = tags.map(tag => {
     return {
@@ -27,15 +31,32 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     setFilters(data.value)
   }
 
+  const handleCompleteTaskDrag = (task) => {
+    let newCompleteSteps = [...task.complete_steps]
+    task.incomplete_steps.forEach(step => {
+      newCompleteSteps = [...newCompleteSteps, step]
+    })
+    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
+    .then(task => {
+      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+    })
+  }
+
+  const handleDragEnter = e => {
+    console.log("being dragged over")
+    setDropZoneTask(draggedTask)
+  }
+  
+  const handleDragLeave = e => {
+    e.preventDefault()
+    console.log("don't go!")
+  }
+
   const handleDrop = e => {
     e.preventDefault()
     e.stopPropagation()
     console.log("dropped on me!")
-  }
-
-  const handleLeave = e => {
-    e.preventDefault()
-    console.log("don't go!")
+    handleCompleteTaskDrag(dropZoneTask)
   }
 
   const handleDragOver = e => {
@@ -47,7 +68,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     <Grid>
       <Grid.Column floated='left' width={3}>
             {/* <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} /> */}
-        <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={e => handleDrop(e)} onDragEnter={() => console.log("being dragged over")} onDragLeave={handleLeave}>
+        <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}>
         <div id="progress-bar" style={{height: `${70}%`}}>
         </div>
         </div>
@@ -74,7 +95,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
           <div>
             {filteredTasks.map((task, index) => {
               return (
-                <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser }} hot={index === 0} />
+                <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
               )
             })}
           </div> :
