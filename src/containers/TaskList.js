@@ -33,7 +33,6 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
   }
 
   const handleCompleteTaskDrag = (task) => {
-    console.log(basicProgressPercentage)
     let newCompleteSteps = [...task.complete_steps]
     task.incomplete_steps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
@@ -45,19 +44,16 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
   }
 
   const handleDragEnter = e => {
-    console.log("being dragged over")
     setDropZoneTask(draggedTask)
   }
   
   const handleDragLeave = e => {
     e.preventDefault()
-    console.log("don't go!")
   }
 
   const handleDrop = e => {
     e.preventDefault()
     e.stopPropagation()
-    console.log("dropped on me!")
     handleCompleteTaskDrag(dropZoneTask)
   }
 

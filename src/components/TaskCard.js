@@ -9,27 +9,25 @@ import { Card, Icon, Grid, Button } from "semantic-ui-react"
 const TaskCard = ({ task, setCurrentUser, currentUser, hot, setDraggedTask }) => {
   const history = useHistory()
 
-  const handleCompleteTaskClick = (e, task) => {
-    e.stopPropagation()
-    let newCompleteSteps = [...task.complete_steps]
-    task.incomplete_steps.forEach(step => {
-      newCompleteSteps = [...newCompleteSteps, step]
-    })
-    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
-    .then(task => {
-      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
-    })
-  }
+  // const handleCompleteTaskClick = (e, task) => {
+  //   e.stopPropagation()
+  //   let newCompleteSteps = [...task.complete_steps]
+  //   task.incomplete_steps.forEach(step => {
+  //     newCompleteSteps = [...newCompleteSteps, step]
+  //   })
+  //   API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
+  //   .then(task => {
+  //     setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+  //   })
+  // }
 
   const handleDragStart = e => {
     setDraggedTask(task)
-    console.log("dragged!")
   }
 
   const handleDragEnd = e => {
     e.preventDefault()
     setDraggedTask(null)
-    console.log("dropped!")
   }
 
   return (
