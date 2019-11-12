@@ -4,7 +4,7 @@ import "../stylesheets/TaskCard.css"
 import API from "../adapters/API"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from "../helpers/Sorting"
-import { Card, Icon, Grid } from "semantic-ui-react"
+import { Card, Icon, Grid, Button } from "semantic-ui-react"
 
 const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
   const history = useHistory()
@@ -21,11 +21,20 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
     })
   }
 
+  const handleDragStart = e => {
+    console.log("dragged!")
+  }
+
+  const handleDragEnd = e => {
+    e.preventDefault()
+    console.log("dropped!")
+  }
+
   return (
-    <Card className="task-card" fluid color={hot ? "orange" : "blue"} onClick={() => history.push(`tasks/${task.id}`)}>
+    <Card draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} className="task-card" fluid color={hot ? "orange" : "blue"} onClick={() => history.push(`tasks/${task.id}`)}>
       <Card.Content>
         <Grid>
-            <Grid.Column  floated='left' width={12}>
+            <Grid.Column  floated='left' width={10}>
                 <Card.Header as="h4">{task.title}</Card.Header>
                 <p>
                   {hot ? (
@@ -37,9 +46,10 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot }) => {
                 </p>
                 {hot && <p><Icon name="hand point right outline"/> {task.incomplete_steps[0]}</p>}
             </Grid.Column>
-            <Grid.Column className="task-actions" floated='right' width={3}>
-              {/* <Icon name="eye" size="large" onClick={() => history.push(`tasks/${task.id}`)} className="details-button"/> */}
-              <Icon name="clipboard check" color='green' size="large" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"/>
+            <Grid.Column className="task-actions" floated='right' width={5}>
+              {/* <Icon name="clipboard check" color='green' size="large" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"/> */}
+              {/* <Button color='violet' size="tiny" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button" content="Mark as complete"/> */}
+              <Button color='grey' size="tiny" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"><Icon name="archive"/>Archive</Button>
             </Grid.Column>
         </Grid>
       </Card.Content>

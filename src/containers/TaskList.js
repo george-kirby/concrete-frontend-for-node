@@ -27,13 +27,32 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     setFilters(data.value)
   }
 
+  const handleDrop = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log("dropped on me!")
+  }
+
+  const handleLeave = e => {
+    e.preventDefault()
+    console.log("don't go!")
+  }
+
+  const handleDragOver = e => {
+    e.preventDefault()
+  }
+
   return (
       <div>
-    {/* <Grid>
+    <Grid>
       <Grid.Column floated='left' width={3}>
-            <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} />
+            {/* <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} /> */}
+        <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={e => handleDrop(e)} onDragEnter={() => console.log("being dragged over")} onDragLeave={handleLeave}>
+        <div id="progress-bar" style={{height: `${70}%`}}>
+        </div>
+        </div>
       </Grid.Column>
-      <Grid.Column floated='right' width={12}> */}
+      <Grid.Column floated='right' width={12}>
         <Menu fixed="top">
           <Dropdown
           placeholder='Filter by tags'
@@ -64,8 +83,8 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
                 <Link to="/new">Add a new task</Link>
               </div>}
         </Card.Group>
-      {/* </Grid.Column>
-    </Grid> */}
+      </Grid.Column>
+    </Grid>
     </div>
   )
 }
