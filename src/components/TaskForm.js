@@ -17,6 +17,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
 
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
   const [freshTags, setFreshTags] = useState([""])
+  const [tagSearch, setTagSearch] = useState("")
 
   const existingTagOptions = existingTags.map(tag => {
     return {
@@ -27,9 +28,19 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   })
 
   const handleExistingTagsSelection = (e, { value }) => {
-    // console.log(data.searchQuery)
     console.log(value)
     setSelectedExistingTags(value)
+    setTagSearch("")
+  }
+  
+  const handleTagsSearchChange = (e, { searchQuery }) => {
+    console.log(searchQuery)
+    setTagSearch(searchQuery)
+  }
+
+  const handleNewTag = e => {
+    e.preventDefault()
+    console.log(tagSearch)
   }
 
   const casualTimeButtons = [
@@ -205,16 +216,20 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         })}
         <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Add another new tag"/>
         ----- or -----
-        <Dropdown
-      placeholder='Attach existing tags'
-      fluid
-      multiple
-      search
-      selection
-      options={existingTagOptions}
-      onChange={handleExistingTagsSelection}
-      value={selectedExistingTags}
-      />
+        <Form.Group>
+          <Dropdown
+        placeholder='Attach existing tags'
+        multiple
+        search
+        searchQuery={tagSearch}
+        selection
+        options={existingTagOptions}
+        onChange={handleExistingTagsSelection}
+        onSearchChange={handleTagsSearchChange}
+        value={selectedExistingTags}
+        />
+        <Form.Button disabled={tagSearch === ""} onClick={handleNewTag} content={`Add "${tagSearch}" as new tag`}/>
+        </Form.Group>
       <br/><br/>
         <Form.Button color="green" content={editMode ? "Save changes" : "Create task"} />
       </Form>
