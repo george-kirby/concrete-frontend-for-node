@@ -26,9 +26,10 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     }
   })
 
-  const handleExistingTagsSelection = (e, data) => {
-    console.log(data.value)
-    setSelectedExistingTags(data.value)
+  const handleExistingTagsSelection = (e, { value }) => {
+    // console.log(data.searchQuery)
+    console.log(value)
+    setSelectedExistingTags(value)
   }
 
   const casualTimeButtons = [
