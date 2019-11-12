@@ -19,13 +19,21 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const [freshTags, setFreshTags] = useState([""])
   const [tagSearch, setTagSearch] = useState("")
 
-  const existingTagOptions = existingTags.map(tag => {
+  const [existingTagOptions, setExistingTagOptions] = useState(existingTags.map(tag => {
     return {
       key: tag,
       value: tag,
       text: tag
     }
-  })
+  }))
+
+  // const existingTagOptions = existingTags.map(tag => {
+  //   return {
+  //     key: tag,
+  //     value: tag,
+  //     text: tag
+  //   }
+  // })
 
   const handleExistingTagsSelection = (e, { value }) => {
     console.log(value)
@@ -41,6 +49,13 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const handleNewTag = e => {
     e.preventDefault()
     console.log(tagSearch)
+    setSelectedExistingTags([...selectedExistingTags, tagSearch])
+    setExistingTagOptions([...existingTagOptions, {
+      key: tagSearch,
+      value: tagSearch,
+      text: tagSearch,
+    }])
+    setTagSearch("")
   }
 
   const casualTimeButtons = [
