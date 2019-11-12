@@ -16,7 +16,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const [cue, setCue] = useState(editMode ? task.cue : "")
 
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
-  const [freshTags, setFreshTags] = useState([""])
+  // const [freshTags, setFreshTags] = useState([""])
   const [tagSearch, setTagSearch] = useState("")
 
   const [existingTagOptions, setExistingTagOptions] = useState(existingTags.map(tag => {
@@ -42,20 +42,22 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   }
   
   const handleTagsSearchChange = (e, { searchQuery }) => {
-    console.log(searchQuery)
     setTagSearch(searchQuery)
   }
 
   const handleNewTag = e => {
     e.preventDefault()
-    console.log(tagSearch)
-    setSelectedExistingTags([...selectedExistingTags, tagSearch])
-    setExistingTagOptions([...existingTagOptions, {
-      key: tagSearch,
-      value: tagSearch,
-      text: tagSearch,
-    }])
-    setTagSearch("")
+    if (existingTagOptions.some(option => option.value === tagSearch)) {
+      console.log("that tag already exists!")
+    } else {
+      setSelectedExistingTags([...selectedExistingTags, tagSearch])
+      setExistingTagOptions([...existingTagOptions, {
+        key: tagSearch,
+        value: tagSearch,
+        text: tagSearch,
+      }])
+      setTagSearch("")
+    }
   }
 
   const casualTimeButtons = [
@@ -67,7 +69,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const handleSubmit = e => {
     e.preventDefault()
     const actual_time = `${date} ${preciseTime}`
-    let tagData = [...freshTags, ...selectedExistingTags].filter(tag => tag !== "")
+    // let tagData = [...freshTags, ...selectedExistingTags].filter(tag => tag !== "")
+    let tagData = [...selectedExistingTags].filter(tag => tag !== "")
     let stepsData = incompleteSteps.filter(step => step !== "")
     const taskData = {
       title,
@@ -137,20 +140,20 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     setIncompleteSteps(newIncompleteSteps)
   }
 
-  const handleTagChange = (e, index) => {
-    e.preventDefault()
-    let newTags = [...freshTags]
-    newTags[index] = e.target.value
-    setFreshTags(newTags)
-  }
+  // const handleTagChange = (e, index) => {
+  //   e.preventDefault()
+  //   let newTags = [...freshTags]
+  //   newTags[index] = e.target.value
+  //   setFreshTags(newTags)
+  // }
 
-  const handleTagRemoval = (e, index) => {
-    e.preventDefault()
-    let newTags = [...freshTags]
-    newTags.splice(index, 1)
-    if (newTags === []) {newTags = [""]}
-    setFreshTags(newTags)
-  }
+  // const handleTagRemoval = (e, index) => {
+  //   e.preventDefault()
+  //   let newTags = [...freshTags]
+  //   newTags.splice(index, 1)
+  //   if (newTags === []) {newTags = [""]}
+  //   setFreshTags(newTags)
+  // }
 
   const handleDestroyTask = e => {
     e.preventDefault()
@@ -220,7 +223,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
         Tags:
-        {freshTags.map((tag, index) => {
+        {/* {freshTags.map((tag, index) => {
           return <Form.Group key={`tag-${index + 1}`}>
             <Form.Input 
             value={freshTags[index]}
@@ -230,7 +233,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           </Form.Group>
         })}
         <Form.Button value="" onClick={e => handleTagChange(e, freshTags.length)} content="Add another new tag"/>
-        ----- or -----
+        ----- or ----- */}
         <Form.Group>
           <Dropdown
         placeholder='Attach existing tags'
