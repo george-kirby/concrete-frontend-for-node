@@ -27,7 +27,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   }))
 
   const handleExistingTagsSelection = (e, { value }) => {
-    console.log(value)
     setSelectedExistingTags(value)
     setTagSearch("")
   }
@@ -39,7 +38,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const handleNewTag = e => {
     e.preventDefault()
     if (existingTagOptions.some(option => option.value === tagSearch)) {
-      console.log("that tag already exists!")
+      window.alert(`Tag "${tagSearch}" already exists!`)
     } else {
       setSelectedExistingTags([...selectedExistingTags, tagSearch])
       setExistingTagOptions([...existingTagOptions, {
