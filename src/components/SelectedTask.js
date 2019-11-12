@@ -44,12 +44,12 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
             {Sorting.displayDateTime(task)} - {task.cue}
           </p>
           <Progress className="progress-bar" color="green" style={{maxWidth: "90%", margin: "1em 0.5em 2em"}} value={task.complete_steps.length} total={task.complete_steps.length + task.incomplete_steps.length} progress="ratio"/>
-          {task.complete_steps.length > 0 ? task.complete_steps
+          {task.complete_steps.length > 0 && task.complete_steps
             .map((step, index) => (
               <p key={`complete-step-${index}`} className="complete-step">
-                  <Icon name="check" color='green' onClick={() => handleCompleteStepClick(index)}/> {step}{" "}
+                  <Icon name="check" color='green'/> {step}{" "}
               </p>
-            )) : <p>Task complete - well done!</p>}
+            ))}
           {task.incomplete_steps.length > 0 ? task.incomplete_steps
             .map((step, index) => (
               <p key={`incomplete-step-${index}`}>
