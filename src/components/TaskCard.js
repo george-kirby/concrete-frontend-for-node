@@ -51,7 +51,7 @@ const TaskCard = ({ task, setCurrentUser, currentUser, hot, setDraggedTask }) =>
             <Grid.Column className="task-actions" floated='right' width={5}>
               {/* <Icon name="clipboard check" color='green' size="large" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"/> */}
               {/* <Button color='violet' size="tiny" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button" content="Mark as complete"/> */}
-              <Button color='grey' size="tiny" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"><Icon name="archive"/>Archive</Button>
+              {/* <Button color='grey' size="tiny" onClick={e => handleCompleteTaskClick(e, task)} className="completed-button"><Icon name="archive"/>Archive</Button> */}
             </Grid.Column>
         </Grid>
       </Card.Content>
