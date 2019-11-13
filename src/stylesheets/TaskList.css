@@ -51,7 +51,7 @@
   background-color: lightgrey;
   height: 90vh;
   position: sticky;
-  top: 20px;
+  top: 3rem;
   /* position: absolute */
 }
 
@@ -59,11 +59,6 @@
   background-color: lightgreen;
   bottom: 0;
   /* position: relative */
-}
-
-#progress-bar-column {
-  position: sticky;
-  top: 20px;
 }
 
 .ui.cards::after {
