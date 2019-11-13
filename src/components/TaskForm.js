@@ -271,6 +271,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         onChange={handleExistingTagsSelection}
         onSearchChange={handleTagsSearchChange}
         value={selectedExistingTags}
+        closeOnChange
         />
         <Form.Button style={{marginTop: tagSearch !== "" && "3rem"}} disabled={tagSearch === ""} onClick={handleNewTag} content={`Add "${tagSearch}" as new tag`}/>
         {/* </Form.Group> */}
