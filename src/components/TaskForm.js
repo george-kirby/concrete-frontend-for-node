@@ -188,16 +188,17 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
-        <p ref={taskNameRef}>Task name: <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
-        <p>{UserGuidance.title1}</p>
-        <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong>.</p>
-        {tutorialNavigateButtons}
+        <p ref={taskNameRef}>Task name: 
+        <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
+          <p>{UserGuidance.title1}</p>
+          <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong>.</p>
+          {tutorialNavigateButtons}
         </Popup></p>
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
         <p ref={stepsRef}>{editMode ? "Steps:" : "Concrete first step:"} 
         <Popup on="click" position="right center" open={tutorialStep === 3} onOpen={() => setTutorialStep(3)}  trigger={popupTrigger}>
-        {UserGuidance.concreteStep}
-        {tutorialNavigateButtons}
+          <p>{UserGuidance.concreteStep}</p>
+          {tutorialNavigateButtons}
         </Popup>
         </p>
         <Form.Group>
@@ -222,7 +223,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content={"Add another step"}/>
         {editMode ? "Action time:" : "When will you do this?"} 
         <Popup on="click" open={tutorialStep === 4} onOpen={() => setTutorialStep(4)} trigger={popupTrigger}>
-          {UserGuidance.actionTime}
+          <p>{UserGuidance.actionTime}</p>
           {tutorialNavigateButtons}
         </Popup>
         <Form.Group>
@@ -247,12 +248,13 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Icon name="clock" size="large"/>
         </Form.Group>
         Task cue: <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
-          {UserGuidance.cue}
+          <p>{UserGuidance.cue}</p>
           {tutorialNavigateButtons}
         </Popup>
         <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} required />
-        Tags: <Popup on="click" open={tutorialStep === 6} onOpen={() => setTutorialStep(6)}  trigger={popupTrigger}>
-        {UserGuidance.tasks}
+        Tags: 
+        <Popup on="click" open={tutorialStep === 6} onOpen={() => setTutorialStep(6)}  trigger={popupTrigger}>
+        <p>{UserGuidance.tasks}</p>
         {tutorialPrevious}
         <Button onClick={() => setTutorialStep(0)} icon="flag checkered"/>
         </Popup>
