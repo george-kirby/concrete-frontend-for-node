@@ -43,42 +43,16 @@ export class SignUpForm extends Component {
         <img src={require("../images/favicon-96x96.png")} alt="" />
         <h1>Concrete</h1>
         <h3>Sign Up:</h3>
-        <form
-          action=""
-          onChange={e => this.handleInputChange(e.target.name, e.target.value)}
-          onSubmit={e => this.handleSubmit(e)}
-        >
-          <label>
-            <input
-              name="email"
-              type="email"
-              placeholder="email"
-              defaultValue={this.state.email}
-              required
-            ></input>
-            <br />
-          </label>
-          <label>
-            <input
-              name="password"
-              type="password"
-              placeholder="create password"
-              defaultValue={this.state.password}
-              required
-            ></input>
-            <br />
-          </label>
-          <label>
-            <input
-              name="password_confirmation"
-              type="password"
-              placeholder="confirm password"
-              required
-            ></input>
-            <br />
-          </label>
-          <input type="submit"></input>
-        </form>
+        <Form onChange={e => this.handleInputChange(e.target.name, e.target.value)}
+          onSubmit={e => this.handleSubmit(e)}>
+          <Form.Input name="email"
+              type="email" placeholder="email" required/>
+          <Form.Input name="password"
+              type="password" placeholder="create password" required/>
+          <Form.Input name="password_confirmation"
+              type="password" placeholder="confirm password" required/>
+          <Form.Button color="green" content="Submit"/>
+        </Form>
         <br />
         <div>Already have an account?</div>
         <button onClick={() => this.props.history.push("/login")}>Log in</button>      </div>
