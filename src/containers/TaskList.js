@@ -64,7 +64,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
   return (
       <div>
     <Grid>
-      <Grid.Column floated='left' width={3}>
+      <Grid.Column floated='left' width={3} id="progress-bar-column">
             {/* <Progress size="big" id="overall-progress-bar" color="green" value={3} max ={5} /> */}
         <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}>
         <div id="progress-bar" style={{height: `${basicProgressPercentage}%`}}>
@@ -88,20 +88,19 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
             Today
           </Header>
         </Divider>
-        <Card.Group id="task-list">
           {filteredTasks.length > 0 ? 
-          <div>
+        <Card.Group id="task-list">
             {filteredTasks.map((task, index) => {
               return (
                 <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
               )
             })}
-          </div> :
+        </Card.Group>
+          :
                 <div>
                 <p>No outstanding tasks - well done!</p>
                 <Link to="/new">Add a new task</Link>
               </div>}
-        </Card.Group>
       </Grid.Column>
     </Grid>
     </div>

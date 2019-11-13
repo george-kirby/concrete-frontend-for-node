@@ -204,7 +204,7 @@ const App = props => {
           </div>
         </ErrorBoundary>
       {currentUser && (
-        <Menu fixed="bottom">
+        <Menu id="navbar-menu" fixed="bottom">
           <Menu.Item>
           <Link to="/hot">HOT</Link>
           </Menu.Item>
