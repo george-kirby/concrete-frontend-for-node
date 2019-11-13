@@ -96,7 +96,7 @@ const App = props => {
                 exact
                 path="/login"
                 component={routerProps => (
-                  <LoginForm {...{ handleLogin, routerProps }} />
+                  <LoginForm {...{ handleLogin, ...routerProps }} />
                   )}
               />
               <Route

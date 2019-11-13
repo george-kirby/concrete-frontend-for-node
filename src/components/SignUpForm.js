@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import API from "../adapters/API"
-import { Form } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 
 export class SignUpForm extends Component {
   state = {
@@ -42,7 +42,7 @@ export class SignUpForm extends Component {
       <div>
         <img src={require("../images/favicon-96x96.png")} alt="" />
         <h1>Concrete</h1>
-        <h3>Sign Up:</h3>
+        <h3>Sign up:</h3>
         <Form onChange={e => this.handleInputChange(e.target.name, e.target.value)}
           onSubmit={e => this.handleSubmit(e)}>
           <Form.Input name="email"
@@ -53,9 +53,9 @@ export class SignUpForm extends Component {
               type="password" placeholder="confirm password" required/>
           <Form.Button color="green" content="Submit"/>
         </Form>
-        <br />
-        <div>Already have an account?</div>
-        <button onClick={() => this.props.history.push("/login")}>Log in</button>      </div>
+        <br />    
+        <Button label="Already have an account?" labelPosition="left" onClick={() => this.props.history.push("/login")} content="Log in"/>
+        </div>
     )
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../adapters/API'
+import { Form, Button } from 'semantic-ui-react'
 
 export class LoginForm extends Component {
 
@@ -25,15 +26,17 @@ export class LoginForm extends Component {
             <div>
       <img src={require("../images/favicon-96x96.png")} alt=""/>
       <h1>Concrete</h1>
-      <h3>log in:</h3>
-      <form action="" onChange={e => this.handleInputChange(e.target.name, e.target.value)} onSubmit={e => this.handleSubmit(e)}>
-          <input name="email" type="email" placeholder="email" defaultValue={this.state.email} required></input><br/>
-          <input name="password" type="password" placeholder="password" defaultValue={this.state.password} required></input><br/>
-          <input type="submit"></input>
-      </form>
+      <h3>Log in:</h3>
+      <Form onChange={e => this.handleInputChange(e.target.name, e.target.value)}
+          onSubmit={e => this.handleSubmit(e)}>
+          <Form.Input name="email"
+              type="email" placeholder="email" defaultValue={this.state.email} required/>
+          <Form.Input name="password"
+              type="password" placeholder="password" defaultValue={this.state.password} required/>
+        <Form.Button color="green" content="Submit"/>
+      </Form>
       <br/>
-      <div>Don't have an account?</div>
-      <button onClick={() => this.props.routerProps.history.push("/signup")}>Sign Up</button>
+     <Button label="Don't have an account?" labelPosition="left" onClick={() => this.props.history.push("/signup")} content="Sign Up"/>
 
     </div>
         );
