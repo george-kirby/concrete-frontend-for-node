@@ -14,11 +14,8 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
     let newCompleteSteps = [...task.complete_steps]
     let newIncompleteSteps = [...task.incomplete_steps]
     newCompleteSteps = [...newCompleteSteps, ...newIncompleteSteps.splice(index, 1)]
-    console.log(newCompleteSteps)
-    console.log(newIncompleteSteps)
     API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: JSON.stringify(newIncompleteSteps)})
     .then(task => {
-      console.log(task)
       setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
     })
   }
