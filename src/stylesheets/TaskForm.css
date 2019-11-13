@@ -10,3 +10,8 @@ input {
 form > button.icon.popup-button, p > button.icon.popup-button {
     background-color: white;
 }
+
+#popup-link {
+    cursor: pointer;
+    text-decoration: underline;
+}

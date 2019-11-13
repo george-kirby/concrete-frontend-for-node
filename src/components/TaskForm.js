@@ -180,6 +180,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       {/* <Menu fixed="top"> */}
         <Header as="h1">{editMode ? "Edit task" : "New task"}        
         <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" content="Tutorial"/>}>
+          <p><strong>{UserGuidance.concrete}</strong> {UserGuidance.tutorialStart}</p>
           {tutorialNext}
           {tutorialClose}
         </Popup>
@@ -187,10 +188,14 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
-        <p ref={taskNameRef}>Task name: </p>
+        <p ref={taskNameRef}>Task name: <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
+        <p>{UserGuidance.title1}</p>
+        <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong></p>
+        {tutorialNavigateButtons}
+        </Popup></p>
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
         <p ref={stepsRef}>{editMode ? "Steps:" : "Concrete first step:"} 
-        <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
+        <Popup on="click" position="right center" open={tutorialStep === 3} onOpen={() => setTutorialStep(3)}  trigger={popupTrigger}>
         {UserGuidance.concreteStep}
         {tutorialNavigateButtons}
         </Popup>
@@ -216,7 +221,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content={"Add another step"}/>
         {editMode ? "Action time:" : "When will you do this?"} 
-        <Popup on="click" open={tutorialStep === 3} onOpen={() => setTutorialStep(3)} trigger={popupTrigger}>
+        <Popup on="click" open={tutorialStep === 4} onOpen={() => setTutorialStep(4)} trigger={popupTrigger}>
           {UserGuidance.actionTime}
           {tutorialNavigateButtons}
         </Popup>
@@ -241,12 +246,12 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
           <Icon name="clock" size="large"/>
         </Form.Group>
-        Task cue: <Popup on="click" open={tutorialStep === 4} onOpen={() => setTutorialStep(4)}  trigger={popupTrigger}>
+        Task cue: <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
           {UserGuidance.cue}
           {tutorialNavigateButtons}
         </Popup>
         <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} required />
-        Tags: <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
+        Tags: <Popup on="click" open={tutorialStep === 6} onOpen={() => setTutorialStep(6)}  trigger={popupTrigger}>
         {UserGuidance.tasks}
         {tutorialPrevious}
         <Button onClick={() => setTutorialStep(0)} icon="flag checkered"/>
