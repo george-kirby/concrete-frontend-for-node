@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import API from "../adapters/API"
-import { arrayTypeAnnotation } from "@babel/types"
+import { Form } from 'semantic-ui-react'
 
 export class SignUpForm extends Component {
   state = {

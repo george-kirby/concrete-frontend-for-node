@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { Form, Icon, Dropdown, Header, Menu, Button, Popup } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/TaskForm.css"
-// import PrepData from "../helpers/PrepData"
 import API from "../adapters/API"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from '../helpers/Sorting'
