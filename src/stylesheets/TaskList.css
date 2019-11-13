@@ -46,17 +46,17 @@
 }
 
 #progress-bar-container {
-  transform: rotate(180deg);
-  margin: 3rem auto auto;
-  background-color: lightgrey;
-  height: 90vh;
+  /* transform: rotate(180deg); */
+  margin: 0rem auto auto;
+  background-color: lightgreen;
+  height: 95vh;
   position: sticky;
-  top: 3rem;
+  top: 0rem;
   /* position: absolute */
 }
 
 #progress-bar {
-  background-color: lightgreen;
+  background-color: lightgray;
   bottom: 0;
   /* position: relative */
 }
