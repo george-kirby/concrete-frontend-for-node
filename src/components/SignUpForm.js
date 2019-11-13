@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import API from "../adapters/API"
+import { arrayTypeAnnotation } from "@babel/types"
 
 export class SignUpForm extends Component {
   state = {
@@ -25,6 +26,8 @@ export class SignUpForm extends Component {
       console.log(user)
       if (user.errors) {
         window.alert(user.errors)
+      } else if (Array.isArray(user)) {
+        window.alert(user)
       } else if (user.error) {
         window.alert([user.error, user.exception]) // to be removed - don't want user to see an error when they first load the page
       } else {
