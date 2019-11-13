@@ -80,6 +80,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
           selection
           options={tagOptions}
           onChange={handleFilterChange}
+          closeOnChange
           />
         </Menu>
         <Divider horizontal>
