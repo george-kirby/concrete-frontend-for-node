@@ -1,11 +1,12 @@
 import React, { useState } from "react"
-import { Form, Icon, Dropdown, Header, Menu } from "semantic-ui-react"
+import { Form, Icon, Dropdown, Header, Menu, Button, Popup } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/TaskForm.css"
 // import PrepData from "../helpers/PrepData"
 import API from "../adapters/API"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from '../helpers/Sorting'
+import UserGuidance from '../helpers/UserGuidance'
 
 const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existingTags }) => {
   const [title, setTitle] = useState(editMode ? task.title : "")
@@ -153,7 +154,28 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       {/* <Form> */}
         Task name:
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
-        {editMode ? "Action time:" : "When will you do this?"}
+        {editMode ? "Steps:" : "Concrete first step:"} <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.concreteStep}/>
+        <Form.Group>
+          <Form.Input
+            // label={editMode ? "Steps:" : "What's a concrete first step?"}
+            placeholder={`eg sit at desk with laptop`}
+            value={incompleteSteps[0]}
+            onChange={e => handleStepChange(e, 0)}
+            required
+          />
+          <Form.Button icon="close" onClick={e => handleStepRemoval(e, 0)}/>
+        </Form.Group>
+        {incompleteSteps.slice(1).map((step, index) => {
+          return <Form.Group key={`step-${index + 2}`}>
+            <Form.Input 
+            value={incompleteSteps.slice(1)[index]}
+            onChange={e => handleStepChange(e, index + 1)}
+            placeholder={`step ${index + 2}`}/>
+            <Form.Button icon="close" onClick={e => handleStepRemoval(e, index + 1)}/>
+          </Form.Group>
+        })}
+        <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content={"Add another step"}/>
+        {editMode ? "Action time:" : "When will you do this?"} <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.actionTime}/>
         <Form.Group>
           <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
@@ -175,29 +197,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
           <Icon name="clock" size="large"/>
         </Form.Group>
-        Task cue:
+        Task cue: <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.cue}/>
         <Form.Input placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
-        {editMode ? "Steps:" : "What's a concrete first step?"}
-        <Form.Group>
-          <Form.Input
-            // label={editMode ? "Steps:" : "What's a concrete first step?"}
-            placeholder={`eg sit at desk with laptop`}
-            value={incompleteSteps[0]}
-            onChange={e => handleStepChange(e, 0)}
-            required
-          />
-          <Icon name="close" onClick={e => handleStepRemoval(e, 0)}/>
-        </Form.Group>
-        {incompleteSteps.slice(1).map((step, index) => {
-          return <Form.Group key={`step-${index + 2}`}>
-            <Form.Input 
-            value={incompleteSteps.slice(1)[index]}
-            onChange={e => handleStepChange(e, index + 1)}
-            placeholder={`step ${index + 2}`}/>
-            <Icon name="close" onClick={e => handleStepRemoval(e, index + 1)}/>
-          </Form.Group>
-        })}
-        <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content="Add another step"/>
         Tags:
         {/* <Form.Group> */}
           {/* <Icon name="tags"/> */}
