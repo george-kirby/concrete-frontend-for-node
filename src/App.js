@@ -214,9 +214,9 @@ const App = props => {
           <Menu.Item>
           <Link to="/new">NEW</Link>
           </Menu.Item>
-          <Menu.Item>
+          {/* <Menu.Item>
           <Link to="/settings">(SETTINGS)</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item>
           <Link to="/login" onClick={handleLogout}>
             LOG OUT

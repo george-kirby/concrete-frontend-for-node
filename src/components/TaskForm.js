@@ -179,7 +179,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     <div id="form-container">
       {/* <Menu fixed="top"> */}
         <Header as="h1">{editMode ? "Edit task" : "New task"}        
-        <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" content="Tutorial"/>}>
+               <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" icon="book" content="Tutorial"/>}>
           <p><strong>{UserGuidance.concrete}</strong> {UserGuidance.tutorialStart}</p>
           {tutorialNext}
           {tutorialClose}
@@ -190,7 +190,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       {/* <Form> */}
         <p ref={taskNameRef}>Task name: <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
         <p>{UserGuidance.title1}</p>
-        <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong></p>
+        <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong>.</p>
         {tutorialNavigateButtons}
         </Popup></p>
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
