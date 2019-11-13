@@ -27,10 +27,13 @@ const App = props => {
 
   useEffect(() => {
     API.validateUser().then(user => {
-      if (user.errors) {
-        window.alert(user.errors)
-      } else if (user.error) {
-        window.alert([user.error, user.exception]) // to be removed - don't want user to see an error when they first load the page
+      if ((window.location.href !== "http://localhost:3001/login") && (window.location.href !== "http://localhost:3001/signup")) {
+        if (user.errors) {
+          window.alert(`${user.errors} \n Click OK to go to login page`)
+          props.history.push("/login")
+        } else if (user.error) {
+          window.alert([user.error, user.exception])
+        }
       } else {
         setCurrentUser(user)
       }
