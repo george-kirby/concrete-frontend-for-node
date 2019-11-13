@@ -198,7 +198,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         </Form.Group>
         Task cue: <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.cue}/>
         <Form.Input placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
-        Tags:
+        Tags: <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.tasks}/>
         {/* <Form.Group> */}
           {/* <Icon name="tags"/> */}
           <Dropdown
