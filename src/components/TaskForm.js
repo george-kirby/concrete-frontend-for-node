@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, createRef } from "react"
 import { Form, Icon, Dropdown, Header, Menu, Button, Popup } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/TaskForm.css"
@@ -18,6 +18,9 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
   const [tagSearch, setTagSearch] = useState("")
 
+  const [tutorialMode, setTutorialMode] = useState(false)
+  const [tutorialStep, setTutorialStep] = useState(0)
+
   const [existingTagOptions, setExistingTagOptions] = useState(existingTags.map(tag => {
     return {
       key: tag,
@@ -25,6 +28,21 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       text: tag
     }
   }))
+
+  const toggleTutorial = () => {
+    setTutorialMode(!tutorialMode)
+  }
+
+  const decrementTutorialStep = () => {
+    setTutorialStep(tutorialStep - 1)
+  }
+
+  const incrementTutorialStep = () => {
+    setTutorialStep(tutorialStep + 1)
+  }
+
+  const taskNameRef = createRef()
+  const stepsRef = createRef()
 
   const handleExistingTagsSelection = (e, { value }) => {
     setSelectedExistingTags(value)
@@ -144,16 +162,39 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     }
   }
 
+  const popupTrigger = <Button onClick={e => e.preventDefault()} className="popup-button" icon="question circle"/>
+
+  const tutorialPrevious = <Button onClick={decrementTutorialStep} icon="chevron left"/>
+  const tutorialNext = <Button onClick={incrementTutorialStep} icon="chevron right"/>
+  const tutorialClose = <Button onClick={() => setTutorialStep(0)} icon="close"/>
+
+  const tutorialNavigateButtons = 
+    <div>
+      {tutorialPrevious}
+      {tutorialNext}
+      {tutorialClose}
+    </div>
+
   return (
     <div id="form-container">
       {/* <Menu fixed="top"> */}
-        <Header as="h1">{editMode ? "Edit task" : "New task"}</Header>
+        <Header as="h1">{editMode ? "Edit task" : "New task"}        
+        <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" content="Tutorial"/>}>
+          {tutorialNext}
+          {tutorialClose}
+        </Popup>
+        </Header>
         {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
-        Task name:
+        <p ref={taskNameRef}>Task name: </p>
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
-        {editMode ? "Steps:" : "Concrete first step:"} <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.concreteStep}/>
+        <p ref={stepsRef}>{editMode ? "Steps:" : "Concrete first step:"} 
+        <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
+        {UserGuidance.concreteStep}
+        {tutorialNavigateButtons}
+        </Popup>
+        </p>
         <Form.Group>
           <Form.Input
             // label={editMode ? "Steps:" : "What's a concrete first step?"}
@@ -174,7 +215,11 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           </Form.Group>
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content={"Add another step"}/>
-        {editMode ? "Action time:" : "When will you do this?"} <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.actionTime}/>
+        {editMode ? "Action time:" : "When will you do this?"} 
+        <Popup on="click" open={tutorialStep === 3} onOpen={() => setTutorialStep(3)} trigger={popupTrigger}>
+          {UserGuidance.actionTime}
+          {tutorialNavigateButtons}
+        </Popup>
         <Form.Group>
           <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
@@ -196,9 +241,16 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
           <Icon name="clock" size="large"/>
         </Form.Group>
-        Task cue: <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.cue}/>
-        <Form.Input placeholder={`eg after dinner`} value={cue} onChange={handleCueChange} required />
-        Tags: <Popup trigger={<Button className="popup-button" icon="question circle"/> } content={UserGuidance.tasks}/>
+        Task cue: <Popup on="click" open={tutorialStep === 4} onOpen={() => setTutorialStep(4)}  trigger={popupTrigger}>
+          {UserGuidance.cue}
+          {tutorialNavigateButtons}
+        </Popup>
+        <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} required />
+        Tags: <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
+        {UserGuidance.tasks}
+        {tutorialPrevious}
+        <Button onClick={() => setTutorialStep(0)} icon="flag checkered"/>
+        </Popup>
         {/* <Form.Group> */}
           {/* <Icon name="tags"/> */}
           <Dropdown

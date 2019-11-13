@@ -7,6 +7,6 @@ input {
     opacity: 1;
 }
 
-form > button.icon.popup-button {
+form > button.icon.popup-button, p > button.icon.popup-button {
     background-color: white;
 }
