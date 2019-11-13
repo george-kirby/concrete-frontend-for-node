@@ -34,10 +34,8 @@ const App = props => {
         } else if (user.error) {
           window.alert([user.error, user.exception])
         }
-      } else {
         setCurrentUser(user)
-      }
-    })
+    }})
   }, [])
 
   const handleLogin = user => {
