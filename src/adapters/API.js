@@ -20,12 +20,12 @@ const authorisationHeader = (more = {}) => ({
 })
 
 const handleServerResponse = response => {
-  console.log(response)
+  // console.log(response)
   if (response.token) {
     localStorage.setItem("token", response.token)
   }
   if (response.user) {
-    console.log(JSON.parse(response.user))
+    // console.log(JSON.parse(response.user))
     return JSON.parse(response.user)
   } else {
     return response

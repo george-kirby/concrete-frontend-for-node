@@ -6,17 +6,24 @@ import StallingComponent from "./StallingComponent"
 import UpdateUserObject from "../helpers/UpdateUserObject"
 import Sorting from "../helpers/Sorting"
 import { Icon, Progress, Button } from "semantic-ui-react"
-import '../stylesheets/SelectedTask.css'
+import "../stylesheets/SelectedTask.css"
 
 const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
-
   const handleCompleteStepClick = index => {
     let newCompleteSteps = [...task.complete_steps]
     let newIncompleteSteps = [...task.incomplete_steps]
-    newCompleteSteps = [...newCompleteSteps, ...newIncompleteSteps.splice(index, 1)]
-    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: JSON.stringify(newIncompleteSteps)})
-    .then(task => {
-      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+    newCompleteSteps = [
+      ...newCompleteSteps,
+      ...newIncompleteSteps.splice(index, 1)
+    ]
+    API.patchTask(task.id, {
+      complete_steps: JSON.stringify(newCompleteSteps),
+      incomplete_steps: JSON.stringify(newIncompleteSteps)
+    }).then(task => {
+      setCurrentUser({
+        ...currentUser,
+        tasks: UpdateUserObject.patchedTask(task, currentUser)
+      })
     })
   }
 
@@ -40,32 +47,46 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
             <Icon color="red" name="exclamation" />
             {Sorting.displayDateTime(task)} - {task.cue}
           </p>
-          <Progress className="progress-bar" color="green" style={{maxWidth: "90%", margin: "1em 0.5em 2em"}} value={task.complete_steps.length} total={task.complete_steps.length + task.incomplete_steps.length} progress="ratio"/>
-          {task.complete_steps.length > 0 && task.complete_steps
-            .map((step, index) => (
+          <Progress
+            className="progress-bar"
+            color="green"
+            style={{ maxWidth: "90%", margin: "1em 0.5em 2em" }}
+            value={task.complete_steps.length}
+            total={task.complete_steps.length + task.incomplete_steps.length}
+            progress="ratio"
+          />
+          {task.complete_steps.length > 0 &&
+            task.complete_steps.map((step, index) => (
               <p key={`complete-step-${index}`} className="complete-step">
-                  <Icon name="check" color='green'/> {step}{" "}
+                <Icon name="check" color="green" /> {step}{" "}
               </p>
             ))}
-          {task.incomplete_steps.length > 0 ? task.incomplete_steps
-            .map((step, index) => (
+          {task.incomplete_steps.length > 0 ? (
+            task.incomplete_steps.map((step, index) => (
               <p key={`incomplete-step-${index}`}>
                 <Icon name="hand point right outline" /> {step}{" "}
-                  {/* <Icon name="check" onClick={() => handleCompleteStepClick(index)}/> */}
-                  <Button size="tiny" onClick={() => handleCompleteStepClick(index)}>Tick off</Button>
+                <Button
+                  size="tiny"
+                  onClick={() => handleCompleteStepClick(index)}
+                >
+                  Tick off
+                </Button>
               </p>
-            )) : <p>Task complete - well done!</p>}
+            ))
+          ) : (
+            <p>Task complete - well done!</p>
+          )}
           <button onClick={() => handleEditClick()}>Edit task</button>
           <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
         </div>
-      ) : (hot ? (
+      ) : hot ? (
         <div>
           <p>You have no outstanding tasks - well done!</p>
           <Link to="/new">Add a new task</Link>
         </div>
       ) : (
         <StallingComponent />
-      ))}
+      )}
     </div>
   )
 }

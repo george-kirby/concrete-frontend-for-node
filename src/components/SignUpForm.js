@@ -40,8 +40,7 @@ export class SignUpForm extends Component {
   render() {
     return (
       <div>
-        <img src={require("../images/favicon-96x96.png")} alt="" />
-        <h1>Concrete</h1>
+        <img src={require("../images/ConcreteLogoWithName.png")} alt="" />
         <h3>Sign up:</h3>
         <Form onChange={e => this.handleInputChange(e.target.name, e.target.value)}
           onSubmit={e => this.handleSubmit(e)}>
