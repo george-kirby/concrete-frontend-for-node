@@ -3,9 +3,9 @@
 Concrete is a task-management app which guides the user to define their tasks vividly, rather than vaguely. 
 The user enters a date, time, cue and precise, concrete steps. 
 
-## eg
+### eg
 
-### Write the rest of this README?
+### Task: Write the rest of this README
 
 When? Saturday 16 November, 9am. 
 Cue: First thing after breakfast.
