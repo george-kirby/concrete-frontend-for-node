@@ -7,9 +7,9 @@ The user enters a date, time, cue and precise, concrete steps.
 
 ### Task: Write the rest of this README
 
-When? Saturday 16 November, 9am.
+When? Tuesday 19 November, 2pm.
 
-Cue: First thing after breakfast.
+Cue: First thing after lunch.
 
 Step 1: get cup of tea
 
