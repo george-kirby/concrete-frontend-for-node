@@ -71,7 +71,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
         </div>
       </Grid.Column>
       <Grid.Column width={12}>
-        <Menu fixed="top">
+        <Menu id="filter-menu" fixed="top">
           <Dropdown
           placeholder='Filter by tags'
           fluid

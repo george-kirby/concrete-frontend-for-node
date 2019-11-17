@@ -58,36 +58,13 @@ const App = props => {
     return array.find(item => item.id === parseInt(params.id))
   }
 
-  // filter/sort functions for producing props to pass to components
-  // const getTasks = projects => {
-  //   let tasks = []
-  //   projects.forEach(project => {
-  //     project.tasks.forEach(task => {
-  //       tasks = [...tasks, task]
-  //     })
-  //   })
-  //   return tasks
-  // }
-
-  // const titledProjects = projects => projects.filter(project => project.title !== "")
-
-  // const incompleteProjects = projects =>
-  //   projects.filter(
-  //     project => Sorting.incompleteTasks(project.tasks).length > 0
-  //   )
-
-  // arrays and object to be passed to components
   const orderedTasks = () =>
     Sorting.orderTasks(Sorting.incompleteTasks(currentUser.tasks))
-  // const orderedProjects = () => titledProjects() // ... to be written, in Sorting
-  // const orderedProjects = () =>
-  //   Sorting.orderProjects(
-  //     incompleteProjects(titledProjects(currentUser.projects))
-  //   ) // breaks if a project has no tasks -> corrected through front end validation
+
   const mostUrgentTask = () => orderedTasks()[0]
 
   return (
-    <div>
+    <div id="total-container">
       <div>
         <ErrorBoundary>
           <div id="main-container">

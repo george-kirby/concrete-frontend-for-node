@@ -7,6 +7,11 @@
   margin: auto;
 }
 
+#filter-menu {
+  margin: 0 auto 0 29vw;
+  max-width: 800px
+}
+
 /* .task-card {
   border: solid;
   border-color: rgb(111, 188, 233);
