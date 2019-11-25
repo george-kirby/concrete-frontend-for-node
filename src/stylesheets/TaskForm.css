@@ -3,6 +3,11 @@
     margin: 0.5rem;
 }
 
+#header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 input {
     opacity: 1;
 }

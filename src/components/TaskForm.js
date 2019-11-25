@@ -178,13 +178,14 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   return (
     <div id="form-container">
       {/* <Menu fixed="top"> */}
-        <Header as="h1">{editMode ? "Edit task" : "New task"}        
-               <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" icon="book" content="Tutorial"/>}>
-          <p><strong>{UserGuidance.concrete}</strong> {UserGuidance.tutorialStart}</p>
-          {tutorialNext}
-          {tutorialClose}
-        </Popup>
-        </Header>
+        <div id="header-container">
+          <Header as="h1" content={editMode ? "Edit task" : "New task"} />   
+                 <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" icon="book" content="Tutorial"/>}>
+            <p><strong>{UserGuidance.concrete}</strong> {UserGuidance.tutorialStart}</p>
+            {tutorialNext}
+            {tutorialClose}
+          </Popup>
+        </div>
         {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
