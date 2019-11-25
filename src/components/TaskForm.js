@@ -180,7 +180,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       {/* <Menu fixed="top"> */}
         <div id="header-container">
           <Header as="h1" content={editMode ? "Edit task" : "New task"} />   
-                 <Popup on="click" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" icon="book" content="Tutorial"/>}>
+                 <Popup on="click" position="left center" open={tutorialStep === 1} onOpen={() => setTutorialStep(1)} trigger={<Button color="blue" icon="book" content="Tutorial"/>}>
             <p><strong>{UserGuidance.concrete}</strong> {UserGuidance.tutorialStart}</p>
             {tutorialNext}
             {tutorialClose}
@@ -257,7 +257,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         <Popup on="click" open={tutorialStep === 6} onOpen={() => setTutorialStep(6)}  trigger={popupTrigger}>
         <p>{UserGuidance.tasks}</p>
         {tutorialPrevious}
-        <Button onClick={() => setTutorialStep(0)} icon="flag checkered"/>
+        {tutorialClose}
         </Popup>
         {/* <Form.Group> */}
           {/* <Icon name="tags"/> */}
