@@ -3,7 +3,7 @@ import TaskCard from "../components/TaskCard"
 import { Link } from 'react-router-dom'
 import '../stylesheets/TaskList.css'
 import Sorting from '../helpers/Sorting'
-import { Card, Dropdown, Grid, Divider, Header, Menu } from 'semantic-ui-react'
+import { Card, Dropdown, Menu } from 'semantic-ui-react'
 import API from '../adapters/API'
 import UpdateUserObject from '../helpers/UpdateUserObject'
 
@@ -63,16 +63,11 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
 
   return (
       <div id="index-container">
-    {/* <Grid>
-      <Grid.Column width={3} id="progress-bar-column"> */}
         <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}>
           <div id="progress-bar" style={{height: `${100 - basicProgressPercentage}%`}}>
           </div>
         </div>
-      {/* </Grid.Column>
-      <Grid.Column width={12}> */}
         <div id="tasks-container">
-          {/* <Menu id="filter-menu" fixed="top"> */}
           <Menu id="filter-menu">
             <Dropdown
             placeholder='Filter by tags'
@@ -99,8 +94,6 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
                   <Link to="/new">Add a new task</Link>
                 </div>}
         </div>
-      {/* </Grid.Column>
-    </Grid> */}
     </div>
   )
 }
