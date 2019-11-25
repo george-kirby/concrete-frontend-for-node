@@ -27,7 +27,7 @@ const App = props => {
 
   useEffect(() => {
     API.validateUser().then(user => {
-      if ((window.location.href !== "http://localhost:3001/login") && (window.location.href !== "http://localhost:3001/signup")) {
+      if ((window.location.href !== "https://concrete-frontend.herokuapp.com/login") && (window.location.href !== "https://concrete-frontend.herokuapp.com/signup")) {
         if (user.errors) {
           window.alert(`${user.errors} \n Click OK to go to login page`)
           props.history.push("/login")
