@@ -1,8 +1,10 @@
-const BASE_URL = "http://localhost:3000/"
+// const BASE_URL = "http://localhost:3000/"
+// ^in dev
+
+const BASE_URL = "https://concrete-backend.herokuapp.com/"
+
 const USERS_URL = `${BASE_URL}users/`
-const PROJECTS_URL = `${BASE_URL}projects/`
 const TASKS_URL = `${BASE_URL}tasks/`
-const STEPS_URL = `${BASE_URL}steps/`
 const LOGIN_URL = `${BASE_URL}login/`
 const VALIDATE_URL = `${BASE_URL}validate/`
 
@@ -93,4 +95,4 @@ const destroyTask = taskId => {
   })
 }
 
-export default { getUser, login, logout, validateUser, handleServerResponse, getUser, postUser, postTask, patchTask, destroyTask }
+export default { getUser, login, logout, validateUser, handleServerResponse, postUser, postTask, patchTask, destroyTask }
