@@ -6,14 +6,17 @@
 
 #tasks-container {
   flex: 2 1 auto;
+  padding: 0.5rem;
 }
 
 #task-list {
   margin: auto;
+  overflow: scroll;
+  max-height: 90vh;
 }
 
 #filter-menu {
-  margin: 0 auto 0 29vw;
+  margin: 0 auto;
   max-width: 800px
 }
 
