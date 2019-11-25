@@ -62,47 +62,45 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
   }
 
   return (
-      <div>
-    <Grid>
-      <Grid.Column width={3} id="progress-bar-column">
+      <div id="index-container">
+    {/* <Grid>
+      <Grid.Column width={3} id="progress-bar-column"> */}
         <div id="progress-bar-container" onDragOver={handleDragOver} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave}>
           <div id="progress-bar" style={{height: `${100 - basicProgressPercentage}%`}}>
           </div>
         </div>
-      </Grid.Column>
-      <Grid.Column width={12}>
-        <Menu id="filter-menu" fixed="top">
-          <Dropdown
-          placeholder='Filter by tags'
-          fluid
-          multiple
-          search
-          selection
-          options={tagOptions}
-          onChange={handleFilterChange}
-          closeOnChange
-          />
-        </Menu>
-        <Divider horizontal>
-          <Header as="h5" float="left">
-            Today
-          </Header>
-        </Divider>
-          {filteredTasks.length > 0 ? 
-        <Card.Group id="task-list">
-            {filteredTasks.map((task, index) => {
-              return (
-                <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
-              )
-            })}
-        </Card.Group>
-          :
-                <div>
-                <p>No outstanding tasks - well done!</p>
-                <Link to="/new">Add a new task</Link>
-              </div>}
-      </Grid.Column>
-    </Grid>
+      {/* </Grid.Column>
+      <Grid.Column width={12}> */}
+        <div id="tasks-container">
+          {/* <Menu id="filter-menu" fixed="top"> */}
+          <Menu id="filter-menu">
+            <Dropdown
+            placeholder='Filter by tags'
+            fluid
+            multiple
+            search
+            selection
+            options={tagOptions}
+            onChange={handleFilterChange}
+            closeOnChange
+            />
+          </Menu>
+            {filteredTasks.length > 0 ? 
+          <Card.Group id="task-list">
+              {filteredTasks.map((task, index) => {
+                return (
+                  <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
+                )
+              })}
+          </Card.Group>
+            :
+                  <div>
+                  <p>No outstanding tasks - well done!</p>
+                  <Link to="/new">Add a new task</Link>
+                </div>}
+        </div>
+      {/* </Grid.Column>
+    </Grid> */}
     </div>
   )
 }

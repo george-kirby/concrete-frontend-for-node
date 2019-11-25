@@ -66,6 +66,28 @@ const App = props => {
   return (
     <div id="total-container">
       <div>
+            {currentUser && (
+              // <Menu id="navbar-menu" fixed="top">
+              <Menu id="navbar-menu">
+                <Menu.Item>
+                <Link to="/hot">HOT</Link>
+                </Menu.Item>
+                <Menu.Item>
+                <Link to="/tasks">ALL</Link>
+                </Menu.Item>
+                <Menu.Item>
+                <Link to="/new">NEW</Link>
+                </Menu.Item>
+                {/* <Menu.Item>
+                <Link to="/settings">(SETTINGS)</Link>
+                </Menu.Item> */}
+                <Menu.Item>
+                <Link to="/login" onClick={handleLogout}>
+                  LOG OUT
+                </Link>
+                </Menu.Item>
+              </Menu>
+            )}
         <ErrorBoundary>
           <div id="main-container">
             <Switch>
@@ -180,27 +202,6 @@ const App = props => {
             </Switch>
           </div>
         </ErrorBoundary>
-      {currentUser && (
-        <Menu id="navbar-menu" fixed="bottom">
-          <Menu.Item>
-          <Link to="/hot">HOT</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link to="/tasks">ALL</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link to="/new">NEW</Link>
-          </Menu.Item>
-          {/* <Menu.Item>
-          <Link to="/settings">(SETTINGS)</Link>
-          </Menu.Item> */}
-          <Menu.Item>
-          <Link to="/login" onClick={handleLogout}>
-            LOG OUT
-          </Link>
-          </Menu.Item>
-        </Menu>
-      )}
       </div>
     </div>
   )
