@@ -6,7 +6,7 @@ On task creation, the user enters a date, time, cue and precise, concrete steps.
 
 ## Site
 
-concrete-frontend.herokuapp.com/
+http://concrete-frontend.herokuapp.com
 
 (You don't have to enter a real email address.)
 
