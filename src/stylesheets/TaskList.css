@@ -36,7 +36,8 @@
   position: sticky;
   top: 0rem;
   flex: 1 1 auto;
-  min-width: 100px;
+  min-width: 120px;
+  max-width: 120px;
   /* position: absolute */
 }
 

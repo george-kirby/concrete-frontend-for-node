@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react"
+import React, { useState } from "react"
 import { Form, Icon, Dropdown, Header, Menu, Button, Popup } from "semantic-ui-react"
 import UserSettings from "../helpers/UserSettings"
 import "../stylesheets/TaskForm.css"
@@ -40,9 +40,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const incrementTutorialStep = () => {
     setTutorialStep(tutorialStep + 1)
   }
-
-  const taskNameRef = createRef()
-  const stepsRef = createRef()
 
   const handleExistingTagsSelection = (e, { value }) => {
     setSelectedExistingTags(value)
@@ -189,14 +186,14 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         {/* </Menu> */}
       <Form id="form" onSubmit={handleSubmit}>
       {/* <Form> */}
-        <p ref={taskNameRef}>Task name: 
+        <p>Task name: * 
         <Popup on="click" open={tutorialStep === 2} onOpen={() => setTutorialStep(2)}  trigger={popupTrigger}>
           <p>{UserGuidance.title1}</p>
           <p>{UserGuidance.title2} <strong id="popup-link" onClick={() => setTutorialStep(6)}>{UserGuidance.title3}</strong>.</p>
           {tutorialNavigateButtons}
         </Popup></p>
         <Form.Input placeholder="Name..." value={title} onChange={handleTitleChange} required/>
-        <p ref={stepsRef}>{editMode ? "Steps:" : "Concrete first step:"} 
+        <p>{editMode ? "Steps: *" : "Concrete first step: *"} 
         <Popup on="click" position="right center" open={tutorialStep === 3} onOpen={() => setTutorialStep(3)}  trigger={popupTrigger}>
           <p>{UserGuidance.concreteStep}</p>
           {tutorialNavigateButtons}
@@ -204,7 +201,6 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         </p>
         <Form.Group>
           <Form.Input
-            // label={editMode ? "Steps:" : "What's a concrete first step?"}
             placeholder={`eg sit at desk with laptop`}
             value={incompleteSteps[0]}
             onChange={e => handleStepChange(e, 0)}
@@ -222,7 +218,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           </Form.Group>
         })}
         <Form.Button value="" onClick={e => handleStepChange(e, incompleteSteps.length)} content={"Add another step"}/>
-        {editMode ? "Action time:" : "When will you do this?"} 
+        {editMode ? "Action time: *" : "When will you do this? *"} 
         <Popup on="click" open={tutorialStep === 4} onOpen={() => setTutorialStep(4)} trigger={popupTrigger}>
           <p>{UserGuidance.actionTime}</p>
           {tutorialNavigateButtons}
@@ -248,7 +244,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
           <Icon name="clock" size="large"/>
         </Form.Group>
-        Task cue: <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
+        Task cue: * <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
           <p>{UserGuidance.cue}</p>
           {tutorialNavigateButtons}
         </Popup>
