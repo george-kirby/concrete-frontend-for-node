@@ -3,7 +3,9 @@
 Concrete is a task-management app which guides the user to define their tasks vividly, rather than vaguely. 
 The user enters a date, time, cue and precise, concrete steps. 
 
-![demo gif](https://gfycat.com/jollyrepulsivehawk)
+## Demo
+
+![demo gif](./src/demo/concreteMinimalDemo.gif)
 
 ## Getting started
 
