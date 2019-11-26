@@ -66,6 +66,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
               <p key={`incomplete-step-${index}`}>
                 <Icon name="hand point right outline" /> {step}{" "}
                 <Button
+                color="green"
                   size="tiny"
                   onClick={() => handleCompleteStepClick(index)}
                 >
@@ -76,8 +77,8 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
           ) : (
             <p>Task complete - well done!</p>
           )}
-          <button onClick={() => handleEditClick()}>Edit task</button>
-          <button onClick={() => history.push(`/tasks`)}>To all tasks</button>
+          <Button size="tiny" color="teal" onClick={() => handleEditClick()} content="Edit task" />
+          <Button size="tiny" onClick={() => history.push(`/tasks`)} content="To all tasks" />
         </div>
       ) : hot ? (
         <div>
