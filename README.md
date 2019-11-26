@@ -3,29 +3,19 @@
 Concrete is a task-management app which guides the user to define their tasks vividly, rather than vaguely. 
 The user enters a date, time, cue and precise, concrete steps. 
 
-**demo gif**
+[demo gif](https://media.giphy.com/media/Suy1ezFMTqP8OVOcYT/giphy.gif)
 
 ## Getting started
 
-## Online
+### Online
 
-Go to **web address**
+Visit https://concrete-frontend.herokuapp.com/
 
-Pending deployment
-
-## On your local machine
-
-### Prerequisites
-
-[React](https://reactjs.org/)
+You don't have to enter your real email address - fakename@email.com will be fine. 
 
 ## Using the app
 
-Simply enter a Github username into the text-field and submit. 
 
-Forked Tongue then sends a request to the [Github API](https://developer.github.com/v3/), to access data on 100 of that user's repositories, and counts the frequency of programming languages, based on which language is the main one for each repository. The most commonly used language is presented as probably being that user's favourite!
-
-The demo gif above shows an example with george-kirby (me).
 
 ## Future development
 
