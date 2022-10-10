@@ -26,18 +26,27 @@ const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
-    API.validateUser().then(user => {
-      // if ((window.location.href !== "https://concrete-frontend.herokuapp.com/login") && (window.location.href !== "https://concrete-frontend.herokuapp.com/signup")) {
-      if (!window.location.href.includes("login") && !window.location.href.includes("signup")) {
-        if (user.errors) {
-          window.alert(`${user.errors} \n Click OK to go to login page`)
-          props.history.push("/login")
-        } else if (user.error) {
-          window.alert([user.error, user.exception])
+    if (false) {
+
+      API.validateUser().then(user => {
+        // if ((window.location.href !== "https://concrete-frontend.herokuapp.com/login") && (window.location.href !== "https://concrete-frontend.herokuapp.com/signup")) {
+          if (!window.location.href.includes("login") && !window.location.href.includes("signup")) {
+            if (user.errors) {
+              window.alert(`${user.errors} \n Click OK to go to login page`)
+              props.history.push("/login")
+            } else if (user.error) {
+              window.alert([user.error, user.exception])
+            }
+            setCurrentUser(user)
+          }})
         }
-        setCurrentUser(user)
-    }})
-  }, [])
+    
+    // set user if one doesn't exist already (no need for validation)
+    if (true) {
+      setCurrentUser({ name: "testDummy", tasks: []})
+    }    
+    
+      }, [])
 
   const handleLogin = user => {
     if (user.errors) {
