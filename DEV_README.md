@@ -1,7 +1,3 @@
-**install dependencies**
+**install dependencies & start server**
 
-bundle install
-
-**Start server**
-
-npm start
+npm i && npm start
