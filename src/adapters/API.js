@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/"
+const BASE_URL = "http://localhost:8080/"
 // ^in dev
 
 // const BASE_URL = "https://concrete-backend.herokuapp.com/"

@@ -2,6 +2,6 @@
 
 bundle install
 
-**Start server** (start the backend first to get the ports right!)
+**Start server**
 
 npm start
