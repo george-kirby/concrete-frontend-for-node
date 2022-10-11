@@ -81,7 +81,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       cue,
       actual_time,
       display_time : casualTime,
-      incomplete_steps: JSON.stringify(stepsData),
+      incomplete_steps: stepsData,
       tags: JSON.stringify(tagData)
     }
     editMode ?
