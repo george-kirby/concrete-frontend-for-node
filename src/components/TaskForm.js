@@ -233,7 +233,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
           <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} />
           {/* <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required /> */}
-        <Icon name="calendar alternate outline" size="large"/>
+        {/* <Icon name="calendar alternate outline" size="large"/> */}
         </Form.Group>
         <Form.Group>
           {casualTimeButtons.map(b => {
@@ -249,7 +249,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
           })}
           <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime}/>
           {/* <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/> */}
-          <Icon name="clock" size="large"/>
+          {/* <Icon name="clock" size="large"/> */}
         </Form.Group>
         Task cue: * <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
           <p>{UserGuidance.cue}</p>
