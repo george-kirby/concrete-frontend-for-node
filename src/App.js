@@ -48,6 +48,8 @@ const App = props => {
     
       }, [])
 
+  // worth changing 'user' argument to eg 'response'?
+  // as sometimes this will not be user but actually be eg { errors: ["credentials invalid"]}
   const handleLogin = user => {
     if (user.errors) {
       window.alert(user.errors)
