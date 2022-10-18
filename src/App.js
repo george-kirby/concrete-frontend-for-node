@@ -42,15 +42,14 @@ const App = props => {
         }
     
     // set user if one doesn't exist already (no need for validation)
-    if (true) {
-      setCurrentUser({ name: "testDummy", tasks: []})
+    if (!currentUser) {
+    // if (true) {
+      setCurrentUser({ name: "testDummy", tasks: [], _id: "no1"})
     }    
     
       }, [])
 
-  // worth changing 'user' argument to eg 'response'?
-  // as sometimes this will not be user but actually be eg { errors: ["credentials invalid"]}
-  const handleLogin = user => {
+  const handleLogin = async user => {
     if (user.errors) {
       window.alert(user.errors)
     } else if (user.error) {
@@ -70,8 +69,11 @@ const App = props => {
     return array.find(item => item.id === parseInt(params.id))
   }
 
-  const orderedTasks = () =>
-    Sorting.orderTasks(Sorting.incompleteTasks(currentUser.tasks))
+  const orderedTasks = () => {
+    return currentUser.tasks.length > 0 ? 
+      Sorting.orderTasks(Sorting.incompleteTasks(currentUser.tasks)) :
+      currentUser.tasks
+  }
 
   const mostUrgentTask = () => orderedTasks()[0]
 

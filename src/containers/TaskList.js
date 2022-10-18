@@ -33,11 +33,11 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
   }
 
   const handleCompleteTaskDrag = (task) => {
-    let newCompleteSteps = [...task.complete_steps]
-    task.incomplete_steps.forEach(step => {
+    let newCompleteSteps = [...task.completeSteps]
+    task.incompleteSteps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
     })
-    API.patchTask(task.id, {complete_steps: JSON.stringify(newCompleteSteps), incomplete_steps: "[]"})
+    API.patchTask(task.id, {completeSteps: JSON.stringify(newCompleteSteps), incompleteSteps: "[]"})
     .then(task => {
       setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
     })

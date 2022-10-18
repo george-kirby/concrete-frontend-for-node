@@ -10,15 +10,15 @@ import "../stylesheets/SelectedTask.css"
 
 const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
   const handleCompleteStepClick = index => {
-    let newCompleteSteps = [...task.complete_steps]
-    let newIncompleteSteps = [...task.incomplete_steps]
+    let newCompleteSteps = [...task.completeSteps]
+    let newIncompleteSteps = [...task.incompleteSteps]
     newCompleteSteps = [
       ...newCompleteSteps,
       ...newIncompleteSteps.splice(index, 1)
     ]
     API.patchTask(task.id, {
-      complete_steps: JSON.stringify(newCompleteSteps),
-      incomplete_steps: JSON.stringify(newIncompleteSteps)
+      completeSteps: JSON.stringify(newCompleteSteps),
+      incompleteSteps: JSON.stringify(newIncompleteSteps)
     }).then(task => {
       setCurrentUser({
         ...currentUser,
@@ -51,18 +51,18 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
             className="progress-bar"
             color="green"
             style={{ maxWidth: "90%", margin: "1em 0.5em 2em" }}
-            value={task.complete_steps.length}
-            total={task.complete_steps.length + task.incomplete_steps.length}
+            value={task.completeSteps.length}
+            total={task.completeSteps.length + task.incompleteSteps.length}
             progress="ratio"
           />
-          {task.complete_steps.length > 0 &&
-            task.complete_steps.map((step, index) => (
+          {task.completeSteps.length > 0 &&
+            task.completeSteps.map((step, index) => (
               <p key={`complete-step-${index}`} className="complete-step">
                 <Icon name="check" color="green" /> {step}{" "}
               </p>
             ))}
-          {task.incomplete_steps.length > 0 ? (
-            task.incomplete_steps.map((step, index) => (
+          {task.incompleteSteps.length > 0 ? (
+            task.incompleteSteps.map((step, index) => (
               <p key={`incomplete-step-${index}`}>
                 <Icon name="hand point right outline" /> {step}{" "}
                 <Button

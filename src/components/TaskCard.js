@@ -28,7 +28,7 @@ const TaskCard = ({ task, hot, setDraggedTask }) => {
                   )}{" "}
                   {Sorting.displayDateTime(task)} - {task.cue}
                 </p>
-                {hot && <p><Icon name="hand point right outline"/> {task.incomplete_steps[0]}</p>}
+                {hot && <p><Icon name="hand point right outline"/> {task.incompleteSteps[0]}</p>}
       </Card.Content>
     </Card>
   )

@@ -1,3 +1,6 @@
+// allows currentUser to be updated on frontend after task change (create/edit/destroy) 
+// only making one call to send data to the backend (for the task)
+// rather than a second call to get data as well
 
 const patchedTask = (responseTask, currentUser) => {
   let newTasks = [...currentUser.tasks]

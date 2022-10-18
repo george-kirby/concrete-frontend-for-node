@@ -9,10 +9,10 @@ import UserGuidance from '../helpers/UserGuidance'
 
 const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existingTags }) => {
   const [title, setTitle] = useState(editMode ? task.title : "")
-  const [incompleteSteps, setIncompleteSteps] = useState(editMode ? task.incomplete_steps : [""])
-  const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actual_time) : "")
-  const [casualTime, setCasualTime] = useState(editMode ? task.display_time : "")
-  const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actual_time) : "")
+  const [incompleteSteps, setIncompleteSteps] = useState(editMode ? task.incompleteSteps : [""])
+  const [date, setDate] = useState(editMode ? Sorting.getStringDate(task.actualTime) : "")
+  const [casualTime, setCasualTime] = useState(editMode ? task.displayTime : "")
+  const [preciseTime, setPreciseTime] = useState(editMode ? Sorting.getStringTime(task.actualTime) : "")
   const [cue, setCue] = useState(editMode ? task.cue : "")
 
   const [selectedExistingTags, setSelectedExistingTags] = useState(editMode ? task.tags : [])
@@ -73,15 +73,15 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
 
   const handleSubmit = e => {
     e.preventDefault()
-    const actual_time = `${date} ${preciseTime}`
+    const actualTime = `${date} ${preciseTime}`
     let tagData = [...selectedExistingTags].filter(tag => tag !== "")
     let stepsData = incompleteSteps.filter(step => step !== "")
     const taskData = {
       title,
       cue,
-      actual_time,
-      display_time : casualTime,
-      incomplete_steps: stepsData,
+      actualTime,
+      displayTime : casualTime,
+      incompleteSteps: stepsData,
       tags: JSON.stringify(tagData)
     }
     editMode ?
@@ -91,7 +91,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       })
     : 
       API.postTask({
-        user_id: currentUser.id,
+        userId: currentUser._id,
         ...taskData
       })
       .then(task => {

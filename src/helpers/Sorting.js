@@ -2,11 +2,11 @@ const incompleteTasks = tasks => tasks.filter(task => {
     return !isComplete(task)
 })
 
-const isComplete = task => task.incomplete_steps.length < 1
+const isComplete = task => task.incompleteSteps.length < 1
 
 const orderTasks = tasks => {
     return tasks.sort((a, b) => {
-        let initialReturn = getJsDate(a.actual_time) - getJsDate(b.actual_time)
+        let initialReturn = getJsDate(a.actualTime) - getJsDate(b.actualTime)
         if (initialReturn !== 0) {
             return initialReturn
         } else {
@@ -17,7 +17,7 @@ const orderTasks = tasks => {
 
 // const orderProjects = projects => {
 //     return projects.sort((a, b) => {
-//         let initialReturn = getJsDate(orderTasks(a.tasks)[0].actual_time) - getJsDate(orderTasks(b.tasks)[0].actual_time)
+//         let initialReturn = getJsDate(orderTasks(a.tasks)[0].actualTime) - getJsDate(orderTasks(b.tasks)[0].actualTime)
 //         if (initialReturn !== 0) {
 //             return initialReturn
 //         } else {
@@ -39,16 +39,16 @@ const getStringTime = actualTime => {
 }
 
 const displayDateTime = task => {
-    let jsDate = getJsDate(task.actual_time)
+    let jsDate = getJsDate(task.actualTime)
     let today = new Date()
     let tomorrow = new Date()
     tomorrow.setDate(today.getDate() + 1)
     if (getStringDate(jsDate.toISOString()) === getStringDate(today.toISOString())) {
-        return `today - ${task.display_time}`
+        return `today - ${task.displayTime}`
     } else if (getStringDate(jsDate.toISOString()) === getStringDate(tomorrow.toISOString())) {
-        return `tomorrow - ${task.display_time}`
+        return `tomorrow - ${task.displayTime}`
     } else {
-        return `${jsDate.toString().slice(0, 10)} - ${task.display_time}`
+        return `${jsDate.toString().slice(0, 10)} - ${task.displayTime}`
     }
 }
 
