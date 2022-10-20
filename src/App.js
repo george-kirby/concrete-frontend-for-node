@@ -24,8 +24,10 @@ import TaskForm from "./components/TaskForm"
 
 const App = props => {
   const [currentUser, setCurrentUser] = useState(null)
+  const DEV = true
 
   useEffect(() => {
+    // this is set to false for some dev work
     if (false) {
 
       API.validateUser().then(user => {
@@ -43,10 +45,18 @@ const App = props => {
     
     // set user if one doesn't exist already (no need for validation)
     if (!currentUser) {
-    // if (true) {
-      setCurrentUser({ name: "testDummy", tasks: [], _id: "no1"})
-    }    
-    
+      if (DEV) {
+        if (localStorage.getItem("token") === "keepMeLoggedInPls") {
+          console.log("auto login!")
+          API.login({
+            email: "b@b.com",
+            password: "hi"
+          }).then(setCurrentUser)
+        } else {
+          setCurrentUser( { name: "testDummy", tasks: [], _id: "no1"})
+        }
+      }    
+    }
       }, [])
 
   const handleLogin = async user => {
@@ -56,6 +66,9 @@ const App = props => {
       window.alert(user.error)
     } else {
       setCurrentUser(user)
+      if (!localStorage.getItem("token")) {
+        localStorage.setItem("token", "keepMeLoggedInPls")
+      }
       props.history.push("/hot")
     }
   }
