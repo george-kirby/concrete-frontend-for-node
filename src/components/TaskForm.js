@@ -204,13 +204,8 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
             placeholder={`eg sit at desk with laptop`}
             value={incompleteSteps[0]}
             onChange={e => handleStepChange(e, 0)}
-          />
-          {/* <Form.Input
-            placeholder={`eg sit at desk with laptop`}
-            value={incompleteSteps[0]}
-            onChange={e => handleStepChange(e, 0)}
             required
-          /> */}
+          />
           <Form.Button icon="close" onClick={e => handleStepRemoval(e, 0)}/>
         </Form.Group>
         {incompleteSteps.slice(1).map((step, index) => {
@@ -231,8 +226,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
         <Form.Group>
           <Form.Button value={todayString()} color={date === todayString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Today</Form.Button>
           <Form.Button value={tomorrowString()} color={date === tomorrowString() ? "green" : "grey"} onClick={e => handleDateChange(e)}>Tomorrow</Form.Button>
-          <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} />
-          {/* <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required /> */}
+          <Form.Input type="date" value={date} min={Sorting.getStringDate(new Date().toISOString())} onChange={handleDateChange} required />
         {/* <Icon name="calendar alternate outline" size="large"/> */}
         </Form.Group>
         <Form.Group>
@@ -247,16 +241,14 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
               </Form.Button>
             )
           })}
-          <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime}/>
-          {/* <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/> */}
+          <Form.Input type="time" onChange={handlePreciseTimeChange} value={preciseTime} required/>
           {/* <Icon name="clock" size="large"/> */}
         </Form.Group>
         Task cue: * <Popup on="click" open={tutorialStep === 5} onOpen={() => setTutorialStep(5)}  trigger={popupTrigger}>
           <p>{UserGuidance.cue}</p>
           {tutorialNavigateButtons}
         </Popup>
-        <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} />
-        {/* <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} required /> */}
+        <Form.Input placeholder={`eg after washing up the dishes`} value={cue} onChange={handleCueChange} required />
         Tags: 
         <Popup on="click" open={tutorialStep === 6} onOpen={() => setTutorialStep(6)}  trigger={popupTrigger}>
         <p>{UserGuidance.tasks}</p>
