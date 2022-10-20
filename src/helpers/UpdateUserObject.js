@@ -4,7 +4,7 @@
 
 const patchedTask = (responseTask, currentUser) => {
   let newTasks = [...currentUser.tasks]
-  let taskIndex = newTasks.findIndex(t => t.id === responsetask._id)
+  let taskIndex = newTasks.findIndex(t => t.id === responseTask._id)
 
   newTasks[taskIndex] = responseTask
   return newTasks
@@ -16,7 +16,7 @@ const postedTask = (responseTask, currentUser) => {
 
 const destroyedTask = (givenTask, currentUser) => {
   let newTasks = [...currentUser.tasks]
-  let taskIndex = newTasks.findIndex(t => t._id === giventask._id)
+  let taskIndex = newTasks.findIndex(t => t._id === givenTask._id)
 
   newTasks.splice(taskIndex, 1)
   return newTasks
