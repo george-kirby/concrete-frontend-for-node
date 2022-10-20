@@ -16,7 +16,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
       ...newCompleteSteps,
       ...newIncompleteSteps.splice(index, 1)
     ]
-    API.patchTask(task.id, {
+    API.patchTask(task._id, {
       completeSteps: JSON.stringify(newCompleteSteps),
       incompleteSteps: JSON.stringify(newIncompleteSteps)
     }).then(task => {
@@ -28,7 +28,7 @@ const SelectedTask = ({ hot, task, setCurrentUser, currentUser, history }) => {
   }
 
   const handleEditClick = () => {
-    history.push(`/tasks/${task.id}/edit`)
+    history.push(`/tasks/${task._id}/edit`)
   }
 
   return (

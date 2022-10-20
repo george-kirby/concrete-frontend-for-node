@@ -17,7 +17,7 @@ const TaskCard = ({ task, hot, setDraggedTask }) => {
   }
 
   return (
-    <Card draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} className="task-card" fluid color={hot ? "orange" : "blue"} onClick={() => history.push(`tasks/${task.id}`)}>
+    <Card draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} className="task-card" fluid color={hot ? "orange" : "blue"} onClick={() => history.push(`tasks/${task._id}`)}>
       <Card.Content>
                 <Card.Header as="h4">{task.title}</Card.Header>
                 <p>

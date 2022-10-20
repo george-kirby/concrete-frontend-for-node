@@ -85,7 +85,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
       tags: JSON.stringify(tagData)
     }
     editMode ?
-      API.patchTask(task.id, taskData)
+      API.patchTask(task._id, taskData)
       .then(task => {
         setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
       })
@@ -148,7 +148,7 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
     e.preventDefault()
     let result = window.confirm("Are you sure you want to delete this task?")
     if (result) {
-      API.destroyTask(task.id).then(response => {
+      API.destroyTask(task._id).then(response => {
         console.log(response)
       setCurrentUser({
         ...currentUser,

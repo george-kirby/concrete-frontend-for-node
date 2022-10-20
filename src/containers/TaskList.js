@@ -37,7 +37,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     task.incompleteSteps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
     })
-    API.patchTask(task.id, {completeSteps: JSON.stringify(newCompleteSteps), incompleteSteps: "[]"})
+    API.patchTask(task._id, {completeSteps: JSON.stringify(newCompleteSteps), incompleteSteps: "[]"})
     .then(task => {
       setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
     })
@@ -84,7 +84,7 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
           <Card.Group id="task-list">
               {filteredTasks.map((task, index) => {
                 return (
-                  <TaskCard key={task.id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
+                  <TaskCard key={task._id} task={task} {...{ setCurrentUser, currentUser, setDraggedTask }} hot={index === 0} />
                 )
               })}
           </Card.Group>
