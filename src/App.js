@@ -79,7 +79,7 @@ const App = props => {
   }
 
   const findFromParams = (array, params) => {
-    return array.find(item => item.id === parseInt(params.id))
+    return array.find(item => item._id === params.id)
   }
 
   const orderedTasks = () => {
