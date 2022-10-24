@@ -3,10 +3,12 @@
 // rather than a second call to get data as well
 
 const patchedTask = (responseTask, currentUser) => {
+  console.log("patchedTask running")
   let newTasks = [...currentUser.tasks]
-  let taskIndex = newTasks.findIndex(t => t.id === responseTask._id)
+  let taskIndex = newTasks.findIndex(t => t._id === responseTask._id)
 
   newTasks[taskIndex] = responseTask
+  console.log(newTasks)
   return newTasks
 }
 
