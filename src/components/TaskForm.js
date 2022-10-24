@@ -74,15 +74,15 @@ const TaskForm = ({ task, history, currentUser, setCurrentUser, editMode, existi
   const handleSubmit = e => {
     e.preventDefault()
     const actualTime = `${date} ${preciseTime}`
-    let tagData = [...selectedExistingTags].filter(tag => tag !== "")
-    let stepsData = incompleteSteps.filter(step => step !== "")
+    let filteredTags = [...selectedExistingTags].filter(tag => tag !== "")
+    let filteredIncompleteSteps = incompleteSteps.filter(step => step !== "")
     const taskData = {
       title,
       cue,
       actualTime,
       displayTime : casualTime,
-      incompleteSteps: stepsData,
-      tags: JSON.stringify(tagData)
+      incompleteSteps: filteredIncompleteSteps,
+      tags: filteredTags
     }
     editMode ?
       API.patchTask(task._id, taskData)
