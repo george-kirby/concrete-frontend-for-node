@@ -26,9 +26,8 @@ const handleServerResponse = response => {
   if (response.token) {
     localStorage.setItem("token", response.token)
   }
-  if (response.user) {
-    // console.log(JSON.parse(response.user))
-    return JSON.parse(response.user)
+  if (response.newUser) {
+    return { ...response.newUser, tasks: [] }
   } else {
     return response
   }
@@ -80,6 +79,9 @@ const postTask = taskData => {
 }
 
 const patchTask = (taskId, taskData) => {
+  console.log("patchTask running")
+  console.log('taskData')
+  console.log(taskData)
   return fetch(TASKS_URL+taskId, {
     method: "PATCH",
     headers: jsonHeaders(), 

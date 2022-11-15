@@ -24,13 +24,14 @@ export class SignUpForm extends Component {
     })
       .then(API.handleServerResponse)
       .then(user => {
-        console.log(user)
+        console.log("🚀 ~ file: SignUpForm.js ~ line 27 ~ SignUpForm ~ user", user)
         if (user.errors) {
           window.alert(user.errors)
         } else if (Array.isArray(user)) {
           window.alert(user)
         } else if (user.error) {
-          window.alert([user.error, user.exception]) // to be removed - don't want user to see an error when they first load the page
+          // TODO check if appearing when unwanted
+          window.alert(user.error.message) 
         } else {
           this.props.setCurrentUser(user)
           this.props.history.push("/new")

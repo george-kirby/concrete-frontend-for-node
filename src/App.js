@@ -27,7 +27,7 @@ const App = props => {
   const DEV = true
 
   useEffect(() => {
-    // this is set to false for some dev work
+    // this is set to false for some dev work (TODO remove this check)
     if (false) {
 
       API.validateUser().then(user => {

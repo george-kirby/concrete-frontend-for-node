@@ -37,9 +37,17 @@ const TaskList = ({ tasks, setCurrentUser, currentUser, tags }) => {
     task.incompleteSteps.forEach(step => {
       newCompleteSteps = [...newCompleteSteps, step]
     })
-    API.patchTask(task._id, {completeSteps: JSON.stringify(newCompleteSteps), incompleteSteps: "[]"})
-    .then(task => {
-      setCurrentUser({...currentUser, tasks: UpdateUserObject.patchedTask(task, currentUser)})
+    // TODO extract into helper function
+    // shared by handleCompleteStepClick in SelectedTask.js
+    // to follow DRY
+    API.patchTask(task._id, {
+      completeSteps: newCompleteSteps, 
+      incompleteSteps: []
+    }).then(task => {
+      setCurrentUser({
+        ...currentUser, 
+        tasks: UpdateUserObject.patchedTask(task, currentUser)
+      })
     })
   }
 
